@@ -25,14 +25,14 @@ describe 'a visitor to our web app' do
     click_on 'merchants-link'
     expect(current_path).to eq(merchants_path)
 
-    click_on 'cart-link'
-    expect(current_path).to eq('/cart')
+    click_on 'register-link'
+    expect(current_path).to eq('/register')
 
     click_on 'login-link'
     expect(current_path).to eq('/login')
 
-    click_on 'register-link'
-    expect(current_path).to eq('/register')
+    click_on 'cart-link'
+    expect(current_path).to eq('/cart')
 
   end
 end
