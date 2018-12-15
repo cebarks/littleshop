@@ -1,3 +1,4 @@
+
 DTR
 ## **Guiding Questions to Define The Relationship:**
 
@@ -15,7 +16,7 @@ DTR
 
 - How would you describe your work style?
 
-    Mary B just wants to practice and views the project as a way to learn but not focus on the endpoint; Mary G enjoys finishing projects but understands there are realistic expectations and people can get to the point where they aren't learning anymore and being aware of that is key to success. 
+    Mary B just wants to practice and views the project as a way to learn but not focus on the endpoint; Mary G enjoys finishing projects but understands there are realistic expectations and people can get to the point where they aren't learning anymore and being aware of that is key to success.
 
 - What are each of our strengths? How can our strengths complement each other?
     - Mary B - TDD, enjoys front end
