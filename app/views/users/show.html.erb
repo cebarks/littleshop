@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="user_show.css">
+  </head>
+<body>
+  <div id="user_info">
+    <h1><%= @user.name %></h1>
+    <h2><%= @user.address %></h2>
+    <h2><%= @user.city %></h2>
+    <h2><%= @user.state%></h2>
+    <h2><%= @user.zipcode %></h2>
+    <h2><%= @user.email %></h2>
+  </div>
+
+  <div id="edit_link">
+    <%= link_to "Edit Information",edit_user_path, method: :GET %> 
+  </div>
+</body>
+
+</html>

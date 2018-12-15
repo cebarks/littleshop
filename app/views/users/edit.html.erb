@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="user_edit.css">
+   </head>
+
+<body>
+  <div id="user_form" >
+  <%= form_for @user do |f| %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+    <%= f.label :address %>
+    <%= f.text_field :address %>
+    <%= f.label :city %>
+    <%= f.text_field :city %>
+    <%= f.label :state %>
+    <%= f.text_field :state %>
+    <%= f.label :zipcode %>
+    <%= f.text_field :zipcode %>
+    <%= f.label :email%>
+    <%= f.text_field :email %>
+    <%= f.submit %>
+  <% end %>
+  </div>
+</body>
+</html>
