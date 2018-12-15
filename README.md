@@ -1,59 +1,73 @@
-
-DTR
-## **Guiding Questions to Define The Relationship:**
-
-- What are each of our learning goals for this project? What drives us in this project?
-
-    understand and practice authentication/authorization, nested resources; more MVC practice
-
-- What is your collaboration style? How do you feel about pair programming vs. divide-and-conquer approaches?
-
-    Mary prefers pairs but wants a remote job; Anten likes pairing but fine with divide-and-conquer; Mary B is working on how to exist in paired project; Michael prefers divide-and-conquer; two is a good pair
-
-- How do you communicate best? How do you appreciate receiving communication from others?
-
-    Mary G prefers direct communication; Mary B echoes this; Making sure everyone's voice is heard and has equal input.
-
-- How would you describe your work style?
-
-    Mary B just wants to practice and views the project as a way to learn but not focus on the endpoint; Mary G enjoys finishing projects but understands there are realistic expectations and people can get to the point where they aren't learning anymore and being aware of that is key to success.
-
-- What are each of our strengths? How can our strengths complement each other?
-    - Mary B - TDD, enjoys front end
-    - Mary G - TDD; heroku deployment; MVC general layout; weak - front end
-    - Anten - weak - design
-    - Michael - design; weak - activerecord
-- What’s gone well or poorly in your previous projects?
-    - Mary B - need to be able to do things independently and that can sometimes cause issues
-    - Mary G - good DTR resolves many initial communication issues; poor - when people don't have good DTR's or TDD
-    - Anten - not going back over the user stories to make sure they are complete
-    - Michael - poor - when people feel that their voice isn't heard
-- How will we set direction and make decisions as a team?
-    - Mary B - making sure we organize our backend first
-    - Mary G - talk about the direction before people start coding - arrange user stories to gain a broad idea; agreed upon path
-    - Anten - paying attention to how much time we spend on front end
-    - Michael - agreeing on design implementations before implementation
-- How will we overcome obstacles?
-    - Mary G - technical - talk to each other and don't be afraid to ask for help; communication - slack and work through
-- Coding preferences
-    - TDD, shorthand and clean DRY code when possible
-- What do you need (resources, environment, communication) to do your best work?
-    - Mary G - high focus on TDD; genuine feedback, non condescending help when I ask for it
-    - Michael - my dog and my bed
-- What scheduling restraints do you have? What are your scheduling preferences?
-    - Mary B - sunday pm-thurs am limited availability after 4pm, potentially working part time over break, thurs-sun open to pair early or stay late
-    - Mary G - christmas, gone from CO dec 23-jan 1 on EST typically 6 hr/day
-    - Anten - open always, xmas eve or xmas day unavailable
-    - Michael - 7-9p gone 29-31 but available remotely with limited availability
-- What is your style for giving feedback? Does anything ever hold you back from giving feedback?
-    - SAF
-- What tools do you want to use to manage the project?
-    - Waffle, factorybot, bootstrap, grid, wunderlist, notion
-- How do you know if a project is successful? How can we achieve that as a group?
-    - Mary B -
-    - Mary G - we have all learned a bunch and feel good about the code we wrote, good collaboration
-    - Anten -
-    - Michael - did we accomplish learning goals
 - How will we recognize each other's successes and celebrate them?
     - lets go out to lunch
     - celebrate on slack
+    # Little Shop of Orders, v2
+    BE Mod 2 Week 4/5 Group Project
+    ## Background and Description
+    "Little Shop of Orders" is a fictitious e-commerce platform where users can register to place items into a shopping cart and 'check out'. Merchant users can mark items as 'fulfilled', and Admins can mark orders as 'complete'. Each user role will have access to some or all CRUD functionality for application models.
+
+    Students will be put into 3 or 4 person groups to complete the project.
+
+    ## Learning Goals
+    - Advanced Rails routing (nested resources and namespacing)
+    - Advanced ActiveRecord for calculating statistics
+    - Average HTML/CSS layout and design for UX/UI
+    - Session management and use of POROs for shopping cart
+    - Authentication, Authorization, separation of user roles and permissions
+
+    ## Requirements
+    - must use Rails 5.1.x
+    - must use PostgreSQL
+    - must use 'bcrypt' for authentication
+    - all controller and model code must be tested via feature tests and model tests, respectively
+    - must use good GitHub branching, team code reviews via GitHub comments, and use of a project planning tool like waffle.io
+    - must include a thorough README to describe their project
+
+    ## Permitted
+    - use FactoryBot to speed up your test development
+    - use "rails generators" to speed up your app development
+
+    ## Not Permitted
+    - do not use JavaScript for pagination or sorting controls
+
+    ## Permission
+    - if there is a specific gem you'd like to use in the project, please get permission from your instructors first
+
+    ## User Roles
+    1. Visitor - this type of user is anonymously browsing our site and is not logged in
+    2. Registered User - this user is registered and logged in to the application while performing their work; can place items in a cart and create an order
+    3. Merchant User - a registered user who is also has access to merchant data and operations; user is logged in to perform their work
+    4. Admin User - a registered user (but cannot also be a merchant) who has "superuser" access to all areas of the application; user is logged in to perform their work
+
+    ## Order Status
+    1. 'pending' means a user has placed items in a cart and "checked out", but no merchant had fulfilled any items yet
+    2. 'processing' means one or more merchants have fulfilled items from the order
+    3. 'complete' means all merchants have fulfilled their items for the order
+    4. 'cancelled' only 'pending' and 'processing' orders can be cancelled
+
+    ## Not Everything can be FULLY Deleted
+    In the user stories, we talk about "CRUD" functionality. However, it's rare in a real production system to ever truly delete content, and instead we typically just 'enable' or 'disable' content. Users, items and orders can be 'enabled' or 'disabled' which blocks functionality (users whose accounts are disabled should not be allowed to log in, items which are disabled cannot be ordered, orders which are disabled cannot be processed, and so on).
+
+    Disabled content should also be restricted from showing up in the statistics pages. For example if a user is disabled they should not appear in a list of "users with most orders"; if an order is disabled it should not be considered as part of "top sales" and so on.
+
+    Be careful to watch out for which stories allow full deletion of content, and restrictions on when they apply.
+
+    ## User Stories
+
+    Your team may not be able to work on these stories in numeric order. Work together to determine the best starting place and work from there.
+
+    - [Little Shop v2 stories](stories.md)
+
+
+    ## Rubric, Evaluations, and final Assessment
+
+    Each team will meet with an instructor at least two times before the project is due.
+
+    - At first team progress check-in, about 33% of the work is expected to be completed satisfactorily
+    - At second team progress check-in, about 66% of the work is expected to be completed satisfactorily
+    - Final submission will expect 100% completion
+
+    Each team will have a rubric uploaded to [https://github.com/turingschool/ruby-submissions](https://github.com/turingschool/ruby-submissions)
+
+
+    View the [Little Shop Rubric](LittleShopRubric.pdf)
