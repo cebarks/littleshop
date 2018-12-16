@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
 
   def index
     @merchants = Merchant.all
-    @items = Item.all
+    @items = @items.active_items
   end
 
 end
