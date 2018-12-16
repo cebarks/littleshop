@@ -1,0 +1,16 @@
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Location</th>
+    <th>Registration Date</th>
+  </thead>
+  <tbody>
+    <% @merchants.each do |merchant| %>
+      <% if merchant.status %>
+      <td>  <%= merchant.name %></td>
+      <td><%= "#{merchant.city}, #{merchant.state}"%></td>
+      <td><%= merchant.created_at%></td>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
