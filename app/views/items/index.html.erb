@@ -1,0 +1,12 @@
+<% @merchants.each do |merchant| %>
+  <% merchant.active_items.each do |item| %>
+    <div id="item-<%= item.id %>">
+      <%= link_to item.name, item_path(item) %>
+      binding.pry
+      <%= link_to image_tag('glitter.jpg'), item_path(item) %>
+      Quantity: <%= item.inventory_qty %>
+      Price: $<%= item.price %>
+  <%= merchant.name %>
+    </div>
+  <% end %>
+<% end %>
