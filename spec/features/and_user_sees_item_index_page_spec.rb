@@ -47,4 +47,14 @@ describe 'when any kind of user visits /items' do
 
     expect(current_path).to eq(item_path(item_1))
   end
+  it 'should be able to click on the items image to see item show page' do
+    merchant_1 = Merchant.create(name: "Merchant 1", city: "City 1", state: "State 1")
+    item_1 = merchant_1.items.create(name: "item 1", description: "glitter 1", image_url: "https://bit.ly/2rGOSMR", inventory_qty: 7, price: "5", status: true)
+
+    visit items_path
+
+    click_link("Glitter")
+    save_and_open_page
+    expect(current_path).to eq(item_path(item_1))
+  end
 end
