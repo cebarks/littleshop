@@ -37,4 +37,14 @@ describe 'when any kind of user visits /items' do
       expect(page).to_not have_content(merchant_1.name)
     end
   end
+  it 'should be able to click on the items name to see item show page' do
+    merchant_1 = Merchant.create(name: "Merchant 1", city: "City 1", state: "State 1")
+    item_1 = merchant_1.items.create(name: "item 1", description: "glitter 1", image_url: "https://bit.ly/2rGOSMR", inventory_qty: 7, price: "5", status: true)
+
+    visit items_path
+
+    click_link("#{item_1.name}")
+
+    expect(current_path).to eq(item_path(item_1))
+  end
 end

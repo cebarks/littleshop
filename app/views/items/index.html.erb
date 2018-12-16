@@ -1,7 +1,7 @@
 <% @merchants.each do |merchant| %>
   <% merchant.active_items.each do |item| %>
     <div id="item-<%= item.id %>">
-      <%= item.name %>
+      <%= link_to item.name, item_path(item) %>
       <img class="item-image" src="<%= item.image_url %>" alt="<%= item.name %>"/>
       Quantity: <%= item.inventory_qty %>
       Price: $<%= item.price %>

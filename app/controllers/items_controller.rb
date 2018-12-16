@@ -4,4 +4,6 @@ class ItemsController < ApplicationController
     @merchants = Merchant.all
   end
 
+  def show
+  end
 end
