@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 describe Merchant, type: :model do
+  describe 'Validations' do
+    it {should validate_presence_of(:name)}
+    it {should validate_presence_of(:city)}
+    it {should validate_presence_of(:state)}
+  end
+  
   describe 'instance methods' do
     describe '.active_items' do
       it 'should return a list of only active items' do
