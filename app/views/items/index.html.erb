@@ -1,5 +1,5 @@
 <% @merchants.each do |merchant| %>
-  <% merchant.items.each do |item| %>
+  <% merchant.active_items.each do |item| %>
     <div id="item-<%= item.id %>">
       <%= item.name %>
       <img class="item-image" src="<%= item.image_url %>" alt="<%= item.name %>"/>

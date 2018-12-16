@@ -11,6 +11,8 @@ describe 'when any kind of user visits /items' do
 
     visit items_path
 
+    expect(page).to_not have_content(item_4.name)
+
     within "#item-#{item_1.id}" do
       expect(page).to have_content(item_1.name)
       expect(page).to have_content(merchant_1.name)
