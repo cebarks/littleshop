@@ -4,7 +4,7 @@ describe 'when any kind of user visits /items' do
   it 'should see all items except disabled ones' do
     merchant_1 = create(:user, role: 1)
     merchant_2 = create(:user, role: 1)
-    item_1 = merchant_1.items.create(name: "item 1", description: "glitter 1", image_url: "https://bit.ly/2rGOSMR", inventory_qty: 7, price: "5", status: true)
+    item_1 = create(:item, user: merchant_1)
     item_2 = merchant_1.items.create(name: "item 2", description: "glitter 2", image_url: "https://bit.ly/2rGOSMR", inventory_qty: 9, price: "6", status: true)
     item_3 = merchant_2.items.create(name: "item 3", description: "glitter 3", image_url: "https://bit.ly/2rGOSMR", inventory_qty: 11, price: "7", status: true)
     item_4 = merchant_2.items.create(name: "item 4", description: "glitter 4", image_url: "https://bit.ly/2rGOSMR", inventory_qty: 12, price: "9", status: false)
