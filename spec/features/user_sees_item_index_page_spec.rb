@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe 'when any kind of user visits /items' do
   it 'should see all items except disabled ones' do
-    merchant_1 = Merchant.create(name: "Merchant 1", city: "City 1", state: "State 1")
-    merchant_2 = Merchant.create(name: "Merchant 2", city: "City 2", state: "State 2")
+    merchant_1 = create(:user, role: 1)
+    merchant_2 = create(:user, role: 1)
     item_1 = merchant_1.items.create(name: "item 1", description: "glitter 1", image_url: "https://bit.ly/2rGOSMR", inventory_qty: 7, price: "5", status: true)
     item_2 = merchant_1.items.create(name: "item 2", description: "glitter 2", image_url: "https://bit.ly/2rGOSMR", inventory_qty: 9, price: "6", status: true)
     item_3 = merchant_2.items.create(name: "item 3", description: "glitter 3", image_url: "https://bit.ly/2rGOSMR", inventory_qty: 11, price: "7", status: true)
@@ -38,7 +38,7 @@ describe 'when any kind of user visits /items' do
     end
   end
   it 'should be able to click on the items name to see item show page' do
-    merchant_1 = Merchant.create(name: "Merchant 1", city: "City 1", state: "State 1")
+    merchant_1 = create(:user, role: 1)
     item_1 = merchant_1.items.create(name: "item 1", description: "glitter 1", image_url: "https://bit.ly/2rGOSMR", inventory_qty: 7, price: "5", status: true)
 
     visit items_path
@@ -48,13 +48,13 @@ describe 'when any kind of user visits /items' do
     expect(current_path).to eq(item_path(item_1))
   end
   it 'should be able to click on the items image to see item show page' do
-    merchant_1 = Merchant.create(name: "Merchant 1", city: "City 1", state: "State 1")
+    merchant_1 = create(:user, role: 1)
     item_1 = merchant_1.items.create(name: "item 1", description: "glitter 1", image_url: "https://bit.ly/2rGOSMR", inventory_qty: 7, price: "5", status: true)
 
     visit items_path
 
     click_link("Glitter")
-    save_and_open_page
+
     expect(current_path).to eq(item_path(item_1))
   end
 end
