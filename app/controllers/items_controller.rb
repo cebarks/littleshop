@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
 
   def index
-    @merchants = Merchant.all
+    @merchants = User.merchants
   end
 
   def show
