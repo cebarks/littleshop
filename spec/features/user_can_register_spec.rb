@@ -53,7 +53,7 @@ RSpec.describe "As a visitor" do
       expect(current_path).to_not eq(profile_path)
       expect(current_path).to eq(register_path)
 
-      expect(page).to have_content("You passwords didn't match!")
+      expect(page).to have_content("Your passwords didn't match!")
     end
 
     it "requires a unqiue email to sign up" do
