@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
   def create
     if user_params[:confirm_password]
-      flash[:notice] = "You passwords didn't match!"
+      flash[:notice] = "Your passwords didn't match!"
       redirect_to register_path
       return
     end
