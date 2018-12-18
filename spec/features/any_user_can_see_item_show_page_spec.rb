@@ -15,7 +15,7 @@ describe 'as any user in the system' do
       expect(page).to have_content("Merchant: #{item.user.name}")
       expect(page).to have_content("Price: $#{item.price}")
     end
-    xit 'should see the average amount of time it takes a user-merchant to fulfill' do
+    it 'should see the average amount of time it takes a user-merchant to fulfill' do
       merchant_1 = create(:user, role: 1)
       item = create(:item, user: merchant_1)
 
@@ -42,7 +42,6 @@ describe 'as a visitor or regular user' do
       expect(page).to have_content("Quantity Remaining: #{item.inventory_qty}")
       expect(page).to have_content("Merchant: #{item.user.name}")
       expect(page).to have_content("Price: $#{item.price}")
-      save_and_open_page
     end
   end
 end
