@@ -1,5 +1,7 @@
-<%= @item.name %>
-Description: <%= @item.description %>
-Price: $<%= @item.price %>
-Merchant: <%= @item.user.name %>
-Quantity Remaining: <%= @item.inventory_qty %>
+<div class="item-block">
+  <%= @item.name %>
+  Description: <%= @item.description %>
+  Price: $<%= @item.price %>
+  Merchant: <%= @item.user.name %>
+  Quantity Remaining: <%= @item.inventory_qty %>
+</div>
