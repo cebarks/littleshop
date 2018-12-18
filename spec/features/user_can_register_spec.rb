@@ -33,10 +33,13 @@ RSpec.describe "As a visitor" do
       click_on 'Create User'
 
       expect(current_path).to eq(profile_path)
+
       expect(page).to have_content("You have been registered and are now logged in!")
       expect(page).to have_content(@name)
       expect(page).to have_content(@address)
     end
+    ######################
+    # Sad Path Testing
 
     it "requries you to match the two password fields" do
       fill_in :user_name, with: @name
@@ -50,10 +53,7 @@ RSpec.describe "As a visitor" do
 
       click_on 'Create User'
 
-      expect(current_path).to_not eq(profile_path)
-      expect(current_path).to eq(register_path)
-
-      expect(page).to have_content("You passwords didn't match!")
+      expect(page).to have_content("Your passwords didn't match!")
     end
 
     it "requires a unqiue email to sign up" do
@@ -70,12 +70,25 @@ RSpec.describe "As a visitor" do
 
       click_on 'Create User'
 
-      expect(current_path).to_not eq(profile_path)
-      expect(current_path).to eq(register_path)
-
-      expect(page).to have_content("An error occured!")
+      expect(page).to have_content("This email is already in use!")
       expect(page).to_not have_content(@name)
       expect(page).to_not have_content(@address)
+    end
+
+    it "requires the whole form to be filled out" do
+      fill_in :user_name, with: @name
+      fill_in :user_address, with: @address
+      fill_in :user_city, with: @city
+      fill_in :user_email, with: @email
+      fill_in :user_password, with: @password
+      fill_in :user_confirm_password, with: @password
+
+      click_on 'Create User'
+
+
+      expect(page).to have_content("You were missing required fields!")
+      expect(find('input#user_name')['value']).to eq(@name)
+      expect(find('input#user_address')['value']).to eq(@address)
     end
   end
 end
