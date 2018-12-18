@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "As a visitor" do
-  describe "When i visit the mmerchant users index page at " do
+  describe "When i visit the merchant users index page" do
     before(:each) do
       @merchant_1 = create(:user, role: 1)
       @merchant_2 = create(:user, role: 0)
