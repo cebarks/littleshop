@@ -1,10 +1,6 @@
 class User < ApplicationRecord
-  validates_presence_of :name
-  validates_presence_of :address
-  validates_presence_of :city
-  validates_presence_of :state
-  validates_presence_of :zipcode
-  validates_presence_of :email
+  validates_presence_of :name, :address, :city, :state, :zipcode, :email, :password
+  validates_uniqueness_of :email
   has_many :items
 
   def self.merchants
@@ -14,5 +10,4 @@ class User < ApplicationRecord
   def active_items
     items.where(status: true)
   end
-
 end

@@ -26,6 +26,9 @@
         <li><a title="cart-link" id="cart-link" href="/cart">Cart(0)</a></li>
       </ul>
     </nav>
+    <% if flash[:notice] %>
+    <div class="notice"><%= flash[:notice] %></div>
+    <% end %>
     <%= yield %>
   </body>
 </html>
