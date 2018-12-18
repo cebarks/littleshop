@@ -1,5 +1,5 @@
 <%= @item.name %>
-<%= @item.description %>
-<%= @item.inventory_qty %>
-<%= @item.price %>
-<%= @item.user.name %>
+Description: <%= @item.description %>
+Price: $<%= @item.price %>
+Merchant: <%= @item.user.name %>
+Quantity Remaining: <%= @item.inventory_qty %>

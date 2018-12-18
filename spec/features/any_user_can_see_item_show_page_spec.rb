@@ -10,11 +10,11 @@ describe 'as any user in the system' do
       visit item_path(item)
 
       expect(page).to have_content(item.name)
-      expect(page).to have_content(item.description)
-      expect(page).to have_content(item.inventory_qty)
-      expect(page).to have_content(item.user.name)
-      expect(page).to have_content(item.price)
-      save_and_open_page
+      expect(page).to have_content("Description: #{item.description}")
+      expect(page).to have_content("Quantity Remaining: #{item.inventory_qty}")
+      expect(page).to have_content("Merchant: #{item.user.name}")
+      expect(page).to have_content("Price: $#{item.price}")
+
     end
   end
 end
