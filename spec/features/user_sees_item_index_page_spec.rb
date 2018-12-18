@@ -14,6 +14,7 @@ describe 'when any kind of user visits /items' do
     expect(page).to_not have_content(item_4.name)
 
     within "#item-#{item_1.id}" do
+      #need to add image
       expect(page).to have_content(item_1.name)
       expect(page).to have_content(merchant_1.name)
       expect(page).to have_content("Quantity: #{item_1.inventory_qty}")
@@ -22,6 +23,7 @@ describe 'when any kind of user visits /items' do
     end
 
     within "#item-#{item_2.id}" do
+      #need to add image
       expect(page).to have_content(item_2.name)
       expect(page).to have_content(merchant_1.name)
       expect(page).to have_content("Quantity: #{item_2.inventory_qty}")
@@ -30,6 +32,7 @@ describe 'when any kind of user visits /items' do
     end
 
     within "#item-#{item_3.id}" do
+      #need to add image
       expect(page).to have_content(item_3.name)
       expect(page).to have_content(merchant_2.name)
       expect(page).to have_content("Quantity: #{item_3.inventory_qty}")
@@ -48,6 +51,7 @@ describe 'when any kind of user visits /items' do
     expect(current_path).to eq(item_path(item_1))
   end
   it 'should be able to click on the items image to see item show page' do
+    #need to add image
     merchant_1 = create(:user, role: 1)
     item_1 = merchant_1.items.create(name: "item 1", description: "glitter 1", image_url: "https://bit.ly/2rGOSMR", inventory_qty: 7, price: "5", status: true)
 
