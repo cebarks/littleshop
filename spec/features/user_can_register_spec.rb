@@ -52,7 +52,6 @@ RSpec.describe "As a visitor" do
       fill_in :user_confirm_password, with: @password+"123"
 
       click_on 'Create User'
-
       expect(page).to have_content("Your passwords didn't match!")
     end
 
