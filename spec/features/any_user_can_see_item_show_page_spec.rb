@@ -27,7 +27,7 @@ describe 'as any user in the system' do
 end
 describe 'as a visitor or regular user' do
   describe 'when i visit an items show page from the items catalogue' do
-    xit 'should also see a link to add this item to the cart' do
+    it 'should also see a link to add this item to the cart' do
       merchant_1 = create(:user, role: 1)
       user_1 = create(:user)
 
@@ -42,6 +42,7 @@ describe 'as a visitor or regular user' do
       expect(page).to have_content("Quantity Remaining: #{item.inventory_qty}")
       expect(page).to have_content("Merchant: #{item.user.name}")
       expect(page).to have_content("Price: $#{item.price}")
+      save_and_open_page
     end
   end
 end
