@@ -1,7 +1,7 @@
 <html>
-  <head>
-    <link rel="stylesheet" href="user_show.css">
-  </head>
+<head>
+  <link rel="stylesheet" href="user_show.css">
+</head>
 <body>
   <div id="user_info">
     <h1><%= @user.name %></h1>
@@ -13,8 +13,7 @@
   </div>
 
   <div id="edit_link">
-    <%= link_to "Edit Information",edit_user_path, method: :GET %> 
+    <%= link_to "Edit Information", edit_user_path(@user), method: :GET %>
   </div>
 </body>
-
 </html>
