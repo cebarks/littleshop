@@ -4,19 +4,31 @@ class UsersController < ApplicationController
   end
 
   def create
+    if user_params[:confirm_password]
+      flash[:notice] = "You passwords didn't match!"
+      redirect_to register_path
+      return
+    end
+
     @user = User.new(user_params)
 
-    render :new if user_params[:confirm_password]
-
     if @user.save
-      redirect_to profile_path(@user)
+      flash[:notice] = "You have been registered and are now logged in!"
+      session[:user_id] = @user.id
+      redirect_to profile_path
     else
-      render :new
+      flash[:notice] = "An error occured!"
+      redirect_to register_path
     end
   end
 
   def show
     @user = User.find(params[:id])
+  end
+
+  def profile
+    @user = User.find(session[:user_id])
+    render :show
   end
 
   def edit
