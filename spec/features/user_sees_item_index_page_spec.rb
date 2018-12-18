@@ -53,7 +53,7 @@ describe 'when any kind of user visits /items' do
 
     visit items_path
 
-    click_link("Glitter")
+    page.find("a#drink-pic").click
 
     expect(current_path).to eq(item_path(item_1))
   end
