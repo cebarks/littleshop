@@ -5,13 +5,14 @@ RSpec.describe "As a visitor" do
     it "sees a field to enter my email and password" do
       email = "email1@gmail.com"
       password = "123"
+      user = create(:user, email: email, password: password)
 
       visit login_path
 
       fill_in :user_email, with: email
       fill_in :user_password, with: password
 
-      click_on "Login"
+      click_on "Log In"
 
       expect(current_path).to eq(profile_path)
     end
