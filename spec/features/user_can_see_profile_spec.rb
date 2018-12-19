@@ -33,7 +33,7 @@ require 'rails_helper'
         click_link("Edit Information")
 
         expect(current_path).to eq(edit_profile_path(user_1.id))
-
+        
       end
     end
   end
