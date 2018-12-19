@@ -1,7 +1,10 @@
 class User < ApplicationRecord
-  validates_presence_of :name, :address, :city, :state, :zipcode, :email, :password
+  validates_presence_of :name, :address, :city, :state, :zipcode, :email, :password_digest
   validates_uniqueness_of :email
   has_many :items
+
+  has_secure_password
+  enum role: ["default", "merchant", "admin"]
 
   def self.merchants
     where(role: 1)

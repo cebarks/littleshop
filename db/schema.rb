@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 20181218210532) do
     t.string "state"
     t.integer "zipcode"
     t.string "email"
-    t.string "password"
+    t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "role", default: 0
