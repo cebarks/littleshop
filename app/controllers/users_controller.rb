@@ -49,7 +49,8 @@ class UsersController < ApplicationController
       flash[:notice] = "Your profile has been updated!"
       redirect_to profile_path
     else
-      render :edit
+      flash[:notice] = "You entered invalid changes!"
+      redirect_to profile_edit_path
     end
   end
 

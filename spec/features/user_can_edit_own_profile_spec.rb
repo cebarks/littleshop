@@ -42,6 +42,8 @@ describe 'as a registered user' do
       click_on("Update User")
 
       expect(current_path).to eq(profile_edit_path)
+      expect(page).to have_content("You entered invalid changes!")
+
     end
   end
 end
