@@ -21,6 +21,8 @@ require 'rails_helper'
       it 'can see a link to edit profile' do
         user_1 = create(:user)
 
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user_1)
+
         visit user_path(user_1)
 
         expect(page).to have_content(user_1.name)
@@ -30,10 +32,7 @@ require 'rails_helper'
         expect(page).to have_content(user_1.zipcode)
         expect(page).to have_content(user_1.email)
 
-        click_link("Edit Information")
-
-        expect(current_path).to eq(edit_user_path(user_1.id))
-
+        expect(page).to have_content("Edit Information")
       end
     end
   end

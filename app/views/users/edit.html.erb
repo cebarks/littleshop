@@ -4,20 +4,24 @@
    </head>
 
 <body>
-  <div id="user_form" >
+  <div id="user-form" >
   <%= form_for @user do |f| %>
     <%= f.label :name %>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, required: false %>
+    <%= f.label :password %>
+    <%= f.password_field :password, required: false %>
+    <%= f.label :confirm_password %>
+    <%= f.password_field :confirm_password, required: false %>
     <%= f.label :address %>
-    <%= f.text_field :address %>
+    <%= f.text_field :address, required: false %>
     <%= f.label :city %>
-    <%= f.text_field :city %>
+    <%= f.text_field :city, required: false %>
     <%= f.label :state %>
-    <%= f.text_field :state %>
+    <%= f.text_field :state, required: false %>
     <%= f.label :zipcode %>
-    <%= f.text_field :zipcode %>
+    <%= f.text_field :zipcode, required: false %>
     <%= f.label :email%>
-    <%= f.text_field :email %>
+    <%= f.text_field :email, required: false %>
     <%= f.submit %>
   <% end %>
   </div>

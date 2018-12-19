@@ -34,11 +34,24 @@ class UsersController < ApplicationController
 
   def profile
     @user = current_user
+    @user.reload
     render :show
   end
 
-  def edit
+  def edit_profile
+    @user = current_user
+    render :edit
+  end
+
+  def update
     @user = User.find(params[:id])
+    if @user.update(user_params)
+      flash[:notice] = "Your profile has been updated!"
+      redirect_to profile_path
+    else
+      flash[:notice] = "You entered invalid changes!"
+      redirect_to profile_edit_path
+    end
   end
 
   private
@@ -47,28 +60,4 @@ class UsersController < ApplicationController
     params.require(:user).permit(:email, :password, :name, :address, :city, :state, :zipcode)
   end
 
-  def verify_user_params
-    unless user_params[:email]
-      return false
-    end
-    unless user_params[:address]
-      return false
-    end
-    unless user_params[:city]
-      return false
-    end
-    unless user_params[:state]
-      return false
-    end
-    unless user_params[:zipcode]
-      return false
-    end
-    unless user_params[:password]
-      return false
-    end
-    unless user_params[:city]
-      return false
-    end
-    return true
-  end
 end

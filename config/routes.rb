@@ -10,9 +10,10 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   get '/dashboard', to: 'merchants#dashboard'
   get '/logout', to: 'sessions#destroy'
+  get '/profile/edit', to: 'users#edit_profile'
 
   resources :items, only: [:index, :show]
-  resources :users, only:[:show, :edit, :update, :create]
+  resources :users, only: [:show, :update, :create]
   resources :orders, only: [:index]
   resources :merchants, only: [:index]
   resources :cart, only: [:index]
