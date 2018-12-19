@@ -19,8 +19,9 @@ describe 'as a registered user' do
 
       click_on("Update User")
 
-      expect(current_path).to eq(user_path(registered_user))
-      save_and_open_page
+      expect(current_path).to eq(profile_path)
+      # save_and_open_page
+      #there are so many routes for users and profiles
       expect(page).to have_content(email)
     end
   end

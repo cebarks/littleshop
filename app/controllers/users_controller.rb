@@ -41,6 +41,13 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def update
+    @user = User.find(params[:id])
+    #an if statement to update something if it doesnt match what is currently
+    # in the system
+
+  end
+
   private
 
   def user_params
