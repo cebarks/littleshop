@@ -64,5 +64,40 @@ RSpec.describe "As a visitor" do
         expect(page).to have_content("Your credentials were incorrect!")
       end
     end
+    describe 'as a logged in user if i visit the login path' do
+      after(:each) do
+        expect(page).to have_content("You are already logged in!")
+      end
+      it "should be redirected to the appropriate page" do
+        email = "email1@gmail.com"
+        password = "123"
+        user_1 = create(:user, email: email, password: password)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user_1)
+
+        visit login_path
+
+        expect(current_path).to eq(profile_path)
+      end
+      it "should be redirected to the appropriate page" do
+        email = "email1@gmail.com"
+        password = "123"
+        user_1 = create(:user, email: email, password: password, role: 1)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user_1)
+
+        visit login_path
+
+        expect(current_path).to eq(dashboard_path)
+      end
+      it "should be redirected to the appropriate page" do
+        email = "email1@gmail.com"
+        password = "123"
+        user_1 = create(:user, email: email, password: password, role: 2)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user_1)
+
+        visit login_path
+
+        expect(current_path).to eq(root_path)
+      end
+    end
   end
 end
