@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-  describe 'on a users own profile page' do
+  describe 'on a users profile page' do
     context 'a user' do
       it 'can see all their own information excluding password' do
 
-        user_1 = User.create(name: "John", address: "123 Main St", city: "Charleston", state: "Indiana", zipcode: 98765, email: "John@example.com", password: "secret123")
+        user_1 = create(:user)
 
         visit user_path(user_1)
 
@@ -19,7 +19,7 @@ require 'rails_helper'
       end
 
       it 'can see a link to edit profile' do
-        user_1 = User.create(name: "John", address: "123 Main St", city: "Charleston", state: "Indiana", zipcode: 98765, email: "John@example.com", password: "secret123")
+        user_1 = create(:user)
 
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user_1)
 

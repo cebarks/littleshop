@@ -37,4 +37,13 @@ describe User, type: :model do
       end
     end
   end
+
+  # describe 'roles' do
+  #   it 'can be created as an admin' do
+  #     user_1 = User.create(name: "John", address: "123 Main St", city: "Charleston", state: "Indiana", zipcode: 98765, email: "John@example.com", password: "secret123",role:1)
+  #
+  #     expect(user_1.role).to eq("admin")
+  #     expect(admin.admin?).to be_truthy
+  #   end
+  # end
 end
