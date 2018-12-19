@@ -12,8 +12,10 @@
     <h2><%= @user.email %></h2>
   </div>
 
-  <div id="edit_link">
-    <%= link_to "Edit Information", edit_user_path(@user), method: :GET %>
-  </div>
+  <% unless @user.merchant?  %>
+    <div id="edit_link">
+      <%= link_to "Edit Information", edit_user_path(@user), method: :GET %>
+    </div>
+  <% end %>
 </body>
 </html>

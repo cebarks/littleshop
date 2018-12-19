@@ -33,7 +33,7 @@ class UsersController < ApplicationController
   end
 
   def profile
-    @user = User.find(session[:user_id])
+    @user = current_user
     render :show
   end
 
