@@ -9,6 +9,7 @@ class SessionsController < ApplicationController
       flash[:notice] = "You are now logged in!"
       login_redirect(user.role)
     else
+      flash[:notice] = "Your credentials were incorrect!"
       render :new
     end
   end

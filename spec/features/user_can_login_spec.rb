@@ -47,5 +47,22 @@ RSpec.describe "As a visitor" do
         expect(current_path).to eq(root_path)
       end
     end
+    describe 'as a user if i visit the login page' do
+      it "should be redirected to the login page if invalid credentials" do
+        email = "email1@gmail.com"
+        password = "123"
+        create(:user, email: email, password: password, role: 2)
+
+        visit login_path
+
+        fill_in :user_email, with: email
+        fill_in :user_password, with: password + "726"
+
+        click_on "Log In"
+
+        expect(current_path).to eq(login_path)
+        expect(page).to have_content("Your credentials were incorrect!")
+      end
+    end
   end
 end
