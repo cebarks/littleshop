@@ -10,19 +10,38 @@ describe 'as a registered user' do
       visit user_path(registered_user)
 
       click_link("Edit Information")
-      #this needs to be change once current user is implemented
-      expect(current_path).to eq(edit_profile_path(registered_user))
+
+      expect(current_path).to eq(profile_edit_path)
       expect(page).to have_css("#user-form")
+
       name = "Hello"
 
       fill_in :user_name, with: name
-
       click_on("Update User")
 
       expect(current_path).to eq(profile_path)
-      #there are too many routes for users and profiles
 
       expect(page).to have_content(name)
+      expect(page).to have_content("Your profile has been updated!")
+    end
+    it 'should redirect to edit if invalid information' do
+      registered_user = create(:user)
+
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(registered_user)
+
+      visit user_path(registered_user)
+
+      click_link("Edit Information")
+
+      expect(current_path).to eq(profile_edit_path)
+      expect(page).to have_css("#user-form")
+
+      zip = "Hello"
+
+      fill_in :user_zipcode, with: zip
+      click_on("Update User")
+
+      expect(current_path).to eq(profile_edit_path)
     end
   end
 end

@@ -5,7 +5,7 @@
 
 <body>
   <div id="user-form" >
-  <%= form_for @user, :url => profile_path do |f| %>
+  <%= form_for @user do |f| %>
     <%= f.label :name %>
     <%= f.text_field :name, required: false %>
     <%= f.label :password %>
@@ -23,7 +23,6 @@
     <%= f.label :email%>
     <%= f.text_field :email, required: false %>
     <%= f.submit %>
-    #this needs to be redirected to the profile path!!!!!!!!!!
   <% end %>
   </div>
 </body>
