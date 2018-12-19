@@ -7,11 +7,11 @@ describe 'as a registered user' do
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(registered_user)
 
-      expect(current_path).to eq(user_path(registered_user))
+      visit user_path(registered_user)
 
-      click_link("Edit Profile")
+      click_link("Edit Information")
 
-      expect(current_path).to eq('/profile/edit')
+      expect(current_path).to eq(edit_profile_path(registered_user))
     end
   end
 end
