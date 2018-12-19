@@ -32,6 +32,20 @@ RSpec.describe "As a visitor" do
 
         expect(current_path).to eq(dashboard_path)
       end
+      it 'will be directed to home page if im an admin' do
+        email = "email1@gmail.com"
+        password = "123"
+        create(:user, email: email, password: password, role: 2)
+
+        visit login_path
+
+        fill_in :user_email, with: email
+        fill_in :user_password, with: password
+
+        click_on "Log In"
+
+        expect(current_path).to eq(root_path)
+      end
     end
   end
 end
