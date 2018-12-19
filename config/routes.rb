@@ -13,4 +13,6 @@ Rails.application.routes.draw do
   resources :merchants
   resources :orders
   resources :cart, only: [:index]
+
+  
 end
