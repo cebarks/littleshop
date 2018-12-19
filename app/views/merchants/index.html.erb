@@ -7,9 +7,11 @@
   <tbody>
     <% @merchants.each do |merchant| %>
       <% if merchant.status %>
-      <td>  <%= merchant.name %></td>
-      <td><%= "#{merchant.city}, #{merchant.state}"%></td>
-      <td><%= merchant.created_at%></td>
+      <tr>
+        <td><%= merchant.name %></td>
+        <td><%= "#{merchant.city}, #{merchant.state}"%></td>
+        <td><%= merchant.created_at%></td>
+      </tr>
       <% end %>
     <% end %>
   </tbody>

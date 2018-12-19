@@ -56,7 +56,7 @@
 
     Your team may not be able to work on these stories in numeric order. Work together to determine the best starting place and work from there.
 
-    - [Little Shop v2 stories](stories.md)
+    - [Little Shop v2 stories](https://github.com/turingschool-projects/little_shop_v2/blob/master/stories.md)
 
 
     ## Rubric, Evaluations, and final Assessment

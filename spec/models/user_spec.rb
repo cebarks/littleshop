@@ -10,6 +10,7 @@ describe User, type: :model do
     it {should validate_presence_of(:email)}
     it {should validate_uniqueness_of(:email)}
     it {should have_many(:items)}
+    it {should validate_presence_of(:password_digest)}
   end
   describe 'Class methods'do
     it 'should return a list of only merchants' do
