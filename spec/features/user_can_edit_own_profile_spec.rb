@@ -13,15 +13,16 @@ describe 'as a registered user' do
       #this needs to be change once current user is implemented
       expect(current_path).to eq(edit_profile_path(registered_user))
       expect(page).to have_css("#user-form")
-      email = "maryg@gmail.com"
+      name = "Hello"
 
-      fill_in :user_email, with: email
+      fill_in :user_name, with: name
 
       click_on("Update User")
 
       expect(current_path).to eq(profile_path)
       #there are too many routes for users and profiles
-      expect(page).to have_content(email)
+
+      expect(page).to have_content(name)
     end
   end
 end
