@@ -5,7 +5,7 @@ describe 'as a registered user' do
     it 'should see a link to edit profile date' do
       registered_user = create(:user)
 
-      
+
 
 
     end
