@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get '/profile', to: "users#profile", as: "profile"
   post '/login', to: 'sessions#create'
   get '/dashboard', to: 'merchants#dashboard'
+  get '/logout', to: 'sessions#destroy'
 
   resources :items, only: [:index, :show]
   resources :users, only:[:show, :edit, :update, :create]
