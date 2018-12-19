@@ -44,7 +44,7 @@ describe 'when any kind of user visits /items' do
     visit items_path
 
     click_link("#{item_1.name}")
-    
+
     expect(current_path).to eq(item_path(item_1))
   end
   it 'should be able to click on the items image to see item show page' do
@@ -56,5 +56,36 @@ describe 'when any kind of user visits /items' do
     page.find("a#drink-pic").click
 
     expect(current_path).to eq(item_path(item_1))
+  end
+  it 'shows statistics' do
+    item_1 = Item.create(name: "Amaretto Sour", description: "a sweet nutty cocktail that calls for a full bodied spirit to pair with the bright citrus and sugar. di Amore Amaretto is an excellent choice with its rich body and caramel, almond flavors.", image_url: "https://bit.ly/2BoIMFi", inventory_qty: rand(1..9999), price: Faker::Number.decimal(2))
+    item_2 = Item.create(name: "Espresso Martini", description: "a cold, coffee-flavored cocktail made with vodka, espresso coffee, coffee liqueur, and sugar syrup.", image_url: "https://bit.ly/2A4XQYS", inventory_qty: rand(1..9999), price: Faker::Number.decimal(2))
+    item_3 = Item.create(name: "Manhattan", description: "a cocktail made with whiskey, sweet vermouth and bitters. While rye is the traditional whiskey of choice, other commonly used whiskeys include Canadian whisky, bourbon, blended whiskey and Tennessee whiskey.", image_url: "https://bit.ly/2S5enTr", inventory_qty: rand(1..9999), price: Faker::Number.decimal(2))
+    item_4 = Item.create(name: "Old Fashioned", description: "a cocktail made by muddling sugar with bitters, then adding alcohol, originally whiskey but now sometimes brandy and finally a twist of citrus rind. It is traditionally served in a short, round, tumbler-like glass, which is called an Old Fashioned glass, after the drink.", image_url: "https://bit.ly/2EC04Tc", inventory_qty: rand(1..9999), price: Faker::Number.decimal(2))
+    item_5 = Item.create(name: "Dry Martini", description: "made with gin and vermouth, this drink is garnished with an olive or a lemon twist. Over the years, the martini has become one of the best-known mixed alcoholic beverages. H. L. Mencken called the martini 'the only American invention as perfect as the sonnet.'", image_url: "https://bit.ly/2A4b8ER", inventory_qty: rand(1..9999), price: Faker::Number.decimal(2))
+    item_6 = Item.create(name: "Daiquiri", description: "a family of cocktails whose main ingredients are rum, citrus juice, and sugar or other sweetener. The daiquiri is one of the six basic drinks listed in David A. Embury's classic The Fine Art of Mixing Drinks, which also lists some variations.", image_url: "https://bit.ly/2EC0kl8", inventory_qty: rand(1..9999), price: Faker::Number.decimal(2))
+    item_7 = Item.create(name: "Mai Tai", description: "a cocktail based on rum, Curaçao liqueur, orgeat syrup, and lime juice, associated with Polynesian-style settings.", image_url: "https://bit.ly/2A6Ehzc", inventory_qty: rand(1..9999), price: Faker::Number.decimal(2))
+    item_8 = Item.create(name: "Aviation", description: "a classic cocktail made with gin, maraschino liqueur, crème de violette, and lemon juice. Some recipes omit the crème de violette. It is served straight up, in a cocktail glass.", image_url: "https://bit.ly/2CiGfOL", inventory_qty: rand(1..9999), price: Faker::Number.decimal(2))
+    item_9 = Item.create(name: "Snowball", description: "a mixture of Advocaat and lemonade in approximately equal parts. It may have other ingredients, to taste. It typically contains a squeeze of fresh lime juice, which is shaken with the advocaat before pouring into a glass and topping up with lemonade.", image_url: "https://bit.ly/2LoVyIu", inventory_qty: rand(1..9999), price: Faker::Number.decimal(2))
+    item_10 = Item.create(name: "Bloody Mary", description: "a cocktail containing vodka, tomato juice, and combinations of other spices and flavorings including Worcestershire sauce, hot sauces, garlic, herbs, horseradish, celery, olives, salt, black pepper, lemon juice, lime juice and/or celery salt.", image_url: "https://bit.ly/2S8MVUP", inventory_qty: rand(1..9999), price: Faker::Number.decimal(2))
+
+    order_1 = Order.create(status: "complete")
+    order_2 = Order.create(status: "complete")
+
+    OrderItem.create(item: item_1, order: order_1, quantity: 1, price: 1)
+    OrderItem.create(item: item_2, order: order_1, quantity: 2, price: 2)
+    OrderItem.create(item: item_3, order: order_1, quantity: 4, price: 4)
+    OrderItem.create(item: item_4, order: order_1, quantity: 8, price: 44)
+    OrderItem.create(item: item_5, order: order_1, quantity: 16, price: 440)
+    OrderItem.create(item: item_6, order: order_2, quantity: 32, price: 4400)
+    OrderItem.create(item: item_7, order: order_2, quantity: 64, price: 9999)
+    OrderItem.create(item: item_8, order: order_2, quantity: 128, price: 22222)
+    OrderItem.create(item: item_9, order: order_2, quantity: 256, price: 40000)
+    OrderItem.create(item: item_10, order: order_2, quantity: 512, price: 85400)
+
+    visit items_path
+    
+    expect(page).to have_content("5 Most Popular Items: #{Order.most_popular(5, "DESC")}")
+    expect(page).to have_content("5 Least Popular Items: #{Order.least_popular(5, "ASC")}")
   end
 end
