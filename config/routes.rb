@@ -8,10 +8,11 @@ Rails.application.routes.draw do
   get '/login', to: "sessions#new"
   get '/profile', to: "users#profile", as: "profile"
   post '/login', to: 'sessions#create'
+  get '/dashboard', to: 'merchants#dashboard'
 
-  resources :items
+  resources :items, only: [:index, :show]
   resources :users, only:[:show, :edit, :update, :create]
-  resources :merchants
-  resources :orders
+  resources :orders, only: [:index]
+  resources :merchants, only: [:index]
   resources :cart, only: [:index]
 end
