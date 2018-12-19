@@ -4,12 +4,10 @@
    </head>
 
 <body>
-  <div id="user_form" >
+  <div id="user-form" >
   <%= form_for @user do |f| %>
     <%= f.label :name %>
     <%= f.text_field :name, required: false %>
-    <%= f.label :email %>
-    <%= f.text_field :email, required: false %>
     <%= f.label :password %>
     <%= f.password_field :password, required: false %>
     <%= f.label :confirm_password %>
