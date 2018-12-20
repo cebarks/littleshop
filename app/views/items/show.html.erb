@@ -6,3 +6,4 @@
   Quantity Remaining: <%= @item.inventory_qty %>
   Average Time to Fulfill: <%= @item.average_fulfillment_time %> days.
 </div>
+<%= button_to 'Add To Cart', carts_path(item_id: @item.id) %>
