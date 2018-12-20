@@ -49,7 +49,11 @@ class UsersController < ApplicationController
       flash[:notice] = "Your profile has been updated!"
       redirect_to profile_path
     else
-      flash[:notice] = "You entered invalid changes!"
+      flash[:notice] = if @user.errors.messages[:email]
+        "This email is already in use!"
+      else
+        "You entered invalid changes!"
+      end
       redirect_to profile_edit_path
     end
   end
