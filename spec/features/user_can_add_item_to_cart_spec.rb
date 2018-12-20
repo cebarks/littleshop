@@ -2,9 +2,10 @@ require 'rails_helper'
 
   describe 'A user on our web app' do
     it 'can add item to cart' do
-
-      user_1 = create(:user, role: 1)
-      item_1 = create(:item, user: user_1)
+      create(:merchant)
+      item_1 = create(:item)
+      order_1 = Order.create!(status: 3)
+      OrderItem.create!(item: item_1, order: order_1, quantity: 1, price: 1)
 
       visit item_path(item_1)
 

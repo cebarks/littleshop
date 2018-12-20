@@ -10,6 +10,7 @@ describe 'when any kind of user visits /items' do
     expect(page).to_not have_content(item_4.name)
 
     within "#item-#{item_1.id}" do
+      #need to add image
       expect(page).to have_content(item_1.name)
       expect(page).to have_content(item_1.user.name)
       expect(page).to have_content("Quantity: #{item_1.inventory_qty}")
@@ -17,6 +18,7 @@ describe 'when any kind of user visits /items' do
     end
 
     within "#item-#{item_2.id}" do
+      #need to add image
       expect(page).to have_content(item_2.name)
       expect(page).to have_content(item_2.user.name)
       expect(page).to have_content("Quantity: #{item_2.inventory_qty}")
@@ -24,6 +26,7 @@ describe 'when any kind of user visits /items' do
     end
 
     within "#item-#{item_3.id}" do
+      #need to add image
       expect(page).to have_content(item_3.name)
       expect(page).to have_content(item_3.user.name)
       expect(page).to have_content("Quantity: #{item_3.inventory_qty}")
@@ -37,6 +40,9 @@ describe 'when any kind of user visits /items' do
   end
   it 'should be able to click on the items name to see item show page' do
     item_1 = create(:item)
+    order_1 = Order.create!(status: 3)
+    OrderItem.create!(item: item_1, order: order_1, quantity: 1, price: 1)
+
 
     visit items_path
 
@@ -45,8 +51,10 @@ describe 'when any kind of user visits /items' do
     expect(current_path).to eq(item_path(item_1))
   end
   it 'should be able to click on the items image to see item show page' do
-    merchant_1 = create(:merchant)
-    item_1 = merchant_1.items.create!(name: "item 1", description: "glitter 1", image_url: "https://bit.ly/2rGOSMR", inventory_qty: 7, price: "5", status: true)
+    create(:merchant)
+    item_1 = create(:item)
+    order_1 = Order.create!(status: 3)
+    OrderItem.create!(item: item_1, order: order_1, quantity: 1, price: 1)
 
     visit items_path
 
@@ -73,7 +81,7 @@ describe 'when any kind of user visits /items' do
     OrderItem.create!(item: item_10, order: order_2, quantity: 512, price: 85400)
 
     visit items_path
-    
+
     expect(page).to have_content("5 Most Popular Items:\n#{item_10.name}\n#{item_9.name}\n#{item_8.name}\n#{item_7.name}\n#{item_6.name}")
     expect(page).to have_content("5 Least Popular Items:\n#{item_1.name}\n#{item_2.name}\n#{item_3.name}\n#{item_4.name}\n#{item_5.name}")
   end
