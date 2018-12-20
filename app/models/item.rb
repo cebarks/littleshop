@@ -5,11 +5,6 @@ class Item < ApplicationRecord
   has_many :order_items
   has_many :orders, through: :order_items
 
-
-  def self.amount_sold(id)
-    OrderItem.where(item_id: id).sum(:quantity)
-  end
-
   def self.top_five_by_popularity
     Item.joins(:order_items, :orders)
         .group(:id)
