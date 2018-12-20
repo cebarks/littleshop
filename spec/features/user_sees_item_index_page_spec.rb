@@ -43,6 +43,7 @@ describe 'when any kind of user visits /items' do
     order_1 = Order.create!(status: 3)
     OrderItem.create!(item: item_1, order: order_1, quantity: 1, price: 1)
 
+
     visit items_path
 
     click_link(item_1.name)
