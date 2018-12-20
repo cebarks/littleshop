@@ -45,8 +45,7 @@ describe 'as a registered user' do
       expect(page).to have_content("You entered invalid changes!")
     end
     it 'should have unique email' do
-      user_1 = create(:user)
-      user_2 = create(:user)
+      user_1, user_2 = create_list(:user, 2)
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user_1)
 
