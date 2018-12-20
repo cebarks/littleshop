@@ -1,9 +1,10 @@
 require 'rails_helper'
 
 describe 'a visitor to our web app' do
+  before(:each) do
+    visit root_path
+  end
   it 'sees a navigation bar' do
-    visit '/'
-
     within("#nav-bar") do
       expect(page).to have_content("Home")
       expect(page).to have_content("Browse Items")
@@ -14,8 +15,6 @@ describe 'a visitor to our web app' do
     end
   end
   it 'can click a navigation link and go to correct page' do
-    visit '/'
-
     click_on 'home-link'
     expect(current_path).to eq('/')
 

@@ -7,5 +7,17 @@ FactoryBot.define do
     zipcode {Faker::Address.zip.to_i}
     email {"#{name}@gmail.com".downcase}
     password {Faker::Internet.password(5)}
+
+    trait :disabled do
+      status { false }
+    end
+
+    factory :merchant do
+      role {1}
+    end
+
+    factory :admin do
+      role {2}
+    end
   end
 end

@@ -1,38 +1,36 @@
 require 'rails_helper'
 
-  describe 'on a users profile page' do
-    context 'a user' do
-      it 'can see all their own information excluding password' do
+describe 'on a users profile page' do
+  describe 'a user' do
+    before(:each) do
+      @user = create(:user)
+    end
+    it 'can see all their own information excluding password' do
+      visit user_path(@user)
 
-        user_1 = create(:user)
+      expect(page).to have_content(@user.name)
+      expect(page).to have_content(@user.address)
+      expect(page).to have_content(@user.city)
+      expect(page).to have_content(@user.state)
+      expect(page).to have_content(@user.zipcode)
+      expect(page).to have_content(@user.email)
+      expect(page).not_to have_content(@user.password)
 
-        visit user_path(user_1)
+    end
 
-        expect(page).to have_content(user_1.name)
-        expect(page).to have_content(user_1.address)
-        expect(page).to have_content(user_1.city)
-        expect(page).to have_content(user_1.state)
-        expect(page).to have_content(user_1.zipcode)
-        expect(page).to have_content(user_1.email)
-        expect(page).not_to have_content(user_1.password)
+    it 'can see a link to edit profile' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
 
-      end
+      visit user_path(@user)
 
-      it 'can see a link to edit profile' do
-        user_1 = create(:user)
+      expect(page).to have_content(@user.name)
+      expect(page).to have_content(@user.address)
+      expect(page).to have_content(@user.city)
+      expect(page).to have_content(@user.state)
+      expect(page).to have_content(@user.zipcode)
+      expect(page).to have_content(@user.email)
 
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user_1)
-
-        visit user_path(user_1)
-
-        expect(page).to have_content(user_1.name)
-        expect(page).to have_content(user_1.address)
-        expect(page).to have_content(user_1.city)
-        expect(page).to have_content(user_1.state)
-        expect(page).to have_content(user_1.zipcode)
-        expect(page).to have_content(user_1.email)
-
-        expect(page).to have_content("Edit Information")
-      end
+      expect(page).to have_content("Edit Information")
     end
   end
+end

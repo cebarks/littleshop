@@ -4,7 +4,7 @@ describe 'as a user when i visit the logout path' do
   it 'is redirected to the root path with a logged out message' do
     user_1 = create(:user)
 
-    page.driver.post(login_path, user_email: user_1.email, user_password: user_1.password)
+    post_login(user_1)
 
     visit logout_path
 

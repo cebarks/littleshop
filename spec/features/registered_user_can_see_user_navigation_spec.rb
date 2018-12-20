@@ -2,14 +2,11 @@ require 'rails_helper'
 
 describe 'a registered user ' do
   it 'sees a registered user specific navigation bar' do
-
-
     user_1 = create(:user)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user_1)
 
     visit '/'
 
-    # binding.pry
     within("#user-nav-bar") do
       expect(page).to have_content("Home")
       expect(page).to have_content("Browse Items")
@@ -26,14 +23,13 @@ describe 'a registered user ' do
       expect(page).to have_content("Logged in as #{user_1.name}")
     end
 
-      have_link("home_link", :href => '/')
-      have_link("items_link", :href => '/items')
-      have_link("merchants_link", :href => '/merchants')
-      have_link("cart_link", :href => '/cart')
-      have_link("profile_link", :href => '/profile')
-      have_link("user_orders_link", :href => '/orders')
-      have_link("logout_link", :href => '/logout')
-
+    have_link("home_link", href: '/')
+    have_link("items_link", href: '/items')
+    have_link("merchants_link", href: '/merchants')
+    have_link("cart_link", href: '/cart')
+    have_link("profile_link", href: '/profile')
+    have_link("user_orders_link", href: '/orders')
+    have_link("logout_link", href: '/logout')
 
     # THESE ARE TESTS TO ENSURE THAT WE CAN REACH THE CORRECT PAGE...
     # ....THROUGH OUR LINKS. THEY HAVE BEEN COMMENTED OUT BECAUSE SOME....
@@ -59,11 +55,5 @@ describe 'a registered user ' do
     #
     # click_on 'logout-link'
     # expect(current_path).to eq(logout_path)
-
-
-
-
-
   end
-
 end
