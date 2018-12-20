@@ -10,6 +10,8 @@ describe User, type: :model do
     it {should validate_presence_of(:email)}
     it {should validate_uniqueness_of(:email)}
     it {should have_many(:items)}
+    it {should validate_presence_of(:password_digest)}
+    it {should validate_numericality_of(:zipcode)}
   end
   describe 'Class methods'do
     it 'should return a list of only merchants' do
@@ -35,4 +37,13 @@ describe User, type: :model do
       end
     end
   end
+
+  # describe 'roles' do
+  #   it 'can be created as an admin' do
+  #     user_1 = User.create(name: "John", address: "123 Main St", city: "Charleston", state: "Indiana", zipcode: 98765, email: "John@example.com", password: "secret123",role:1)
+  #
+  #     expect(user_1.role).to eq("admin")
+  #     expect(admin.admin?).to be_truthy
+  #   end
+  # end
 end

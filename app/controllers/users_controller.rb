@@ -4,8 +4,7 @@ class UsersController < ApplicationController
   end
 
   def create
-    if user_params[:confirm_password]
-      flash[:notice] = "Your passwords didn't match!"
+    unless password_match
       redirect_to register_path
       return
     end
@@ -17,8 +16,12 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to profile_path
     else
-      flash[:notice] = "An error occured!"
-      redirect_to register_path
+      flash[:notice] = unless @user.errors.messages[:email].empty?
+        "This email is already in use!"
+      else
+        "You were missing required fields!"
+      end
+      render :new
     end
   end
 
@@ -27,21 +30,41 @@ class UsersController < ApplicationController
   end
 
   def profile
-    @user = User.find(session[:user_id])
+    @user = current_user
+    @user.reload
     render :show
   end
 
-  def edit
+  def edit_profile
+    @user = current_user
+    render :edit
+  end
+
+  def update
     @user = User.find(params[:id])
+    if @user.update(user_params)
+      flash[:notice] = "Your profile has been updated!"
+      redirect_to profile_path
+    else
+      flash[:notice] = unless @user.errors.messages[:email].empty?
+        "This email is already in use!"
+      else
+        "You entered invalid changes!"
+      end
+      redirect_to profile_edit_path
+    end
   end
 
   private
 
   def user_params
-    parms = params.require(:user).permit(:email, :password, :confirm_password, :name, :address, :city, :state, :zipcode)
-    if parms[:password] == parms[:confirm_password]
-      parms.delete(:confirm_password)
-    end
-    parms
+    params.require(:user).permit(:email, :password, :name, :address, :city, :state, :zipcode)
   end
+
+  def password_match
+    match = params[:user][:password] == params[:user][:confirm_password]
+    flash[:notice] = "Your passwords didn't match!" unless match
+    match
+  end
+
 end
