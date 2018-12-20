@@ -7,7 +7,7 @@ describe 'as a registered user' do
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(registered_user)
 
-      visit user_path(registered_user)
+      visit profile_path
 
       click_link("Edit Information")
 
@@ -29,7 +29,7 @@ describe 'as a registered user' do
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(registered_user)
 
-      visit user_path(registered_user)
+      visit profile_path
 
       click_link("Edit Information")
 
@@ -49,7 +49,7 @@ describe 'as a registered user' do
 
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user_1)
 
-      visit user_path(user_1)
+      visit profile_path
 
       click_link("Edit Information")
 
