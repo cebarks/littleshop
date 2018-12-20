@@ -3,44 +3,33 @@ require 'rails_helper'
 describe 'as any user in the system' do
   describe 'when i visit an items show page from the items catalogue' do
     it 'should see all the information for that particular item except for image' do
-      merchant_1 = create(:user, role: 1)
-      item = create(:item, user: merchant_1)
+      create(:merchant)
+      item_1 = create(:item)
+      order_1 = Order.create!(status: 3)
+      OrderItem.create!(item: item_1, order: order_1, quantity: 1, price: 1)
 
-      visit item_path(item)
 
-      expect(page).to have_content(item.name)
-      expect(page).to have_content("Description: #{item.description}")
-      expect(page).to have_content("Quantity Remaining: #{item.inventory_qty}")
-      expect(page).to have_content("Merchant: #{item.user.name}")
-      expect(page).to have_content("Price: $#{item.price}")
+      visit item_path(item_1)
+
+      expect(page).to have_content(item_1.name)
+      expect(page).to have_content("Description: #{item_1.description}")
+      expect(page).to have_content("Quantity Remaining: #{item_1.inventory_qty}")
+      expect(page).to have_content("Merchant: #{item_1.user.name}")
+      expect(page).to have_content("Price: $#{item_1.price}")
     end
     it 'should see the average amount of time it takes a user-merchant to fulfill' do
-      merchant_1 = create(:user, role: 1)
-      item = create(:item, user: merchant_1)
+      item_1 = create(:item)
+      order_1 = Order.create!(status: 3, created_at: 2.days.ago)
+      order_2 = Order.create!(status: 3, created_at: 3.days.ago)
+      order_3 = Order.create!(status: 3, created_at: 5.days.ago)
 
-      visit item_path(item)
+      oi_1 = OrderItem.create!(item: item_1, order: order_1, quantity: 1, price: 1)
+      oi_1 = OrderItem.create!(item: item_1, order: order_2, quantity: 1, price: 1)
+      oi_1 = OrderItem.create!(item: item_1, order: order_3, quantity: 1, price: 1)
 
-      expect(page).to have_content("Average Time to Fulfill: #{item..average_fulfillment_time}")
-    end
-  end
-end
-describe 'as a visitor or regular user' do
-  describe 'when i visit an items show page from the items catalogue' do
-    it 'should also see a link to add this item to the cart' do
-      merchant_1 = create(:user, role: 1)
-      user_1 = create(:user)
+      visit item_path(item_1)
 
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user_1)
-
-      item = create(:item, user: merchant_1)
-
-      visit item_path(item)
-
-      expect(page).to have_content(item.name)
-      expect(page).to have_content("Description: #{item.description}")
-      expect(page).to have_content("Quantity Remaining: #{item.inventory_qty}")
-      expect(page).to have_content("Merchant: #{item.user.name}")
-      expect(page).to have_content("Price: $#{item.price}")
+      expect(page).to have_content("Average Time to Fulfill: #{item_1.average_fulfillment_time} days.")
     end
   end
 end

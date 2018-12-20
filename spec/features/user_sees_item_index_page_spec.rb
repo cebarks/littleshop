@@ -40,6 +40,8 @@ describe 'when any kind of user visits /items' do
   end
   it 'should be able to click on the items name to see item show page' do
     item_1 = create(:item)
+    order_1 = Order.create!(status: 3)
+    OrderItem.create!(item: item_1, order: order_1, quantity: 1, price: 1)
 
     visit items_path
 
@@ -48,8 +50,10 @@ describe 'when any kind of user visits /items' do
     expect(current_path).to eq(item_path(item_1))
   end
   it 'should be able to click on the items image to see item show page' do
-    merchant_1 = create(:merchant)
-    item_1 = merchant_1.items.create!(name: "item 1", description: "glitter 1", image_url: "https://bit.ly/2rGOSMR", inventory_qty: 7, price: "5", status: true)
+    create(:merchant)
+    item_1 = create(:item)
+    order_1 = Order.create!(status: 3)
+    OrderItem.create!(item: item_1, order: order_1, quantity: 1, price: 1)
 
     visit items_path
 
