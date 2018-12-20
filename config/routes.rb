@@ -19,4 +19,5 @@ Rails.application.routes.draw do
   resources :orders, only: [:index]
 
   get '/cart', to: "carts#show"
+  post '/cart', to: "carts#create"
 end

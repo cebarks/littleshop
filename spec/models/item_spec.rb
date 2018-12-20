@@ -49,4 +49,20 @@ RSpec.describe Item, type: :model do
       expect(Item.bottom_five_by_popularity).to eq([@item_2, @item_1, @item_3, @item_4, @item_5])
     end
   end
+  describe 'Instance Methods' do
+    describe 'it should calculate average fullfilment time per item' do
+      it '.average_fulfillment_time' do
+        item_1 = create(:item)
+        order_1 = Order.create!(status: 3, created_at: 2.days.ago)
+        order_2 = Order.create!(status: 3, created_at: 3.days.ago)
+        order_3 = Order.create!(status: 3, created_at: 5.days.ago)
+
+        oi_1 = OrderItem.create!(item: item_1, order: order_1, quantity: 1, price: 1)
+        oi_1 = OrderItem.create!(item: item_1, order: order_2, quantity: 1, price: 1)
+        oi_1 = OrderItem.create!(item: item_1, order: order_3, quantity: 1, price: 1)
+        # binding.pry
+        expect(item_1.average_fulfillment_time).to eq(3.33)
+      end
+    end
+  end
 end

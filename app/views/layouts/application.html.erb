@@ -13,7 +13,7 @@
   </head>
 
   <body>
-    <% unless current_user %>
+    <% if current_user.nil? %>
       <nav id="nav-bar" class="navbar">
         <ul class="nav-left">
           <li><a title="home-link" id="home-link" href="/">Home</a></li>
@@ -24,9 +24,28 @@
           <li><a title="register-link" id="register-link" href="/register">Register</a></li>
           <li><a title="login-link" id="login-link" href="/login">Login</a></li>
           <!-- Need to figure out how to display number of items in cart -->
-          <li><a title="cart-link" id="cart-link" href="/cart">Cart(0)</a></li>
+          <li><a title="cart-link" id="cart-link" href="/cart">Cart: <%= @cart.total_count %></a></li>
         </ul>
       </nav>
+
+      <% elsif current_user.merchant? %>
+      <nav id="merchant-user-nav-bar" class="navbar">
+        <ul class="nav-left">
+          <li><a title="home-link" id="home-link" href="/">Home</a></li>
+          <li><a title="items-link" id="items-link" href="/items">Browse Items</a></li>
+          <li><a title="merchants-link" id="merchants-link" href="/merchants">Browse Merchants</a></li>
+        </ul>
+        <ul class="nav-right">
+            <li><a title="dashboard-link" id="dashboard-link" href="/dashboard">Dashboard</a></li>
+            <li><a title="user-orders-link" id="user-orders-link" href="/orders"><%=current_user.name%>'s Orders'</a></li>
+            <li><a title="profile-link" id="profile-link" href="/profile">Profile</a></li>
+            <li><a title="logout-link" id="logout-link" href="/logout">Logout</a></li>
+          <!-- Need to figure out how to display number of items in cart -->
+            <li> Logged in as <%="#{current_user.name}"%> </li>
+        </ul>
+      </nav>
+
+
     <% else %>
       <nav id="user-nav-bar" class="navbar">
         <ul class="nav-left">
@@ -39,13 +58,13 @@
             <li><a title="user-orders-link" id="user-orders-link" href="/orders"><%=current_user.name%>'s Orders'</a></li>
           <li><a title="logout-link" id="logout-link" href="/logout">Logout</a></li>
           <!-- Need to figure out how to display number of items in cart -->
-          <li><a title="cart-link" id="cart-link" href="/cart">Cart(0)</a></li>
+          <li><a title="cart-link" id="cart-link" href="/cart">Cart: <%= @cart.total_count %></a></li>
           <li> Logged in as <%="#{current_user.name}"%> </li>
         </ul>
       </nav>
    <% end %>
-   <% if flash[:notice] %>
-   <div class="notice"><%= flash[:notice] %></div>
+   <% flash.each do |type, message| %>
+   <%= content_tag :div, message, class: type %>
    <% end %>
 <%= yield %>
 
