@@ -10,7 +10,7 @@ describe 'as a user when i visit the logout path' do
 
     expect(current_path).to eq(root_path)
     expect(page).to have_content("You are logged out!")
-    expect(page).to have_content("Cart(0)")
+    expect(page).to have_content("Cart: 0")
     #this isn't real yet because we don't have a cart
   end
 end

@@ -14,7 +14,7 @@ describe 'a registered user ' do
       expect(page).to have_content("Home")
       expect(page).to have_content("Browse Items")
       expect(page).to have_content("Browse Merchants")
-      expect(page).to have_content("Cart(0)")
+      expect(page).to have_content("Cart: 0")
       expect(page).to have_content("Profile")
       expect(page).to have_content("#{user_1.name}'s Orders")
       expect(page).to have_content("Logout")
@@ -37,7 +37,7 @@ describe 'a registered user ' do
 
     # THESE ARE TESTS TO ENSURE THAT WE CAN REACH THE CORRECT PAGE...
     # ....THROUGH OUR LINKS. THEY HAVE BEEN COMMENTED OUT BECAUSE SOME....
-    # ....OF THESE PATHS DO NOT EXIST 
+    # ....OF THESE PATHS DO NOT EXIST
 
     # click_on 'home-link'
     # expect(current_path).to eq('/')

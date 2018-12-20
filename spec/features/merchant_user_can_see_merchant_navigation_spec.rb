@@ -1,14 +1,11 @@
 require 'rails_helper'
 
 describe 'a merchant user ' do
-  xit 'sees a registered user specific navigation bar' do
-
-    role = 1
-    merchant_1 = create(:user, role: role)
+  it 'sees a registered user specific navigation bar' do
+    merchant_1 = create(:user, role: 1)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_1)
 
     visit '/'
-
 
     within("#merchant-user-nav-bar") do
       expect(page).to have_content("Home")
@@ -19,11 +16,11 @@ describe 'a merchant user ' do
       expect(page).to have_content("Dashboard")
       expect(page).to have_content("Logout")
 
-      expect(page).not_to have_content("Cart(0)")
+      expect(page).not_to have_content("Cart: 0")
       expect(page).not_to have_content("Login")
       expect(page).not_to have_content("Register")
 
-      expect(page).to have_content("Logged in as #{user_1.name}")
+      expect(page).to have_content("Logged in as #{merchant_1.name}")
     end
 
       have_link("home_link", :href => '/')
