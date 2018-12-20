@@ -43,7 +43,26 @@ describe 'as a registered user' do
 
       expect(current_path).to eq(profile_edit_path)
       expect(page).to have_content("You entered invalid changes!")
+    end
+    it 'should have unique email' do
+      user_1 = create(:user)
+      user_2 = create(:user)
 
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user_1)
+
+      visit user_path(user_1)
+
+      click_link("Edit Information")
+
+      expect(current_path).to eq(profile_edit_path)
+      expect(page).to have_css("#user-form")
+
+      fill_in :user_email, with: user_2.email
+      click_on("Update User")
+
+      expect(current_path).to eq(profile_edit_path)
+
+      expect(page).to have_content("This email is already in use!")
     end
   end
 end
