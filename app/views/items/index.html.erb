@@ -4,7 +4,7 @@
     <p><%= item.name %></p>
   <% end %>
   <h1>5 Least Popular Items:</h1><br>
-  <%= @items.bottom_five_by_popularity.each do |item| %>
+  <% @items.bottom_five_by_popularity.each do |item| %>
     <p><%= item.name %></p>
   <% end %>
 </div>
