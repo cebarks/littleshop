@@ -6,8 +6,25 @@ class Item < ApplicationRecord
   has_many :orders, through: :order_items
 
 
-
   def self.amount_sold(id)
     OrderItem.where(item_id: id).sum(:quantity)
+  end
+
+  def self.top_five_by_popularity
+    Item.joins(:order_items, :orders)
+        .group(:id)
+        .order("amount_sold DESC")
+        .where("orders.status = 1")
+        .select("items.*, sum(order_items.quantity) as amount_sold")
+        .limit(5)
+  end
+
+  def self.bottom_five_by_popularity
+    Item.joins(:order_items, :orders)
+        .group(:id)
+        .order("amount_sold ASC")
+        .where("orders.status = 1")
+        .select("items.*, sum(order_items.quantity) as amount_sold")
+        .limit(5)
   end
 end
