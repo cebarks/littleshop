@@ -1,6 +1,6 @@
 <div class="statistics">
   <h1>5 Most Popular Items:</h1><br>
-  <%= @items.top_five_by_popularity.each do |item| %>
+  <% @items.top_five_by_popularity.each do |item| %>
     <p><%= item.name %></p>
   <% end %>
   <h1>5 Least Popular Items:</h1><br>
