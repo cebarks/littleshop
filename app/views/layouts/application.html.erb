@@ -28,7 +28,7 @@
         </ul>
       </nav>
 
-      <% elsif current_user[params[:role]] == 1%>
+      <% elsif current_user.merchant? %>
       <nav id="merchant-user-nav-bar" class="navbar">
         <ul class="nav-left">
           <li><a title="home-link" id="home-link" href="/">Home</a></li>
