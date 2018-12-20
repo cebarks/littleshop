@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+  def index
+    @merchants = User.merchants
+  end
+
   def new
     @user = User.new
   end
@@ -26,18 +30,12 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-  end
-
-  def profile
     @user = current_user
     @user.reload
-    render :show
   end
 
-  def edit_profile
+  def edit
     @user = current_user
-    render :edit
   end
 
   def update

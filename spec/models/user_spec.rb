@@ -28,10 +28,8 @@ describe User, type: :model do
       it 'should return a list of only active items' do
         merchant_1 = create(:user, role: 1)
         item_1 = create(:item, user: merchant_1, status: true)
-        item_2 = create(:item, user: merchant_1, status: true)
-        item_3 = create(:item, user: merchant_1, status: true)
-        item_4 = create(:item, user: merchant_1, status: false)
-        current_active_items = [item_1, item_2, item_3]
+        create(:item, user: merchant_1, status: false)
+        current_active_items = [item_1]
 
         expect(merchant_1.active_items).to eq(current_active_items)
       end

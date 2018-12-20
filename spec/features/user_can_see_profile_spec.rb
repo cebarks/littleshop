@@ -4,10 +4,10 @@ describe 'on a users profile page' do
   describe 'a user' do
     before(:each) do
       @user = create(:user)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+      visit profile_path
     end
     it 'can see all their own information excluding password' do
-      visit user_path(@user)
-
       expect(page).to have_content(@user.name)
       expect(page).to have_content(@user.address)
       expect(page).to have_content(@user.city)
@@ -19,10 +19,6 @@ describe 'on a users profile page' do
     end
 
     it 'can see a link to edit profile' do
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
-
-      visit user_path(@user)
-
       expect(page).to have_content(@user.name)
       expect(page).to have_content(@user.address)
       expect(page).to have_content(@user.city)

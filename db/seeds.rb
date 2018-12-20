@@ -13,9 +13,10 @@ require 'faker'
   user_3 = User.create!(name: Faker::Name.name, address: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, zipcode: Faker::Address.zip.to_i, email: "salesman@nixon.com", password: Faker::Internet.password(7), role: 1)
   user_4 = User.create!(name: Faker::Name.name, address: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, zipcode: Faker::Address.zip.to_i, email: "merchant@blockbuster.com", password: Faker::Internet.password(7), role: 1)
   user_5 = User.create!(name: Faker::Name.name, address: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, zipcode: Faker::Address.zip.to_i, email: "shipping@barefootwines.com", password: Faker::Internet.password(7), role: 1)
+  User.create!(name: "merchant", address: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, zipcode: Faker::Address.zip.to_i, email: "merchant@gmail.com", password: "123", role: 1)
 
   #admins
-  user_6 = User.create!(name: Faker::Name.name, address: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, zipcode: Faker::Address.zip.to_i, email: "admin@admin.com", password: Faker::Internet.password(7), role: 2)
+  user_6 = User.create!(name: Faker::Name.name, address: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, zipcode: Faker::Address.zip.to_i, email: "admin@admin.com", password: "123", role: 2)
 
   #items
   item_1 = user_3.items.create!(name: "Amaretto Sour", description: "a sweet nutty cocktail that calls for a full bodied spirit to pair with the bright citrus and sugar. di Amore Amaretto is an excellent choice with its rich body and caramel, almond flavors.", image_url: "https://bit.ly/2BoIMFi", inventory_qty: rand(1..9999), price: Faker::Number.decimal(2))
