@@ -85,7 +85,7 @@ describe 'when any kind of user visits /items' do
     OrderItem.create(item: item_10, order: order_2, quantity: 512, price: 85400)
 
     visit items_path
-    expect(page).to have_content("5 Most Popular Items:\n#{item_10.name} - #{Item.amount_sold(item_10.id)} sold!\n#{item_9.name} - #{Item.amount_sold(item_9.id)} sold!\n#{item_8.name} - #{Item.amount_sold(item_8.id)} sold!\n#{item_7.name} - #{Item.amount_sold(item_7.id)} sold!\n#{item_6.name} - #{Item.amount_sold(item_6.id)} sold!")
-    expect(page).to have_content("5 Least Popular Items:\n#{item_1.name} - #{Item.amount_sold(item_1.id)} sold\n#{item_2.name} - #{Item.amount_sold(item_2.id)} sold\n#{item_3.name} - #{Item.amount_sold(item_3.id)} sold\n#{item_4.name} - #{Item.amount_sold(item_4.id)} sold\n#{item_5.name} - #{Item.amount_sold(item_5.id)} sold")
+    expect(page).to have_content("5 Most Popular Items:\n#{item_10.name}\n#{item_9.name}\n#{item_8.name}\n#{item_7.name}\n#{item_6.name}")
+    expect(page).to have_content("5 Least Popular Items:\n#{item_1.name}\n#{item_2.name}\n#{item_3.name}\n#{item_4.name}\n#{item_5.name}")
   end
 end
