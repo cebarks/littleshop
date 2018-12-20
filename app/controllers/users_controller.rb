@@ -4,26 +4,23 @@ class UsersController < ApplicationController
   end
 
   def create
-    unless params[:user][:password] == params[:user][:confirm_password]
-      flash[:notice] = "Your passwords didn't match!"
+    unless password_match
       redirect_to register_path
       return
     end
 
     @user = User.new(user_params)
 
-    if User.where(email: user_params[:email]).length != 0
-      flash[:notice] = "This email is already in use!"
-      render :new
-      return
-    end
-
     if @user.save
       flash[:notice] = "You have been registered and are now logged in!"
       session[:user_id] = @user.id
       redirect_to profile_path
     else
-      flash[:notice] = "You were missing required fields!"
+      flash[:notice] = unless @user.errors.messages[:email].empty?
+        "This email is already in use!"
+      else
+        "You were missing required fields!"
+      end
       render :new
     end
   end
@@ -49,7 +46,7 @@ class UsersController < ApplicationController
       flash[:notice] = "Your profile has been updated!"
       redirect_to profile_path
     else
-      flash[:notice] = if @user.errors.messages[:email]
+      flash[:notice] = unless @user.errors.messages[:email].empty?
         "This email is already in use!"
       else
         "You entered invalid changes!"
@@ -62,6 +59,12 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :password, :name, :address, :city, :state, :zipcode)
+  end
+
+  def password_match
+    match = params[:user][:password] == params[:user][:confirm_password]
+    flash[:notice] = "Your passwords didn't match!" unless match
+    match
   end
 
 end
