@@ -15,10 +15,9 @@ describe User, type: :model do
   end
   describe 'Class methods'do
     it 'should return a list of only merchants' do
-      merchant_1 = create(:user, role: 1)
-      merchant_2 = create(:user, role: 1)
+      merchant_1 = create(:merchant)
       create(:user)
-      all_merchants = [merchant_1, merchant_2]
+      all_merchants = [merchant_1]
 
       expect(User.merchants).to eq(all_merchants)
     end
@@ -26,7 +25,7 @@ describe User, type: :model do
   describe 'instance methods' do
     describe '.active_items' do
       it 'should return a list of only active items' do
-        merchant_1 = create(:user, role: 1)
+        merchant_1 = create(:merchant)
         item_1 = create(:item, user: merchant_1, status: true)
         create(:item, user: merchant_1, status: false)
         current_active_items = [item_1]

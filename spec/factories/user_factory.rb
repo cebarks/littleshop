@@ -1,6 +1,8 @@
 FactoryBot.define do
   factory :user, class: User do
-    name {Faker::Name.unique.name}
+    sequence :name do |n|
+      "user_#{n}"
+    end
     address {Faker::Address.street_address}
     city {Faker::Address.city}
     state {Faker::Address.state}
