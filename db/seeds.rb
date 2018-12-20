@@ -40,9 +40,9 @@ require 'faker'
   item_20 = user_5.items.create(name: "Gimlet", description: "a cocktail typically made of 2 part gin, 1 part lime juice, and soda. A 1928 description of the drink was: 'gin, a spot of lime, and soda'. The description in the 1953 Raymond Chandler novel The Long Goodbye stated that 'a real gimlet is half gin and half Rose's lime juice and nothing else'.", image_url: "https://bit.ly/2S6DFRb", inventory_qty: rand(1..9999), price: Faker::Number.decimal(2))
 
 #orders
-  order_1 = Order.create(status: 0)
-  order_2 = Order.create(status: 1)
-  order_3 = Order.create(status: 2)
+  order_1 = Order.create(status: 0) #pending
+  order_2 = Order.create(status: 1) #complete
+  order_3 = Order.create(status: 2) #cancelled
 
 #order items
 OrderItem.create(item: item_1, order: order_3, quantity: 2, price: item_1.price)
@@ -65,3 +65,4 @@ OrderItem.create(item: item_17, order: order_1, quantity: 33, price: (item_17.pr
 OrderItem.create(item: item_18, order: order_3, quantity: 16, price: (item_18.price * 16))
 OrderItem.create(item: item_19, order: order_2, quantity: 41, price: (item_19.price * 41))
 OrderItem.create(item: item_20, order: order_1, quantity: 29, price: (item_20.price * 29))
+OrderItem.create(item: item_1, order: order_2, quantity: 300, price: (item_1.price * 300))
