@@ -1,5 +1,6 @@
 <div class="item-block">
   <%= @item.name %>
+  <img class="drink-show-image" src="<%= @item.image_url %>" alt="<%= @item.name %>"/>
   Description: <%= @item.description %>
   Price: $<%= @item.price %>
   Merchant: <%= @item.user.name %>
