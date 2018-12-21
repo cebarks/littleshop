@@ -1,0 +1,56 @@
+.card img {
+  height: 100px;
+  width: 100px;
+  object-fit: contain;
+  margin-bottom: 15px;
+}
+.card {
+  width: 100%;
+  border-radius: 10%;
+  border: 5px solid black;
+  text-align: center;
+  margin: auto;
+  padding: 25px 0px;
+  opacity: 0.95;
+}
+
+.card a {
+  color: black;
+  text-decoration: underline;
+}
+.card-title:hover {
+  background-color: #ededed;
+}
+.card-title {
+  font-family: 'Cinzel', serif;
+  font-weight: bold;
+}
+body:before {
+	content: '';
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	background-image: url("https://bit.ly/2T2GHWB");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  filter: saturate(.75) blur(7px);
+  z-index: -1;
+}
+.statistics {
+  float: center;
+  clear: center;
+  text-align: center;
+  background-color: black;
+  margin-left: 200px;
+  margin-right: 200px;
+  padding-top: 20px;
+  opacity: 0.9;
+}
+.statistics li{
+  padding: 50px;
+  color: white;
+  display: inline-block;
+  margin: auto;
+}
