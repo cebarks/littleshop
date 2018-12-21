@@ -1,22 +1,37 @@
-<div class="statistics">
-  <h1>5 Most Popular Items:</h1><br>
-  <% @items.top_five_by_popularity.each do |item| %>
-    <p><%= item.name %></p>
-  <% end %>
-  <h1>5 Least Popular Items:</h1><br>
-  <% @items.bottom_five_by_popularity.each do |item| %>
-    <p><%= item.name %></p>
-  <% end %>
-</div>
+<div class="item_index">
 
-<% @merchants.each do |merchant| %>
-  <% merchant.active_items.each do |item| %>
-    <div id="item-<%= item.id %>">
-      <%= link_to item.name, item_path(item) %>
-      <a id="drink-pic" href="<%= item_path(item) %>"><img src="<%= item.image_url %>" alt="<% item.name %>"></a>
-      Quantity: <%= item.inventory_qty %>
-      Price: $<%= item.price %>
-  <%= merchant.name %>
+  <div class="statistics">
+    <ul>
+      <li>
+        <h1>5 Most Popular Items:</h1><br>
+        <% @items.top_five_by_popularity.each do |item| %>
+          <p><%= item.name %></p>
+        <% end %>
+      </li>
+      <li>
+        <h1>5 Least Popular Items:</h1><br>
+        <% @items.bottom_five_by_popularity.each do |item| %>
+          <p><%= item.name %></p>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <% @merchants.each do |merchant| %>
+        <% merchant.active_items.each do |item| %>
+          <div id="item-<%= item.id%>" class="card border-light mb-3" style="width: 18rem;">
+            <a id="drink-pic" href="<%= item_path(item) %>"><img class="card-img-top" src="<%= item.image_url %>" alt="<% item.name %>"></a>
+            <div class="card-body">
+              <h5 class="card-title"><%= link_to item.name, item_path(item) %></h5>
+              <p class="card-text">Quantity: <%= item.inventory_qty %></p>
+              <p class="card-text">Price: $<%= item.price %></p>
+              <p class="card-text"><%= merchant.name %></p>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
     </div>
-  <% end %>
-<% end %>
+  </div>
+</div>
