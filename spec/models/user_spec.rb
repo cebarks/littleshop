@@ -14,12 +14,18 @@ describe User, type: :model do
     it {should validate_numericality_of(:zipcode)}
   end
   describe 'Class methods'do
-    it 'should return a list of only merchants' do
+    it '.merchants should return a list of only merchants' do
       merchant_1 = create(:merchant)
       create(:user)
       all_merchants = [merchant_1]
 
       expect(User.merchants).to eq(all_merchants)
+    end
+    it '.enabled_merchant should return enabled merchants' do
+      merchant_1 = create(:merchant)
+      create(:merchant, :disabled)
+
+      expect(User.enabled_merchants).to eq([merchant_1])
     end
   end
   describe 'instance methods' do
@@ -34,13 +40,4 @@ describe User, type: :model do
       end
     end
   end
-
-  # describe 'roles' do
-  #   it 'can be created as an admin' do
-  #     user_1 = User.create(name: "John", address: "123 Main St", city: "Charleston", state: "Indiana", zipcode: 98765, email: "John@example.com", password: "secret123",role:1)
-  #
-  #     expect(user_1.role).to eq("admin")
-  #     expect(admin.admin?).to be_truthy
-  #   end
-  # end
 end

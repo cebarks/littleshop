@@ -6,13 +6,18 @@
   </thead>
   <tbody>
     <% @merchants.each do |merchant| %>
-      <% if merchant.status %>
-      <tr>
-        <td><%= merchant.name %></td>
+      <tr id="merchant-<%= merchant.id %>">
+        <td><%= link_to merchant.name, admin_merchant_path(merchant), id: "merchant-name-#{merchant.id }" %></td>
         <td><%= "#{merchant.city}, #{merchant.state}"%></td>
-        <td><%= merchant.created_at%></td>
+        <td><%= merchant.created_at %></td>
+        <% if current_user && current_user.admin? %>
+          <% if merchant.status %>
+            <td><%= button_to "Disable", admin_merchant_path(merchant), method: :patch, class: "disable" %></td>
+          <% else %>
+            <td><%= button_to "Enable", admin_merchant_path(merchant), method: :patch, class: "enable" %></td>
+          <% end %>
+        <% end %>
       </tr>
-      <% end %>
     <% end %>
   </tbody>
 </table>
