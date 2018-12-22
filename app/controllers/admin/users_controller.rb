@@ -5,5 +5,6 @@ class Admin::UsersController < ApplicationController
   end
 
   def show
+    @merchants = User.merchants
   end
 end
