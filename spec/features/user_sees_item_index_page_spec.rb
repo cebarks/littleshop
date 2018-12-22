@@ -9,7 +9,6 @@ describe 'when any kind of user visits /items' do
 
 
     within "#item-#{item_1.id}" do
-      #need to add image
       expect(page).to have_content(item_1.name)
       expect(page).to have_content(item_1.user.name)
       expect(page).to have_content("Quantity: #{item_1.inventory_qty}")
