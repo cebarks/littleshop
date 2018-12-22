@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users, only: [:show, :update], as: "merchants"
+    resources :users, only: [:index, :show], as: "users"
   end
 
   resources :users, only: [:update, :create]
