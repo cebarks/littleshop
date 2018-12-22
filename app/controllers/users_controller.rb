@@ -1,6 +1,11 @@
 class UsersController < ApplicationController
+
   def index
-    @merchants = User.merchants
+    @merchants = if current_user && current_user.admin?
+      User.merchants
+    else
+      User.enabled_merchants
+    end
   end
 
   def new

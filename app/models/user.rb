@@ -14,4 +14,8 @@ class User < ApplicationRecord
   def active_items
     items.where(status: true)
   end
+
+  def self.enabled_merchants
+    merchants.where(status: true)
+  end
 end
