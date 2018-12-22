@@ -7,4 +7,17 @@ class Admin::UsersController < ApplicationController
   def show
     @merchants = User.merchants
   end
+
+  def update
+    user = User.find(params[:id])
+    user.toggle_status(user)
+    binding.pry
+  end
+
+  private
+
+  def user_params_admin
+    params.require(:user).permit(:status)
+  end
+
 end

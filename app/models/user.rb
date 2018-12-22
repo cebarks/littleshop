@@ -22,4 +22,13 @@ class User < ApplicationRecord
   def self.default_users
     where(role: 0)
   end
+
+  def toggle_status(user)
+    if user[:status] == true
+      user[:status] = false
+    else
+      user[:status] = true
+    end
+  end
+
 end

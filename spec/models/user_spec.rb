@@ -47,5 +47,19 @@ describe User, type: :model do
         expect(merchant_1.active_items).to eq(current_active_items)
       end
     end
+    describe '.toggle_status' do
+      it 'should change status from what it is to the opposite(t->f, f->t)' do
+        user_1 = create(:user)
+        new_status = false
+
+        expect(user_1.toggle_status(user_1)).to eq(new_status)
+
+        user_2 = create(:user, status: false)
+        
+        new_status = true
+
+        expect(user_1.toggle_status(user_2)).to eq(new_status)
+      end
+    end
   end
 end
