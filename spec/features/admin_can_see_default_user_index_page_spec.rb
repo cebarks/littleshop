@@ -15,18 +15,24 @@ describe 'As an admin user' do
     end
   end
   describe 'When I click the link to visit the user index page at /admin/users' do
-    xit 'should see only see all default users' do
-      users = create_list(:user, 2)
+    it 'should see only see all default users' do
+      user_1 = create(:user)
+      user_2 = create(:user)
       merchant = create(:merchant)
       admin = create(:admin)
+
       post_login(admin)
 
       visit admin_users_path
 
-      expect(page).to have_content(users[0].name)
-      expect(page).to have_content(users[0].created_at)
-      expect(page).to have_content(users[1].name)
-      expect(page).to have_content(users[1].created_at)
+      within "#user-#{user_1.id}" do
+        expect(page).to have_content("Name: #{user_1.name}")
+        expect(page).to have_content("Registered Since: #{user_1.created_at}")
+      end
+      within "#user-#{user_2.id}" do
+        expect(page).to have_content("Name: #{user_2.name}")
+        expect(page).to have_content("Registered Since: #{user_2.created_at}")
+      end
       expect(page).to_not have_content(merchant.name)
     end
   end

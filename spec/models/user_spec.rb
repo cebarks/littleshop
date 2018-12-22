@@ -27,6 +27,14 @@ describe User, type: :model do
 
       expect(User.enabled_merchants).to eq([merchant_1])
     end
+    it '.default_users should return default users only' do
+      user_1 = create(:user)
+      user_2 = create(:user, :disabled)
+      create(:merchant)
+      total = [user_1, user_2]
+
+      expect(User.default_users).to eq(total)
+    end
   end
   describe 'instance methods' do
     describe '.active_items' do

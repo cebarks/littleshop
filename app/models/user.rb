@@ -18,4 +18,8 @@ class User < ApplicationRecord
   def self.enabled_merchants
     merchants.where(status: true)
   end
+
+  def self.default_users
+    where(role: 0)
+  end
 end

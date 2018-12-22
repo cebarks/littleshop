@@ -1,1 +1,6 @@
-g
+<% @users.each do |user| %>
+  <tr id="user-<%= user.id %>">
+    Name: <td><%= user.name %></td>
+    Registered Since: <td><%= user.created_at %></td>
+  </tr>
+<% end %>
