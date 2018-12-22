@@ -3,6 +3,7 @@ require 'rails_helper'
 describe 'an admin ' do
   it 'sees an admin specific navigation bar' do
     admin_1 = create(:user, role: 2)
+
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin_1)
 
     visit '/'
