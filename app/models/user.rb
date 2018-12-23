@@ -24,7 +24,7 @@ class User < ApplicationRecord
   end
 
   def toggle_status(user)
-    if user[:status] == true
+    if user[:status]
       user[:status] = false
     else
       user[:status] = true
