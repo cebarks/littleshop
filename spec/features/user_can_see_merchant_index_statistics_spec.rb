@@ -37,8 +37,8 @@ describe "As a visitor" do
     order_2 = Order.create!(status: 1, created_at: 13.days.ago, user: customer_1)
     order_3 = Order.create!(status: 1, created_at: 5.days.ago, user: customer_1)
     oi_1 = OrderItem.create!(item: i_1, order: order_1, quantity: 1, price: 1)
-    oi_1 = OrderItem.create!(item: i_2, order: order_2, quantity: 1, price: 1)
-    oi_1 = OrderItem.create!(item: i_3, order: order_3, quantity: 1, price: 1)
+    oi_2 = OrderItem.create!(item: i_2, order: order_2, quantity: 1, price: 1)
+    oi_3 = OrderItem.create!(item: i_3, order: order_3, quantity: 1, price: 1)
     visit merchants_path
 
     within("#merchant-index-statistics") do
@@ -57,8 +57,8 @@ describe "As a visitor" do
     order_2 = Order.create!(status: 1, created_at: 13.days.ago, user: customer_1)
     order_3 = Order.create!(status: 1, created_at: 5.days.ago, user: customer_1)
     oi_1 = OrderItem.create!(item: i_1, order: order_1, quantity: 1, price: 1)
-    oi_1 = OrderItem.create!(item: i_2, order: order_2, quantity: 1, price: 1)
-    oi_1 = OrderItem.create!(item: i_3, order: order_3, quantity: 1, price: 1)
+    oi_2 = OrderItem.create!(item: i_2, order: order_2, quantity: 1, price: 1)
+    oi_3 = OrderItem.create!(item: i_3, order: order_3, quantity: 1, price: 1)
     visit merchants_path
 
     within("#merchant-index-statistics") do
@@ -81,8 +81,8 @@ describe "As a visitor" do
     oi_2 = OrderItem.create!(item: item_1, order: order_2, price: 500, quantity: 1203)
     oi_3 = OrderItem.create!(item: item_1, order: order_3, price: 500, quantity: 1203)
     oi_4 = OrderItem.create!(item: item_1, order: order_4, price: 500, quantity: 1203)
-    oi_4 = OrderItem.create!(item: item_1, order: order_5, price: 500, quantity: 1203)
-    oi_4 = OrderItem.create!(item: item_1, order: order_6, price: 500, quantity: 1203)
+    oi_5 = OrderItem.create!(item: item_1, order: order_5, price: 500, quantity: 1203)
+    oi_6 = OrderItem.create!(item: item_1, order: order_6, price: 500, quantity: 1203)
 
     visit merchants_path
 
@@ -93,7 +93,7 @@ describe "As a visitor" do
   it "can see the top 3 cities with most orders" do
     merchant_1 = create(:merchant)
     customer_1 = create(:user, city: "Springfield", state: "MI")
-    customer_2 = create(:user, state: "Springfield", state: "CO") #distinguishes city by its associated state
+    customer_2 = create(:user, city: "Springfield", state: "CO") #distinguishes city by its associated state
     customer_3 = create(:user, city: "Greenville")
     item_1 = create(:item, user: merchant_1)
     order_1 = Order.create(status: 1, user: customer_1)
@@ -106,8 +106,8 @@ describe "As a visitor" do
     oi_2 = OrderItem.create!(item: item_1, order: order_2, price: 500, quantity: 1203)
     oi_3 = OrderItem.create!(item: item_1, order: order_3, price: 500, quantity: 1203)
     oi_4 = OrderItem.create!(item: item_1, order: order_4, price: 500, quantity: 1203)
-    oi_4 = OrderItem.create!(item: item_1, order: order_5, price: 500, quantity: 1203)
-    oi_4 = OrderItem.create!(item: item_1, order: order_6, price: 500, quantity: 1203)
+    oi_5 = OrderItem.create!(item: item_1, order: order_5, price: 500, quantity: 1203)
+    oi_6 = OrderItem.create!(item: item_1, order: order_6, price: 500, quantity: 1203)
 
     visit merchants_path
 
@@ -115,8 +115,30 @@ describe "As a visitor" do
       expect(page).to have_content("Top 3 Cities with the most orders:\n#{User.top_3_cities_by_order_count[0].city} - #{User.top_3_cities_by_order_count[0].order_count} order(s)!\n#{User.top_3_cities_by_order_count[1].city} - #{User.top_3_cities_by_order_count[1].order_count} order(s)!\n#{User.top_3_cities_by_order_count[2].city} - #{User.top_3_cities_by_order_count[2].order_count} order(s)!")
     end
   end
+
+  it "can see the top 3 orders by quantity of items" do
+    merchant_1 = create(:merchant)
+    customer_1 = create(:user)
+    customer_2 = create(:user)
+    customer_3 = create(:user)
+    item_1 = create(:item, user: merchant_1)
+    order_1 = Order.create!(status: 1, user: customer_1)
+    order_2 = Order.create!(status: 1, user: customer_2)
+    order_3 = Order.create!(status: 1, user: customer_2)
+    order_4 = Order.create!(status: 1, user: customer_2)
+    order_5 = Order.create!(status: 1, user: customer_3)
+    order_6 = Order.create!(status: 1, user: customer_3)
+    oi_1 = OrderItem.create!(item: item_1, order: order_1, price: 500, quantity: 1)
+    oi_2 = OrderItem.create!(item: item_1, order: order_2, price: 500, quantity: 2)
+    oi_3 = OrderItem.create!(item: item_1, order: order_3, price: 500, quantity: 3)
+    oi_4 = OrderItem.create!(item: item_1, order: order_4, price: 500, quantity: 14)
+    oi_5 = OrderItem.create!(item: item_1, order: order_5, price: 500, quantity: 50)
+    oi_6 = OrderItem.create!(item: item_1, order: order_6, price: 500, quantity: 60)
+
+    visit merchants_path
+
+    within("#merchant-index-statistics") do
+      expect(page).to have_content("Top 3 biggest orders:\nOrder #{Order.top_3_biggest_orders[0].id} - #{Order.top_3_biggest_orders[0].size} items!\nOrder #{Order.top_3_biggest_orders[1].id} - #{Order.top_3_biggest_orders[1].size} items!\nOrder #{Order.top_3_biggest_orders[2].id} - #{Order.top_3_biggest_orders[2].size} items!")
+    end
+  end
 end
-  # it "can see the top 3 orders by quantity of items" do
-  # end
-# end
-# end

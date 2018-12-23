@@ -111,6 +111,53 @@ describe User, type: :model do
 
       expect(User.bottom_3_merchants_by_fulfillment_speed[0].name).to eq(m_1.name)
     end
+    it '.top_3_states_by_order_count' do
+      merchant_1 = create(:merchant)
+      customer_1 = create(:user, state: "VT")
+      customer_2 = create(:user, state: "CA")
+      customer_3 = create(:user, state: "AK")
+      item_1 = create(:item, user: merchant_1)
+      order_1 = Order.create(status: 1, user: customer_1)
+      order_2 = Order.create(status: 1, user: customer_2)
+      order_3 = Order.create(status: 1, user: customer_2)
+      order_4 = Order.create(status: 1, user: customer_2)
+      order_5 = Order.create(status: 1, user: customer_3)
+      order_6 = Order.create(status: 1, user: customer_3)
+      oi_1 = OrderItem.create!(item: item_1, order: order_1, price: 500, quantity: 1203)
+      oi_2 = OrderItem.create!(item: item_1, order: order_2, price: 500, quantity: 1203)
+      oi_3 = OrderItem.create!(item: item_1, order: order_3, price: 500, quantity: 1203)
+      oi_4 = OrderItem.create!(item: item_1, order: order_4, price: 500, quantity: 1203)
+      oi_5 = OrderItem.create!(item: item_1, order: order_5, price: 500, quantity: 1203)
+      oi_6 = OrderItem.create!(item: item_1, order: order_6, price: 500, quantity: 1203)
+
+      expect(User.top_3_states_by_order_count[0].state).to eq("CA")
+      expect(User.top_3_states_by_order_count[1].state).to eq("AK")
+      expect(User.top_3_states_by_order_count[2].state).to eq("VT")
+    end
+    it '.top_3_cities_by_order_count' do
+      merchant_1 = create(:merchant)
+      customer_1 = create(:user, city: "Springfield", state: "MI")
+      customer_2 = create(:user, city: "Birmingham", state: "CO")
+      customer_3 = create(:user, city: "Greenville")
+      item_1 = create(:item, user: merchant_1)
+      order_1 = Order.create(status: 1, user: customer_1)
+      order_2 = Order.create(status: 1, user: customer_2)
+      order_3 = Order.create(status: 1, user: customer_2)
+      order_4 = Order.create(status: 1, user: customer_2)
+      order_5 = Order.create(status: 1, user: customer_3)
+      order_6 = Order.create(status: 1, user: customer_3)
+      oi_1 = OrderItem.create!(item: item_1, order: order_1, price: 500, quantity: 1203)
+      oi_2 = OrderItem.create!(item: item_1, order: order_2, price: 500, quantity: 1203)
+      oi_3 = OrderItem.create!(item: item_1, order: order_3, price: 500, quantity: 1203)
+      oi_4 = OrderItem.create!(item: item_1, order: order_4, price: 500, quantity: 1203)
+      oi_5 = OrderItem.create!(item: item_1, order: order_5, price: 500, quantity: 1203)
+      oi_6 = OrderItem.create!(item: item_1, order: order_6, price: 500, quantity: 1203)
+
+      expect(User.top_3_cities_by_order_count[0].city).to eq("Birmingham")
+      expect(User.top_3_cities_by_order_count[1].city).to eq("Greenville")
+      expect(User.top_3_cities_by_order_count[2].city).to eq("Springfield")
+    end
+    
 
   end
   describe 'instance methods' do
