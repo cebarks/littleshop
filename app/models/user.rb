@@ -69,6 +69,15 @@ class User < ApplicationRecord
     .limit(3)
   end
 
+  def self.top_3_cities_by_order_count
+    joins(:orders)
+    .group("users.id")
+    .order("order_count DESC")
+    .where("orders.status = 1")
+    .select("users.city, count(orders.id) as order_count")
+    .limit(3)
+  end
+
   def fulfillment_speed
     Item.joins(:user)
     .joins(:orders)

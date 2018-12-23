@@ -19,6 +19,10 @@
   <% User.top_3_states_by_order_count.each do |relation| %>
     <p><%= relation.state %> - <%= relation.order_count %> order(s)!</p>
   <% end %>
+  <h1>Top 3 Cities with the most orders:</h1>
+  <% User.top_3_cities_by_order_count.each do |relation| %>
+    <p><%= relation.city %> - <%= relation.order_count %> order(s)!</p>
+  <% end %>
 </div>
 <div class="merchant-list">
 <table>
