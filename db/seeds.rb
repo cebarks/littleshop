@@ -6,8 +6,10 @@ require 'faker'
 # Order.destroy_all
 
   #default users
-  user_1 = User.create!(name: Faker::Name.name, address: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, zipcode: Faker::Address.zip.to_i, email: "everythingisfine@gmail.com", password: Faker::Internet.password(7))
-  user_2 = User.create!(name: Faker::Name.name, address: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, zipcode: Faker::Address.zip.to_i, email: "no_tolerance@gmail.com", password: Faker::Internet.password(7))
+  user_1 = User.create!(name: Faker::Name.name, address: Faker::Address.street_address, city: Faker::Address.city, state: "CA", zipcode: Faker::Address.zip.to_i, email: "everythingisfine@gmail.com", password: Faker::Internet.password(7))
+  user_2 = User.create!(name: Faker::Name.name, address: Faker::Address.street_address, city: Faker::Address.city, state: "NY", zipcode: Faker::Address.zip.to_i, email: "no_tolerance@gmail.com", password: Faker::Internet.password(7))
+  user_3 = User.create!(name: Faker::Name.name, address: Faker::Address.street_address, city: Faker::Address.city, state: "FL", zipcode: Faker::Address.zip.to_i, email: "adult_beverage_enthusiast@gmail.com", password: Faker::Internet.password(7))
+  user_4 = User.create!(name: Faker::Name.name, address: Faker::Address.street_address, city: Faker::Address.city, state: "AK", zipcode: Faker::Address.zip.to_i, email: "pure_sybaritism@gmail.com", password: Faker::Internet.password(7))
 
   #merchants
   user_3 = User.create!(name: Faker::Name.name, address: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, zipcode: Faker::Address.zip.to_i, email: "salesman@nixon.com", password: Faker::Internet.password(7), role: 1)
@@ -41,12 +43,18 @@ require 'faker'
   item_20 = user_5.items.create!(name: "Gimlet", description: "a cocktail typically made of 2 part gin, 1 part lime juice, and soda. A 1928 description of the drink was: 'gin, a spot of lime, and soda'. The description in the 1953 Raymond Chandler novel The Long Goodbye stated that 'a real gimlet is half gin and half Rose's lime juice and nothing else'.", image_url: "https://bit.ly/2S6DFRb", inventory_qty: rand(1..9999), price: Faker::Number.decimal(2))
 
 #orders
-  order_1 = Order.create!(status: 0) #pending
-  order_2 = Order.create!(status: 1, created_at: 7.days.ago) #complete
-  order_3 = Order.create!(status: 2) #cancelled
-  order_4 = Order.create!(status: 1, created_at: 2.days.ago) #complete
-  order_5 = Order.create!(status: 1, created_at: 1.days.ago) #complete
-  order_6 = Order.create!(status: 1, created_at: 40.days.ago) #complete
+  order_1 = Order.create!(status: 0, user: user_1) #pending
+  order_2 = Order.create!(status: 1, user: user_1, created_at: 7.days.ago) #complete
+  order_3 = Order.create!(status: 2, user: user_2) #cancelled
+  order_4 = Order.create!(status: 1, user: user_2, created_at: 2.days.ago) #complete
+  order_5 = Order.create!(status: 1, user: user_2, created_at: 1.days.ago) #complete
+  order_6 = Order.create!(status: 1, user: user_3, created_at: 40.days.ago) #complete
+  order_7 = Order.create!(status: 1, user: user_3, created_at: 12.days.ago) #complete
+  order_8 = Order.create!(status: 1, user: user_3, created_at: 413.days.ago) #complete
+  order_9 = Order.create!(status: 1, user: user_4, created_at: 2.days.ago) #complete
+  order_10 = Order.create!(status: 1, user: user_4, created_at: 6.days.ago) #complete
+  order_11 = Order.create!(status: 1, user: user_4, created_at: 453.days.ago) #complete
+  order_12 = Order.create!(status: 1, user: user_4, created_at: 5.days.ago) #complete
 
 #order items
 OrderItem.create!(item: item_1, order: order_3, quantity: 2, price: item_1.price)

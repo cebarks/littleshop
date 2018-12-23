@@ -13,6 +13,10 @@ describe User, type: :model do
     it {should validate_presence_of(:password_digest)}
     it {should validate_numericality_of(:zipcode)}
   end
+  describe 'Relationships' do
+    it { should have_many(:orders) }
+    it { should have_many(:items) }
+  end
   describe 'Class methods'do
     it '.merchants should return a list of only merchants' do
       merchant_1 = create(:merchant)
@@ -39,10 +43,11 @@ describe User, type: :model do
       merchant_1 = create(:merchant)
       merchant_2 = create(:merchant)
       merchant_3 = create(:merchant)
+      customer_1 = create(:user)
       item_1 = create(:item, user: merchant_1, price: 10)
       item_2 = create(:item, user: merchant_2, price: 20)
       item_3 = create(:item, user: merchant_3, price: 30)
-      order_1 = Order.create!(status: 1)
+      order_1 = Order.create!(status: 1, user: customer_1)
       order_item_1 = OrderItem.create!(order: order_1, item: item_2, price: 10, quantity: 1)
       order_item_2 = OrderItem.create!(order: order_1, item: item_2, price: 990, quantity: 99)
       order_item_3 = OrderItem.create!(order: order_1, item: item_2, price: 500, quantity: 50)
@@ -57,10 +62,11 @@ describe User, type: :model do
       merchant_1 = create(:merchant)
       merchant_2 = create(:merchant)
       merchant_3 = create(:merchant)
+      customer_1 = create(:user)
       item_1 = create(:item, user: merchant_1, price: 10)
       item_2 = create(:item, user: merchant_2, price: 20)
       item_3 = create(:item, user: merchant_3, price: 30)
-      order_1 = Order.create!(status: 1)
+      order_1 = Order.create!(status: 1, user: customer_1)
       order_item_1 = OrderItem.create!(order: order_1, item: item_2, price: 10, quantity: 1)
       order_item_2 = OrderItem.create!(order: order_1, item: item_2, price: 990, quantity: 99)
       order_item_3 = OrderItem.create!(order: order_1, item: item_2, price: 500, quantity: 50)
@@ -75,12 +81,13 @@ describe User, type: :model do
       m_1 = create(:merchant)
       m_2 = create(:merchant)
       m_3 = create(:merchant)
+      customer_1 = create(:user)
       i_1 = m_1.items.create!(name: "a", description: "w", inventory_qty: 9999, price: 1)
       i_2 = m_2.items.create!(name: "b", description: "x", inventory_qty: 9999, price: 1)
       i_3 = m_3.items.create!(name: "c", description: "y", inventory_qty: 9999, price: 1)
-      order_1 = Order.create!(status: 1, created_at: 50.days.ago)
-      order_2 = Order.create!(status: 1, created_at: 13.days.ago)
-      order_3 = Order.create!(status: 1, created_at: 5.days.ago)
+      order_1 = Order.create!(status: 1, created_at: 50.days.ago, user: customer_1)
+      order_2 = Order.create!(status: 1, created_at: 13.days.ago, user: customer_1)
+      order_3 = Order.create!(status: 1, created_at: 5.days.ago, user: customer_1)
       oi_1 = OrderItem.create!(item: i_1, order: order_1, quantity: 1, price: 1)
       oi_1 = OrderItem.create!(item: i_2, order: order_2, quantity: 1, price: 1)
       oi_1 = OrderItem.create!(item: i_3, order: order_3, quantity: 1, price: 1)
@@ -91,12 +98,13 @@ describe User, type: :model do
       m_1 = create(:merchant)
       m_2 = create(:merchant)
       m_3 = create(:merchant)
+      customer_1 = create(:user)
       i_1 = m_1.items.create!(name: "a", description: "w", inventory_qty: 9999, price: 1)
       i_2 = m_2.items.create!(name: "b", description: "x", inventory_qty: 9999, price: 1)
       i_3 = m_3.items.create!(name: "c", description: "y", inventory_qty: 9999, price: 1)
-      order_1 = Order.create!(status: 1, created_at: 50.days.ago)
-      order_2 = Order.create!(status: 1, created_at: 13.days.ago)
-      order_3 = Order.create!(status: 1, created_at: 5.days.ago)
+      order_1 = Order.create!(status: 1, created_at: 50.days.ago, user: customer_1)
+      order_2 = Order.create!(status: 1, created_at: 13.days.ago, user: customer_1)
+      order_3 = Order.create!(status: 1, created_at: 5.days.ago, user: customer_1)
       oi_1 = OrderItem.create!(item: i_1, order: order_1, quantity: 1, price: 1)
       oi_1 = OrderItem.create!(item: i_2, order: order_2, quantity: 1, price: 1)
       oi_1 = OrderItem.create!(item: i_3, order: order_3, quantity: 1, price: 1)
@@ -118,9 +126,10 @@ describe User, type: :model do
     end
     it '#earnings' do
       merchant_1 = create(:merchant)
+      customer_1 = create(:user)
       item_1 = create(:item, user: merchant_1, price: 30)
-      order_1 = Order.create!(status: 1)
-      order_2 = Order.create!(status: 2)
+      order_1 = Order.create!(status: 1, user: customer_1)
+      order_2 = Order.create!(status: 2, user: customer_1)
       order_item_1 = OrderItem.create!(order: order_1, item: item_1, price: 300, quantity: 10)
       order_item_2 = OrderItem.create!(order: order_2, item: item_1, price: 30, quantity: 1) #cancelled orders shouldn't count toward merchant earnings
 
@@ -128,9 +137,10 @@ describe User, type: :model do
     end
     it '#items_sold' do
       merchant_1 = create(:merchant)
+      customer_1 = create(:user)
       item_1 = create(:item, user: merchant_1, price: 10)
-      order_1 = Order.create!(status: 1)
-      order_2 = Order.create!(status: 2)
+      order_1 = Order.create!(status: 1, user: customer_1)
+      order_2 = Order.create!(status: 2, user: customer_1)
       order_item_1 = OrderItem.create!(order: order_1, item: item_1, price: 50, quantity: 5)
       order_item_2 = OrderItem.create!(order: order_1, item: item_1, price: 1000, quantity: 100)
 
@@ -139,10 +149,11 @@ describe User, type: :model do
     it '#fulfillment_speed' do
       #merchant fulfillment speed = avg(orders.updated_at - orders.created_at)
       m_1 = create(:merchant)
+      customer_1 = create(:user)
       item_1 = create(:item, user: m_1, price: 10)
-      order_1 = Order.create!(status: 1, created_at: 2.days.ago)
-      order_2 = Order.create!(status: 1, created_at: 3.days.ago)
-      order_3 = Order.create!(status: 1, created_at: 5.days.ago)
+      order_1 = Order.create!(status: 1, created_at: 2.days.ago, user: customer_1)
+      order_2 = Order.create!(status: 1, created_at: 3.days.ago, user: customer_1)
+      order_3 = Order.create!(status: 1, created_at: 5.days.ago, user: customer_1)
 
       oi_1 = OrderItem.create!(item: item_1, order: order_1, quantity: 1, price: 1)
       oi_1 = OrderItem.create!(item: item_1, order: order_2, quantity: 1, price: 1)

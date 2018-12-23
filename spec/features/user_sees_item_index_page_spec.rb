@@ -19,7 +19,8 @@ describe 'when any kind of user visits /items' do
   end
   it 'should be able to click on the items name to see item show page' do
     item_1 = create(:item)
-    order_1 = Order.create!(status: 3)
+    customer_1 = create(:user)
+    order_1 = Order.create!(status: 3, user: customer_1)
     OrderItem.create!(item: item_1, order: order_1, quantity: 1, price: 1)
 
 
@@ -32,7 +33,8 @@ describe 'when any kind of user visits /items' do
   it 'should be able to click on the items image to see item show page' do
     create(:merchant)
     item_1 = create(:item)
-    order_1 = Order.create!(status: 3)
+    customer_1 = create(:user)
+    order_1 = Order.create!(status: 3, user: customer_1)
     OrderItem.create!(item: item_1, order: order_1, quantity: 1, price: 1)
 
     visit items_path
@@ -43,9 +45,10 @@ describe 'when any kind of user visits /items' do
   end
   it 'shows statistics' do
     merchant_1 = create(:merchant)
+    customer_1 = create(:user)
     item_1, item_2, item_3, item_4, item_5, item_6, item_7, item_8, item_9, item_10 = create_list(:item, 10, user: merchant_1)
 
-    order_1 = Order.create!(status: 1)
+    order_1 = Order.create!(status: 1, user: customer_1 )
 
     OrderItem.create!(item: item_1, order: order_1, quantity: 1, price: 1)
     OrderItem.create!(item: item_2, order: order_1, quantity: 2, price: 2)

@@ -3,6 +3,7 @@ class User < ApplicationRecord
   validates_uniqueness_of :email
   validates_numericality_of :zipcode
   has_many :items
+  has_many :orders
 
   has_secure_password
   enum role: ["default", "merchant", "admin"]
@@ -56,6 +57,15 @@ class User < ApplicationRecord
     .group("users.id")
     .order("speed DESC")
     .select("users.*, avg(orders.updated_at - orders.created_at) as speed")
+    .limit(3)
+  end
+
+  def self.top_3_states_by_order_count
+    joins(:orders)
+    .group("users.id")
+    .order("order_count DESC")
+    .where("orders.status = 1")
+    .select("users.state, count(orders.id) as order_count")
     .limit(3)
   end
 
