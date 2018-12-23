@@ -50,6 +50,15 @@ class User < ApplicationRecord
     .limit(3)
   end
 
+  def self.bottom_3_merchants_by_fulfillment_speed
+    Item.joins(:user)
+    .joins(:orders)
+    .group("users.id")
+    .order("speed DESC")
+    .select("users.*, avg(orders.updated_at - orders.created_at) as speed")
+    .limit(3)
+  end
+
   def fulfillment_speed
     Item.joins(:user)
     .joins(:orders)

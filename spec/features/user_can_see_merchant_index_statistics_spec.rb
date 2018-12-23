@@ -43,8 +43,25 @@ describe "As a visitor" do
       expect(page).to have_content("Top 3 Merchants who fulfill orders the fastest:\n#{m_3.name}, who completes orders in #{m_3.fulfillment_speed} days on average\n#{m_2.name}, who completes orders in #{m_2.fulfillment_speed} days on average\n#{m_1.name}, who completes orders in #{m_1.fulfillment_speed} days on average")
     end
   end
-  # it "can see bottom 3 merchants by order fulfillment speed" do
-  # end
+  it "can see bottom 3 merchants by order fulfillment speed" do
+    m_1 = create(:merchant)
+    m_2 = create(:merchant)
+    m_3 = create(:merchant)
+    i_1 = m_1.items.create!(name: "a", description: "w", inventory_qty: 9999, price: 1)
+    i_2 = m_2.items.create!(name: "b", description: "x", inventory_qty: 9999, price: 1)
+    i_3 = m_3.items.create!(name: "c", description: "y", inventory_qty: 9999, price: 1)
+    order_1 = Order.create!(status: 1, created_at: 50.days.ago)
+    order_2 = Order.create!(status: 1, created_at: 13.days.ago)
+    order_3 = Order.create!(status: 1, created_at: 5.days.ago)
+    oi_1 = OrderItem.create!(item: i_1, order: order_1, quantity: 1, price: 1)
+    oi_1 = OrderItem.create!(item: i_2, order: order_2, quantity: 1, price: 1)
+    oi_1 = OrderItem.create!(item: i_3, order: order_3, quantity: 1, price: 1)
+    visit merchants_path
+
+    within("#merchant-index-statistics") do
+      expect(page).to have_content("Merchants who were slowest at fulfilling orders:\n#{m_1.name}, who completes orders in #{m_1.fulfillment_speed} days on average\n#{m_2.name}, who completes orders in #{m_2.fulfillment_speed} days on average\n#{m_3.name}, who completes orders in #{m_3.fulfillment_speed} days on average")
+    end
+  end
   # it "can see the top 3 states with most orders" do
   # end
   # it "can see the top 3 cities with most orders" do

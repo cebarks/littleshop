@@ -11,6 +11,10 @@
   <% User.top_3_merchants_by_fulfillment_speed.each do |merchant| %>
     <p><%= merchant.name %>, who completes orders in <%= User.find(merchant.id).fulfillment_speed %> days on average</p>
   <% end %>
+  <h1>Merchants who were slowest at fulfilling orders:</h1>
+  <% User.bottom_3_merchants_by_fulfillment_speed.each do |merchant| %>
+    <p> <%= merchant.name %>, who completes orders in <%= User.find(merchant.id).fulfillment_speed %> days on average</p>
+  <% end %>
 </div>
 <div class="merchant-list">
 <table>
