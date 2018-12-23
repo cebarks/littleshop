@@ -20,10 +20,4 @@ class Admin::UsersController < ApplicationController
     redirect_to admin_users_path
   end
 
-  private
-
-  def user_params_admin
-    params.require(:user).permit(:status)
-  end
-
 end
