@@ -23,8 +23,9 @@ class Item < ApplicationRecord
         .limit(5)
   end
 
+  Item.joins(:user).joins(:orders).group("users.id").select("users.*").where("users.id = 3").average("orders.updated_at - orders.created_at").values[0].to_s
+
   def average_fulfillment_time
-    # binding.pry
     time = Item.joins(:order_items, :orders)
     .select("avg(orders.updated_at - orders.created_at) as avg_fulfill").group(:id)
     .where("items.id": id).first.avg_fulfill

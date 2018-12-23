@@ -42,8 +42,11 @@ require 'faker'
 
 #orders
   order_1 = Order.create!(status: 0) #pending
-  order_2 = Order.create!(status: 1) #complete
+  order_2 = Order.create!(status: 1, created_at: 7.days.ago) #complete
   order_3 = Order.create!(status: 2) #cancelled
+  order_4 = Order.create!(status: 1, created_at: 2.days.ago) #complete
+  order_5 = Order.create!(status: 1, created_at: 1.days.ago) #complete
+  order_6 = Order.create!(status: 1, created_at: 40.days.ago) #complete
 
 #order items
 OrderItem.create!(item: item_1, order: order_3, quantity: 2, price: item_1.price)
@@ -67,3 +70,12 @@ OrderItem.create!(item: item_18, order: order_3, quantity: 16, price: (item_18.p
 OrderItem.create!(item: item_19, order: order_2, quantity: 41, price: (item_19.price * 41))
 OrderItem.create!(item: item_20, order: order_1, quantity: 29, price: (item_20.price * 29))
 OrderItem.create!(item: item_1, order: order_2, quantity: 300, price: (item_1.price * 300))
+OrderItem.create!(item: item_1, order: order_4, quantity: 100, price: (item_1.price * 100))
+
+
+OrderItem.create!(item: item_5, order: order_5, quantity: 100, price: (item_5.price * 100))
+OrderItem.create!(item: item_4, order: order_5, quantity: 100, price: (item_4.price * 100))
+OrderItem.create!(item: item_6, order: order_5, quantity: 100, price: (item_6.price * 100))
+OrderItem.create!(item: item_17, order: order_6, quantity: 100, price: (item_17.price * 100))
+OrderItem.create!(item: item_18, order: order_6, quantity: 100, price: (item_18.price * 100))
+OrderItem.create!(item: item_11, order: order_6, quantity: 100, price: (item_11.price * 100))
