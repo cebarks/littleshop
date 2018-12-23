@@ -8,10 +8,6 @@ class Admin::UsersController < ApplicationController
     @merchants = User.merchants
   end
 
-  def edit
-    @user = User.find(params[:id])
-  end
-
   def update
     user = User.find(params[:id])
     user.toggle_status(user)

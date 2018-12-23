@@ -20,7 +20,7 @@ describe 'As an admin user when I visit the user index page' do
       end
       expect(page).to have_content("#{user.name}'s account has been disabled!")
     end
-    describe 'And I click on as "enable" button for an enabled user' do
+    describe 'And I click on an "enable" button for an enabled user' do
       it 'I am returned to the admins user index page' do
         admin = create(:admin)
         user_2 = create(:user, :disabled)
