@@ -56,9 +56,9 @@ describe User, type: :model do
 
         user_2 = create(:user, status: false)
 
-        new_status = true
+        new_status_2 = true
 
-        expect(user_1.toggle_status).to eq(new_status)
+        expect(user_2.toggle_status).to eq(new_status_2)
       end
     end
   end
