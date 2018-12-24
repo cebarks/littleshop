@@ -10,7 +10,7 @@ class Admin::UsersController < ApplicationController
 
   def update
     user = User.find(params[:id])
-    user.toggle_status(user)
+    user.toggle_status
     user.save
     flash[:notice] = if user.status
        "#{user.name}'s account has been enabled!"

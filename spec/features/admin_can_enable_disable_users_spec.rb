@@ -42,13 +42,3 @@ describe 'As an admin user when I visit the user index page' do
     end
   end
 end
-
-
-
-
-
-
-
-# And I see a flash message that the users account is now disabled
-# And I see that the users account is now disabled
-# This user cannot log in
