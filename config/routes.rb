@@ -26,12 +26,10 @@ Rails.application.routes.draw do
   end
 
   get '/dashboard', to: 'merchants#dashboard'
-
-  get '/dashboard/items', to: 'merchants#index'
+  get '/dashboard/items', to: 'merchants#items'
 
   resources :items, only: [:index, :show, :new, :edit, :destroy]
   resources :orders, only: [:index]
-
 
   get '/cart', to: "carts#show"
   post '/cart', to: "carts#create", as: "carts"
