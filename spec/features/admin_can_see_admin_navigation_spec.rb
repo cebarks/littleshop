@@ -18,6 +18,7 @@ describe 'an admin ' do
       expect(page).to have_content("Logout")
 
       expect(page).not_to have_content("Cart: 0")
+      expect(page).not_to have_content("Dashboard")
 
 
       expect(page).to have_content("Logged in as #{admin_1.name}")

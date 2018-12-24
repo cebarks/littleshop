@@ -22,4 +22,9 @@ class User < ApplicationRecord
   def self.default_users
     where(role: 0)
   end
+
+  def toggle_status
+    self[:status] = !self[:status]
+  end
+
 end
