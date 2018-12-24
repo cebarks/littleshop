@@ -18,8 +18,9 @@ Rails.application.routes.draw do
   get '/merchants', to: 'users#index'
 
   get '/dashboard', to: 'merchants#dashboard'
+  get '/dashboard/items', to: 'merchants#index'
 
-  resources :items, only: [:index, :show]
+  resources :items, only: [:index, :show, :new, :edit, :destroy]
   resources :orders, only: [:index]
 
   get '/cart', to: "carts#show"
