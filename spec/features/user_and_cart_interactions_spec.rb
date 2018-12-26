@@ -7,7 +7,7 @@ describe 'As a visitor or registered user' do
       visit cart_path
 
       expect(page).to have_content("You currently have 0 items in your cart.")
-      
+
       user_1 = create(:user)
 
       post_login(user_1)
@@ -15,6 +15,12 @@ describe 'As a visitor or registered user' do
       visit cart_path
 
       expect(page).to have_content("You currently have 0 items in your cart.")
+    end
+    it 'should not see a link to empty cart' do
+
+      visit cart_path
+
+      expect(page).to_not have_content("Empty cart contents.")
     end
   end
 end
