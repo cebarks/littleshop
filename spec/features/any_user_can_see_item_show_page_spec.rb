@@ -5,7 +5,8 @@ describe 'as any user in the system' do
     it 'should see all the information for that particular item except for image' do
       create(:merchant)
       item_1 = create(:item)
-      order_1 = Order.create!(status: 3)
+      customer_1 = create(:user)
+      order_1 = Order.create!(status: 3, user: customer_1)
       OrderItem.create!(item: item_1, order: order_1, quantity: 1, price: 1)
 
 
@@ -19,9 +20,10 @@ describe 'as any user in the system' do
     end
     it 'should see the average amount of time it takes a user-merchant to fulfill' do
       item_1 = create(:item)
-      order_1 = Order.create!(status: 3, created_at: 2.days.ago)
-      order_2 = Order.create!(status: 3, created_at: 3.days.ago)
-      order_3 = Order.create!(status: 3, created_at: 5.days.ago)
+      customer_1 = create(:user)
+      order_1 = Order.create!(status: 3, created_at: 2.days.ago, user: customer_1)
+      order_2 = Order.create!(status: 3, created_at: 3.days.ago, user: customer_1)
+      order_3 = Order.create!(status: 3, created_at: 5.days.ago, user: customer_1)
 
       oi_1 = OrderItem.create!(item: item_1, order: order_1, quantity: 1, price: 1)
       oi_1 = OrderItem.create!(item: item_1, order: order_2, quantity: 1, price: 1)

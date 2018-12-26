@@ -4,7 +4,8 @@ require 'rails_helper'
     it 'can add item to cart' do
       create(:merchant)
       item_1 = create(:item)
-      order_1 = Order.create!(status: 3)
+      customer_1 = create(:user)
+      order_1 = Order.create!(status: 3, user: customer_1)
       OrderItem.create!(item: item_1, order: order_1, quantity: 1, price: 1)
 
       visit item_path(item_1)

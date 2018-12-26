@@ -22,9 +22,8 @@ class Item < ApplicationRecord
         .select("items.*, sum(order_items.quantity) as amount_sold")
         .limit(5)
   end
-
+  
   def average_fulfillment_time
-    # binding.pry
     time = Item.joins(:order_items, :orders)
     .select("avg(orders.updated_at - orders.created_at) as avg_fulfill").group(:id)
     .where("items.id": id).first.avg_fulfill
