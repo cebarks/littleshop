@@ -23,4 +23,14 @@ class Cart
   def all_items
     @contents
   end
+
+  def subtotal
+    items = Item.all
+    subtotal = 0
+    items.each do |item|
+      quantity = amount(item.id)
+      subtotal += (item.price.to_i * quantity)
+    end
+    subtotal
+  end
 end

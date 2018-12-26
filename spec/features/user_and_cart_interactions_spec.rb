@@ -46,7 +46,7 @@ describe 'As a visitor or registered user' do
       expect(page).to_not have_content("Empty cart contents.")
       expect(page).to have_content(item_1.name)
       expect(page).to have_content(item_1.price)
-      expect(page).to have_content(item_1.user)
+      expect(page).to have_content(item_1.user.name)
     end
   end
 end
