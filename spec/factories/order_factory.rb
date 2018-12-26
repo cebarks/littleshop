@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :order, class: Order do
-    status {true}
+    status { "complete" }
     association :user, factory: :user
 
     transient do
