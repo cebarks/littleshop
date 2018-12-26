@@ -4,6 +4,8 @@ class Order < ApplicationRecord
   has_many :items, through: :order_items
   belongs_to :user
 
+  enum status: %w(pending complete cancelled)
+
   def self.top_3_biggest_orders
     joins(:items)
     .group("orders.id")

@@ -1,29 +1,32 @@
-<h3>ID: <%= @order.id %></h3>
-<h3>Order Date: <%= @order.created_at %></h3>
-<h3>Last Updated At: <%= @order.updated_at %></h3>
-<h3>Status: <%= @order.status %></h3>
-<h3>Total Quantity: <%= @order.total_quantity %></h3>
-<h3>Grand Total: <%= @order.grand_total %></h3>
+<div id="order-show-content">
+  <h3>ID: <%= @order.id %></h3>
+  <h3>Order Date: <%= @order.created_at %></h3>
+  <h3>Last Updated At: <%= @order.updated_at %></h3>
+  <h3>Status: <%= @order.status %></h3>
+  <h3>Total Quantity: <%= @order.total_quantity %></h3>
+  <h3>Grand Total: <%= @order.grand_total %></h3>
 
-<table>
-  <thead>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Thumbnail</th>
-    <th>Quantity</th>
-    <th>Price</th>
-    <th>Sub-total</th>
-  </thead>
-  <tbody>
-    <% @order.order_items.each_with_index do |order_item, index| %>
-    <tr id="item-<%= index %>">
-      <td><%= order_item.item.name %></td>
-      <td><%= order_item.item.description %></td>
-      <td><%= image_tag order_item.item.image_url, class: "item-thumb" %></td>
-      <td><%= order_item.quantity %></td>
-      <td><%= number_to_currency(order_item.price) %></td>
-      <td><%= number_to_currency(order_item.price * order_item.quantity) %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+  <table class="order-table">
+    <thead>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Thumbnail</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Sub-total</th>
+    </thead>
+    <tbody>
+      <% @order.order_items.each_with_index do |order_item, index| %>
+      <tr id="item-<%= index %>">
+        <td><%= order_item.item.name %></td>
+        <td><%= order_item.item.description %></td>
+        <td><%= image_tag order_item.item.image_url, class: "item-thumb" %></td>
+        <td><%= order_item.quantity %></td>
+        <td><%= number_to_currency(order_item.price) %></td>
+        <td><%= number_to_currency(order_item.price * order_item.quantity) %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>
