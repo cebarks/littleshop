@@ -6,3 +6,17 @@ body {
   font-family: monospace;
   color: #228b22;
 }
+
+#user-show-content {
+  color: white;
+}
+
+.orders-table {
+  border: solid 2px black;
+  background: lightgrey;
+  color: black;
+}
+.orders-table > th {
+  border: solid 2px black;
+  padding: 5px
+}
