@@ -22,5 +22,6 @@ require 'rails_helper'
       cart = Cart.new({"1" => 2, "15" => 30})
 
       expect(cart.total_count).to eq(32)
-    end 
+    end
+
   end
