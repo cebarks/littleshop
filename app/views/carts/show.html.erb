@@ -1,1 +1,6 @@
 <%= "You currently have #{@cart_contents} items in your cart." %>
+<% @cart_items.each do |item| %>
+  <%= item.name %>
+  <%= item.price %>
+  <%= @cart_items.amount(item.id) %>
+<% end %>

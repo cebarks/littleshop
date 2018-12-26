@@ -12,5 +12,7 @@ class CartsController < ApplicationController
 
   def show
     @cart_contents = @cart.total_count
+    @cart_items = @cart.all_items
   end
+
 end
