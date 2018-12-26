@@ -64,7 +64,7 @@ class User < ApplicationRecord
     joins(:orders)
     .group("users.id")
     .order("order_count DESC")
-    .where("orders.status = 1")
+    .where("orders.status = 1 and users.status = true")
     .select("users.*, count(orders.id) as order_count")
     .limit(3)
   end
@@ -73,7 +73,7 @@ class User < ApplicationRecord
     joins(:orders)
     .group("users.id")
     .order("order_count DESC")
-    .where("orders.status = 1")
+    .where("orders.status = 1 and users.status = true")
     .select("users.*, count(orders.id) as order_count")
     .limit(3)
   end
