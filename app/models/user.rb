@@ -23,7 +23,7 @@ class User < ApplicationRecord
   def self.default_users
     where(role: 0)
   end
-
+  
   def self.top_3_merchants_by_items_sold
     Item.joins(:user)
     .joins(:orders)
@@ -76,6 +76,10 @@ class User < ApplicationRecord
     .where("orders.status = 1")
     .select("users.*, count(orders.id) as order_count")
     .limit(3)
+  end
+  
+  def toggle_status
+    self[:status] = !self[:status]
   end
 
 end
