@@ -2,5 +2,7 @@
 <% @cart_items.each do |item| %>
   <%= item.name %>
   <%= item.price %>
-  <%= @cart_items.amount(item.id) %>
+  <%= @cart.amount(item) %>
+  <%= item.merchant_name %>
 <% end %>
+<%= @cart.subtotal %>

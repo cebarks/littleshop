@@ -5,8 +5,8 @@ class Cart
     @contents = cart || Hash.new(0)
   end
 
-  def add_item(item)
-    item_id_string = item.id.to_s
+  def add_item(item_id)
+    item_id_string = item_id.id.to_s
     @contents[item_id_string] ||= 0
     @contents[item_id_string] += 1
   end

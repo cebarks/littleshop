@@ -12,7 +12,7 @@ require 'rails_helper'
       cart.add_item(item_1)
       cart.add_item(item_2)
 
-      expect(cart.contents).to eq({"#{item_1}" => 3, "#{item_2}" => 1})
+      expect(cart.contents).to eq({"#{item_1.id}" => 3, "#{item_2.id}" => 1})
     end
 
     it '.amount should return amount for each item' do
@@ -38,7 +38,7 @@ require 'rails_helper'
       cart.add_item(item_1)
       cart.add_item(item_1)
       cart.add_item(item_2)
-      all_items_in_cart = ({item_1 => 3, item_2 => 1})
+      all_items_in_cart = ({item_1.id.to_s => 3, item_2.id.to_s => 1})
 
       expect(cart.all_items).to eq(all_items_in_cart)
     end
