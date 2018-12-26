@@ -32,4 +32,26 @@ RSpec.describe Order, type: :model do
       expect(Order.top_3_biggest_orders[0]).to eq(order_6)
     end
   end
+  describe "Instance Methods" do
+    it "#total_quantity" do
+      item_1, item_2 = create_list(:item, 2)
+
+      order_1 = Order.create!(status: 1, user: create(:user))
+
+      oi_1 = OrderItem.create!(item: item_1, order: order_1, price: 500, quantity: 1)
+      oi_2 = OrderItem.create!(item: item_2, order: order_1, price: 500, quantity: 2)
+
+      expect(order_1.total_quantity).to eq(3)
+    end
+    it "#grand_total" do
+      item_1, item_2 = create_list(:item, 2)
+
+      order_1 = Order.create!(status: 1, user: create(:user))
+
+      oi_1 = OrderItem.create!(item: item_1, order: order_1, price: 500, quantity: 1)
+      oi_2 = OrderItem.create!(item: item_2, order: order_1, price: 500, quantity: 2)
+
+      expect(order_1.grand_total).to eq(1500)
+    end
+  end
 end

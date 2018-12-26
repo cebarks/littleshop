@@ -13,4 +13,11 @@ class Order < ApplicationRecord
     .limit(3)
   end
 
+  def grand_total
+    OrderItem.where(order: self).sum("price * quantity")
+  end
+
+  def total_quantity
+    OrderItem.where(order: self).sum(:quantity)
+  end
 end

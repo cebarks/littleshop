@@ -11,6 +11,9 @@
     <h2><%= @user.zipcode %></h2>
     <h2><%= @user.email %></h2>
   </div>
+  <% unless @user.orders.empty? %>
+    <%= render "orders" %>
+  <% end %>
 
   <% if current_user && current_user.id == @user.id %>
     <% unless @user.merchant?  %>

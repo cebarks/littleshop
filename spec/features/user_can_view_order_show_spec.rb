@@ -25,8 +25,6 @@ RSpec.describe "As a registered user" do
         click_on 'Show Page'
       end
 
-      # save_and_open_page
-
       expect(page).to have_content(@order_1.id)
       expect(page).to have_content(@order_1.created_at)
       expect(page).to have_content(@order_1.updated_at)
@@ -40,9 +38,8 @@ RSpec.describe "As a registered user" do
           expect(page).to have_content(order_item.item.description)
           expect(page.find(".item-thumb")['src']).to have_content(order_item.item.image_url)
           expect(page).to have_content(order_item.quantity)
-          require 'pry'; binding.pry
           expect(page).to have_content("$#{order_item.price}")
-          expect(page).to have_content("#{order_item.price * order_item.quantity}")
+          expect(page).to have_content("$#{order_item.subtotal}")
         end
       end
     end
