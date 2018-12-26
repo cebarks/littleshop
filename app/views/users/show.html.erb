@@ -11,6 +11,9 @@
     <h2><%= @user.zipcode %></h2>
     <h2><%= @user.email %></h2>
   </div>
+  <div class="view_merchant_items">
+    <%= link_to "View My Items", dashboard_items_path, id: "view-merchant-items" %>
+  </div>
 
   <% if current_user && current_user.id == @user.id %>
     <% unless @user.merchant?  %>
