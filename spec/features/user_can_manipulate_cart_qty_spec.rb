@@ -3,7 +3,6 @@ require 'rails_helper'
 describe 'As a visitor or registered user' do
   describe 'When I have items in and visit my cart' do
     it 'should I see a separate button to remove each item from my cart' do
-      cart = Cart.new(Hash.new(0))
       merchant = create(:user, role: 1)
       user = create(:user)
       item_1 = create(:item, user: merchant)
@@ -12,17 +11,19 @@ describe 'As a visitor or registered user' do
       order_2 = Order.create!(status: 3, created_at: 3.days.ago, user: user)
       OrderItem.create!(item: item_1, order: order_1, quantity: 1, price: 1)
       OrderItem.create!(item: item_2, order: order_2, quantity: 1, price: 1)
+      visit item_path(item_1)
+      click_button('Add To Cart')
 
-      cart.add_item(item_1)
-      cart.add_item(item_2)
+      visit item_path(item_2)
+      click_button('Add To Cart')
 
       visit cart_path
 
-      within("cart-item-#{item_1.id}") do
+      within("#item-#{item_1.name}") do
         expect(page).to have_selector(:link_or_button, 'Remove Item')
       end
 
-      within("cart-item-#{item_2.id}") do
+      within("#item-#{item_2.name}") do
         expect(page).to have_selector(:link_or_button, 'Remove Item')
       end
     end
