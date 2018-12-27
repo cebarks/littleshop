@@ -12,7 +12,6 @@
 </div>
 <% if @cart_contents != 0 %>
   <div class="empty-cart-contents">
-    <%= button_to "Empty Cart Contents." %>
+    <%= button_to "Empty Cart Contents.", cart_path, method: :delete, class: 'empty-cart' %>
   </div>
 <% end %>
-

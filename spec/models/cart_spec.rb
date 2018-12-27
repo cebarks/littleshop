@@ -86,3 +86,18 @@ describe 'instance methods' do
     end
   end
 end
+describe 'instance methods' do
+  describe 'it should empty the cart of all items' do
+    it '.empty' do
+      merchant = create(:merchant)
+      item_1 = create(:item, user: merchant, price: 5)
+      item_2 = create(:item, user: merchant, price: 15)
+      cart = Cart.new(Hash.new(0))
+      cart.add_item(item_1)
+      cart.add_item(item_2)
+      final = ({})
+
+      expect(cart.empty).to eq(final)
+    end
+  end
+end
