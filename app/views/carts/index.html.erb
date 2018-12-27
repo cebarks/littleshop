@@ -1,6 +1,7 @@
 <%= "You currently have #{@cart_contents} items in your cart." %>
 <div id="cart-items">
 <% @cart_items.each do |item| %>
+    <img id="tiny-drink-pic-<%= item.id %>" src="<%= item.image_url %>" alt="<%= item.name %>"/>
     Item: <%= item.name %>
     Price: <%= item.price %>
     Quantity Ordered: <%= @cart.item_amount(item) %>

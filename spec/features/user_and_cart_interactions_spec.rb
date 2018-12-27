@@ -51,22 +51,15 @@ describe 'As a visitor or registered user' do
         expect(page).to have_content(item_2.price)
         expect(page).to have_content(item_2.user.name)
         expect(page).to_not have_content(item_3.name)
+        page.find("#tiny-drink-pic-#{item_1.id}")
+        page.find("#tiny-drink-pic-#{item_2.id}")
       end
+      
       expect(page).to have_content("You currently have 2 items in your cart.")
       expect(page).to have_selector(:link_or_button, 'Empty Cart Contents')
     end
   end
 end
 
-# As a visitor or registered user
 
-
-# Each item in my cart shows the following information:
-# - the name of the item
 # - a very small thumbnail image of the item
-# - the merchant I'm buying this item from
-# - the price of the item
-# - my desired quantity of the item
-# - a subtotal (price multiplied by quantity)
-#
-# I also see a grand total of what everything in my cart will cost
