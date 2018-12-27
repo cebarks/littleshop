@@ -57,6 +57,9 @@ describe 'As a visitor or registered user' do
 
       expect(page).to have_content("You currently have 2 items in your cart.")
       expect(page).to have_selector(:link_or_button, 'Empty Cart Contents')
+      within "#nav-bar" do
+        expect(page).to have_content("Cart: 2")
+      end
     end
   end
   describe 'As a visitor or registered user when I have items in my cart' do
@@ -83,6 +86,9 @@ describe 'As a visitor or registered user' do
 
         expect(current_path).to eq(cart_path)
         expect(page).to have_content("You currently have 0 items in your cart.")
+        within "#nav-bar" do
+          expect(page).to have_content("Cart: 0")
+        end
       end
     end
   end
