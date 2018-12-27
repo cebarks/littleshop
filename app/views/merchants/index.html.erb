@@ -10,4 +10,11 @@
     <% unless !item.order_items.empty? %>
       <%= link_to "Delete Item", item_path(item.id), method: :delete %><br><br>
     <% end %>
+
+    <% if item.status == true %>
+      <%= link_to "Disable", edit_item_path(item.id), method: :patch %> <br><br>
+    <% elsif item.status == false %>
+      <%= link_to "Enable", edit_item_path(item.id), method: :patch %> <br><br>
+    <% end %>
+
 <% end %>
