@@ -6,15 +6,15 @@ class Cart
   end
 
   def add_item(item)
-    binding.pry
     item_id_string = item.id.to_s
     @contents[item_id_string] ||= 0
     @contents[item_id_string] += 1
   end
 
-  def amount(item_id)
-    item_id_string = item_id.to_s
-    @contents[item_id_string] ||= 0
+  def item_amount(item)
+    item_id_string = item.id.to_s
+    total = @contents[item_id_string]
+    total
   end
 
   def total_count
@@ -22,7 +22,6 @@ class Cart
   end
 
   def all_items
-    binding.pry
     @contents.map do |item_id, quantity|
       Item.find(item_id)
     end
@@ -32,7 +31,7 @@ class Cart
     items = all_items
     grand_total = 0
     items.each do |item|
-      quantity = amount(item.id)
+      quantity = item_amount(item)
       grand_total += (item.price.to_i * quantity)
     end
     grand_total
@@ -40,7 +39,7 @@ class Cart
 
   def item_subtotal(item)
     price = item.price
-    quantity = amount(item.id)
+    quantity = item_amount(item)
     price * quantity
   end
 

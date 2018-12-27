@@ -3,10 +3,14 @@
 <% @cart_items.each do |item| %>
     Item: <%= item.name %>
     Price: <%= item.price %>
-    Quantity Ordered: <%= @cart.amount(item) %>
+    Quantity Ordered: <%= @cart.item_amount(item) %>
     Item Subtotal: <%= @cart.item_subtotal(item) %>
     Sold By: <%= item.merchant_name %>
-    <%= button_to "Empty Cart Contents" %>
 <% end %>
-Total: <%= @cart.grand_total %>
+  Total: <%= @cart.grand_total %>
 </div>
+<% if @cart_contents != 0 %>
+  <div class="empty-cart-contents">
+    <%= button_to "Empty Cart Contents." %>
+  </div>
+<% end %>

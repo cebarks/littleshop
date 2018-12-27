@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'As a visitor or registered user' do
   describe 'When I add NO items to my cart yet and I visit my cart ("/cart")' do
-    xit 'sees a message that my cart is empty' do
+    it 'sees a message that my cart is empty' do
 
       visit cart_path
 
@@ -16,11 +16,11 @@ describe 'As a visitor or registered user' do
 
       expect(page).to have_content("You currently have 0 items in your cart.")
     end
-    xit 'should not see a link to empty cart' do
+    it 'should not see a link to empty cart' do
 
       visit cart_path
 
-      expect(page).to_not have_content("Empty cart contents.")
+      expect(page).to_not have_selector(:link_or_button, 'Empty Cart Contents')
     end
   end
   describe 'When I have added items to my cart And I visit my cart ("/cart")' do
@@ -53,7 +53,7 @@ describe 'As a visitor or registered user' do
         expect(page).to_not have_content(item_3.name)
       end
       expect(page).to have_content("You currently have 2 items in your cart.")
-      expect(page).to have_content("Empty Cart Contents.")
+      expect(page).to have_selector(:link_or_button, 'Empty Cart Contents')
     end
   end
 end

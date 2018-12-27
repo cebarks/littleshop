@@ -16,11 +16,22 @@ describe 'instance methods' do
   end
 
   it '.amount should return amount for each item' do
-    cart = Cart.new({"1" => 2, "15" => 30})
+    merchant = create(:merchant)
+    item_1 = create(:item, user: merchant)
+    item_2 = create(:item, user: merchant)
+    item_3 = create(:item, user: merchant)
 
-    expect(cart.amount(15)).to eq(30)
-    expect(cart.amount(1)).to eq(2)
-    expect(cart.amount(20)).to eq(0)
+    cart = Cart.new(Hash.new(0))
+    cart.add_item(item_1)
+    cart.add_item(item_1)
+    cart.add_item(item_1)
+    cart.add_item(item_2)
+    cart.add_item(item_3)
+    cart.add_item(item_3)
+
+    expect(cart.item_amount(item_1)).to eq(3)
+    expect(cart.item_amount(item_2)).to eq(1)
+    expect(cart.item_amount(item_3)).to eq(2)
   end
 
   it '.total_count should return total count of all items' do
