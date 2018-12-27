@@ -10,7 +10,7 @@ class CartsController < ApplicationController
     redirect_to items_path
   end
 
-  def index
+  def show
     @cart_contents = @cart.contents.values.sum
     @cart_items = @cart.all_items
   end
