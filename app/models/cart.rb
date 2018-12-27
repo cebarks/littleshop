@@ -43,4 +43,9 @@ class Cart
     price * quantity
   end
 
+  def empty
+    @contents = {}
+  end
+
+
 end

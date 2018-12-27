@@ -14,4 +14,11 @@ class CartsController < ApplicationController
     @cart_contents = @cart.contents.values.sum
     @cart_items = @cart.all_items
   end
+
+  def destroy
+    session[:cart] = {}
+    @cart.empty
+    redirect_to cart_path
+  end
+
 end
