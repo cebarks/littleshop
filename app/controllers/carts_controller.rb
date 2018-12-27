@@ -14,5 +14,4 @@ class CartsController < ApplicationController
     @cart_contents = @cart.contents.values.sum
     @cart_items = @cart.all_items
   end
-
 end

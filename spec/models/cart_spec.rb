@@ -1,6 +1,5 @@
 require 'rails_helper'
 
-
 describe 'instance methods' do
   it '.add_item should add an item' do
     merchant = create(:merchant)

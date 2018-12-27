@@ -16,6 +16,7 @@ describe 'As a visitor or registered user' do
 
       expect(page).to have_content("You currently have 0 items in your cart.")
     end
+    
     it 'should not see a link to empty cart' do
 
       visit cart_path
@@ -23,6 +24,7 @@ describe 'As a visitor or registered user' do
       expect(page).to_not have_selector(:link_or_button, 'Empty Cart Contents')
     end
   end
+  
   describe 'When I have added items to my cart And I visit my cart ("/cart")' do
     it 'I see all items I added to my cart And I see a link to empty my cart' do
       merchant = create(:user, role: 1)
@@ -61,6 +63,3 @@ describe 'As a visitor or registered user' do
     end
   end
 end
-
-
-# - a very small thumbnail image of the item
