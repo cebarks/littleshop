@@ -1,4 +1,6 @@
 class CartsController < ApplicationController
+  include ActionView::Helpers::TextHelper
+  
   def create
     item = Item.find(params[:item_id])
     @cart.add_item(item.id)
@@ -9,5 +11,6 @@ class CartsController < ApplicationController
   end
 
   def show
+    @cart_contents = @cart.total_count
   end
 end
