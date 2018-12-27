@@ -25,12 +25,13 @@ describe 'As a visitor or registered user' do
   end
   describe 'When I have added items to my cart And I visit my cart ("/cart")' do
     it 'I see all items I added to my cart And I see a link to empty my cart' do
-      merchant = create(:merchant)
+      merchant = create(:user, role: 1)
+      user = create(:user)
       item_1 = create(:item, user: merchant)
       item_2 = create(:item, user: merchant)
       item_3 = create(:item, user: merchant)
-      order_1 = Order.create!(status: 3, created_at: 2.days.ago)
-      order_2 = Order.create!(status: 3, created_at: 3.days.ago)
+      order_1 = Order.create!(status: 3, created_at: 2.days.ago, user: user)
+      order_2 = Order.create!(status: 3, created_at: 3.days.ago, user: user)
       OrderItem.create!(item: item_1, order: order_1, quantity: 1, price: 1)
       OrderItem.create!(item: item_2, order: order_2, quantity: 1, price: 1)
 
@@ -54,7 +55,7 @@ describe 'As a visitor or registered user' do
         page.find("#tiny-drink-pic-#{item_1.id}")
         page.find("#tiny-drink-pic-#{item_2.id}")
       end
-      
+
       expect(page).to have_content("You currently have 2 items in your cart.")
       expect(page).to have_selector(:link_or_button, 'Empty Cart Contents')
     end

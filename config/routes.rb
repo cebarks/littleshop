@@ -29,6 +29,6 @@ Rails.application.routes.draw do
 
   resources :items, only: [:index, :show]
 
-  get '/cart', to: "carts#index"
+  get '/cart', to: "carts#show"
   post '/cart', to: "carts#create", as: "carts"
 end
