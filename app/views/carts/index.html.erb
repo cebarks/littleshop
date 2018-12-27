@@ -1,8 +1,12 @@
 <%= "You currently have #{@cart_contents} items in your cart." %>
+<div id="cart-items">
 <% @cart_items.each do |item| %>
-  <%= item.name %>
-  <%= item.price %>
-  <%= @cart.amount(item) %>
-  <%= item.merchant_name %>
+    Item: <%= item.name %>
+    Price: <%= item.price %>
+    Quantity Ordered: <%= @cart.amount(item) %>
+    Item Subtotal: <%= @cart.item_subtotal(item) %>
+    Sold By: <%= item.merchant_name %>
+    <%= button_to "Empty Cart Contents" %>
 <% end %>
-<%= @cart.subtotal %>
+Total: <%= @cart.grand_total %>
+</div>

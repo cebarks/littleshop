@@ -38,12 +38,30 @@ describe 'instance methods' do
     cart.add_item(item_1)
     cart.add_item(item_1)
     cart.add_item(item_2)
-    all_items_in_cart = ({item_1.id.to_s => 3, item_2.id.to_s => 1})
+    all_items_in_cart = ([item_1, item_2])
 
     expect(cart.all_items).to eq(all_items_in_cart)
   end
-  describe 'it should return a subtotaled price' do
-    it '.subtotal' do
+  describe 'it should return a subtotal for each item' do
+    it '.item_subtotal' do
+      merchant = create(:merchant)
+      item_1 = create(:item, user: merchant, price: 5)
+      item_2 = create(:item, user: merchant, price: 15)
+      cart = Cart.new(Hash.new(0))
+      cart.add_item(item_1)
+      cart.add_item(item_1)
+      cart.add_item(item_1)
+      cart.add_item(item_2)
+      item_1_subtotal = 15
+      item_2_subtotal = 15
+
+      expect(cart.item_subtotal(item_1)).to eq(item_1_subtotal)
+
+      expect(cart.item_subtotal(item_2)).to eq(item_2_subtotal)
+    end
+  end
+  describe 'it should return a grand total ' do
+    it '.grand_total' do
       merchant = create(:merchant)
       item_1 = create(:item, user: merchant, price: 5)
       item_2 = create(:item, user: merchant, price: 15)
@@ -54,7 +72,7 @@ describe 'instance methods' do
       cart.add_item(item_2)
       total = 30
 
-      expect(cart.subtotal).to eq(total)
+      expect(cart.grand_total).to eq(total)
     end
   end
 end

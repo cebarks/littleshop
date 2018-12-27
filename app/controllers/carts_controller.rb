@@ -2,7 +2,7 @@ class CartsController < ApplicationController
   include ActionView::Helpers::TextHelper
 
   def create
-    item = Item.find(params[:item_id])
+    item = Item.find(params[:item])
     @cart.add_item(item)
     session[:cart] = @cart.contents
     count = @cart.amount(item.id)
@@ -11,8 +11,7 @@ class CartsController < ApplicationController
   end
 
   def index
-    @cart_contents = @cart.total_count
-    @cart_items = Item.all
+    @cart_items = @cart.all_items
   end
 
 end
