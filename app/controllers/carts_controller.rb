@@ -1,6 +1,6 @@
 class CartsController < ApplicationController
   include ActionView::Helpers::TextHelper
-
+  
   def create
     item = Item.find(params[:item_id])
     @cart.add_item(item.id)

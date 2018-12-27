@@ -5,7 +5,7 @@ FactoryBot.define do
     end
     address {Faker::Address.street_address}
     city {Faker::Address.city}
-    state {Faker::Address.state}
+    state {Faker::Address.state_abbr}
     zipcode {Faker::Address.zip.to_i}
     email {"#{name}@gmail.com".downcase}
     password {Faker::Internet.password(5)}
