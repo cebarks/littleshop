@@ -5,6 +5,7 @@ class Admin::MerchantsController < ApplicationController
 
   def show
     @merchant = User.find(params[:id])
+    redirect_to admin_user_path(@merchant) if @merchant.default?
   end
 
   def update
