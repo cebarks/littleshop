@@ -158,6 +158,7 @@ describe User, type: :model do
       expect(User.top_3_cities_by_order_count[2].city).to eq("Springfield")
     end
   end
+
   describe 'instance methods' do
     describe '#active_items' do
       it 'should return a list of only active items' do
@@ -169,7 +170,8 @@ describe User, type: :model do
         expect(merchant_1.active_items).to eq(current_active_items)
       end
     end
-    describe '.toggle_status' do
+
+    describe '#toggle_status' do
       it 'should change status from what it is to the opposite(t->f, f->t)' do
         user_1 = create(:user)
         new_status = false
@@ -182,6 +184,14 @@ describe User, type: :model do
 
         expect(user_2.toggle_status).to eq(new_status_2)
       end
+    end
+    
+    it "#enabled?" do
+      enabled = create(:user)
+      disabled = create(:user, :disabled)
+
+      expect(enabled.enabled?).to be_truthy
+      expect(disabled.enabled?).to be_falsey
     end
   end
 end
