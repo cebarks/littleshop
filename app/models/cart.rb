@@ -47,5 +47,11 @@ class Cart
     @contents = {}
   end
 
+  def remove_item(item_id)
+    @contents.delete_if do |item, qty|
+      item == item_id.to_s
+    end
+  end
+
 
 end

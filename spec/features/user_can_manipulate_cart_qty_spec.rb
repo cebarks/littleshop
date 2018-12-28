@@ -26,6 +26,13 @@ describe 'As a visitor or registered user' do
       within("#item-#{item_2.name}") do
         expect(page).to have_selector(:link_or_button, 'Remove Item')
       end
+
+      within("#item-#{item_1.name}") do
+        click_link('Remove Item')
+      end
+      expect(current_path).to eq(cart_path)
+
+      expect(page).to_not have_content("#{item_1.name}")
     end
   end
 end

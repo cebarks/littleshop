@@ -100,4 +100,18 @@ describe 'instance methods' do
       expect(cart.empty).to eq(final)
     end
   end
+  describe 'it should remove one item' do
+    it '.remove_item' do
+      merchant = create(:merchant)
+      item_1 = create(:item, user: merchant, price: 5)
+      item_2 = create(:item, user: merchant, price: 15)
+      cart = Cart.new(Hash.new(0))
+      cart.add_item(item_1)
+      cart.add_item(item_2)
+      cart.remove_item(item_1.id)
+      updated_cart = ({"#{item_2.id}"=>1})
+
+      expect(cart.remove_item(item_1.id)).to eq(updated_cart)
+    end
+  end
 end

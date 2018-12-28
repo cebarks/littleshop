@@ -15,6 +15,11 @@ class CartsController < ApplicationController
     @cart_items = @cart.all_items
   end
 
+  def update
+    @cart.remove_item(params[:item_id])
+    redirect_to cart_path
+  end
+
   def destroy
     session[:cart] = {}
     @cart.empty
