@@ -89,10 +89,3 @@ describe 'As a visitor or registered user When I have items in and visit my cart
     end
   end
 end
-
-
-
-
-
-# I see a button or link to decrement the count of items I want to purchase
-# If I decrement the count to 0 the item is immediately removed from my cart
