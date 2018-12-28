@@ -67,13 +67,10 @@ require 'rails_helper'
 
         visit 'dashboard/items'
 
-        save_and_open_page
-
+        
         expect(page).to have_link("Disable", :href => "/items/#{item_1.id}/edit")
         expect(page).to have_link("Enable", :href => "/items/#{item_2.id}/edit")
 
       end
-
-
     end
   end
