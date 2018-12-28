@@ -61,8 +61,16 @@ RSpec.describe Item, type: :model do
         oi_1 = OrderItem.create!(item: item_1, order: order_1, quantity: 1, price: 1)
         oi_1 = OrderItem.create!(item: item_1, order: order_2, quantity: 1, price: 1)
         oi_1 = OrderItem.create!(item: item_1, order: order_3, quantity: 1, price: 1)
-        # binding.pry
+
         expect(item_1.average_fulfillment_time).to eq(3.33)
+      end
+    end
+    describe 'it should return the name of the merchant for an item' do
+      it '.merchant_name' do
+        merchant = create(:merchant)
+        item_1 = create(:item, user: merchant)
+        
+        expect(item_1.merchant_name).to eq(merchant.name)
       end
     end
   end

@@ -1,1 +1,17 @@
 <%= "You currently have #{@cart_contents} items in your cart." %>
+<div id="cart-items">
+<% @cart_items.each do |item| %>
+    <img id="tiny-drink-pic-<%= item.id %>" src="<%= item.image_url %>" alt="<%= item.name %>"/>
+    Item: <%= item.name %>
+    Price: <%= item.price %>
+    Quantity Ordered: <%= @cart.item_amount(item) %>
+    Item Subtotal: <%= @cart.item_subtotal(item) %>
+    Sold By: <%= item.merchant_name %>
+<% end %>
+  Total: <%= @cart.grand_total %>
+</div>
+<% if @cart_contents != 0 %>
+  <div class="empty-cart-contents">
+    <%= button_to "Empty Cart Contents.", cart_path, method: :delete, class: 'empty-cart' %>
+  </div>
+<% end %>
