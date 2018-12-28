@@ -53,5 +53,14 @@ class Cart
     end
   end
 
+  def increase_item_count(item_id)
+    id = item_id.to_s
+    item = Item.find(id)
+    until @contents[id] == item.inventory_qty
+      @contents[id] += 1
+    end
+    @contents
+  end
+
 
 end

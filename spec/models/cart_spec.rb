@@ -108,10 +108,28 @@ describe 'instance methods' do
       cart = Cart.new(Hash.new(0))
       cart.add_item(item_1)
       cart.add_item(item_2)
-      cart.remove_item(item_1.id)
+      final = cart.remove_item(item_1.id)
       updated_cart = ({"#{item_2.id}"=>1})
 
-      expect(cart.remove_item(item_1.id)).to eq(updated_cart)
+      expect(final).to eq(updated_cart)
+    end
+  end
+  describe 'it should increase an item by one until max inventory' do
+    it '.increase_item_count' do
+      merchant = create(:merchant)
+      item_1 = create(:item, user: merchant, price: 5, inventory_qty: 2)
+      item_2 = create(:item, user: merchant, price: 15)
+      cart = Cart.new(Hash.new(0))
+      cart.add_item(item_1)
+      cart.add_item(item_2)
+      total = cart.increase_item_count(item_1.id)
+      updated_cart = ({"#{item_1.id}"=>2, "#{item_2.id}"=>1})
+
+      expect(total).to eq(updated_cart)
+
+      cart.increase_item_count(item_1.id)
+
+      expect(total).to eq(updated_cart)
     end
   end
 end

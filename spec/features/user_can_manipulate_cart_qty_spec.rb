@@ -7,7 +7,7 @@ describe 'As a visitor or registered user When I have items in and visit my cart
         @merchant = create(:user, role: 1)
         @user = create(:user)
         @item_1 = create(:item, user: @merchant)
-        @item_2 = create(:item, user: @merchant)
+        @item_2 = create(:item, user: @merchant, inventory_qty: 2)
         order_1 = Order.create!(status: 3, created_at: 2.days.ago, user: @user)
         order_2 = Order.create!(status: 3, created_at: 3.days.ago, user: @user)
         OrderItem.create!(item: @item_1, order: order_1, quantity: 1, price: 1)
@@ -45,6 +45,19 @@ describe 'As a visitor or registered user When I have items in and visit my cart
 
         within("#item-#{@item_2.name}") do
           expect(page).to have_selector(:link_or_button, 'Add Another')
+          click_link('Add Another')
+        end
+        expect(current_path).to eq(cart_path)
+
+        within("#item-#{@item_2.name}") do
+          expect(page).to have_content("Quantity Ordered: 2")
+          click_link('Add Another')
+        end
+
+        expect(current_path).to eq(cart_path)
+
+        within("#item-#{@item_2.name}") do
+          expect(page).to have_content("Quantity Ordered: 2")
         end
       end
     end
