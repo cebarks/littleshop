@@ -1,8 +1,7 @@
 require 'rails_helper'
 
-describe 'As a visitor or registered user When I have items in and visit my cart' do
-  describe 'should I see a separate button to remove each item from my cart' do
-    describe 'I see a button or link to increment the count of items I want to purchase' do
+describe 'As a visitor or registered user ' do
+  describe 'when i view my cart and it contains items' do
       before(:each) do
         @merchant = create(:user, role: 1)
         @user = create(:user)
@@ -20,7 +19,7 @@ describe 'As a visitor or registered user When I have items in and visit my cart
 
         visit cart_path
       end
-      it 'clicking this button will remove the item but not other items' do
+      it 'shows a link to remove the item from the cart' do
 
         within("#item-#{@item_1.name}") do
           expect(page).to have_selector(:link_or_button, 'Delete Item')
@@ -38,7 +37,7 @@ describe 'As a visitor or registered user When I have items in and visit my cart
         expect(page).to_not have_content("#{@item_1.name}")
 
       end
-      it 'cannot increment the count beyond the merchants inventory size' do
+      it 'has an add link that cannot increment the count beyond the merchants inventory size' do
         within("#item-#{@item_1.name}") do
           expect(page).to have_selector(:link_or_button, 'Add Another')
         end
@@ -60,7 +59,7 @@ describe 'As a visitor or registered user When I have items in and visit my cart
           expect(page).to have_content("Quantity Ordered: 2")
         end
       end
-      it 'cannot decrease the count beyond the merchants inventory size' do
+      it 'has a decrease link that cannot decrease the count beyond the merchants inventory size' do
         visit item_path(@item_2)
         click_button('Add To Cart')
 
@@ -87,5 +86,4 @@ describe 'As a visitor or registered user When I have items in and visit my cart
         expect(page).to_not have_content("#{@item_2.name}")
       end
     end
-  end
 end
