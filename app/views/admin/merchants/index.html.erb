@@ -11,9 +11,9 @@
       <td><%= merchant.created_at %></td>
       <td> <%= if merchant.enabled? then "Enabled" else "Disabled" end %></td>
       <% if merchant.enabled? %>
-      <td><%= button_to "Disable", admin_user_path(merchant, redirect: :merch_index), method: :patch, class: "disable" %></td>
+      <td><%= button_to "Disable", admin_merchant_path(merchant, redirect: :merch_index), method: :patch, class: "disable" %></td>
       <% else %>
-      <td><%= button_to "Enable", admin_user_path(merchant, redirect: :merch_index), method: :patch, class: "enable" %></td>
+      <td><%= button_to "Enable", admin_merchant_path(merchant, redirect: :merch_index), method: :patch, class: "enable" %></td>
       <% end %>
     </tr>
     <% end %>
