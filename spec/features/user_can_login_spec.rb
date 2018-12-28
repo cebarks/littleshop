@@ -59,7 +59,7 @@ RSpec.describe 'As a visitor' do
           click_on 'Log In'
 
           expect(current_path).to eq(login_path)
-          expect(page).to have_content("Your credentials were incorrect!")
+          expect(page).to have_content("Your account has been disabled by an administrator.")
         end
       end
       describe 'as a re-enabled user if i visit the login page' do
