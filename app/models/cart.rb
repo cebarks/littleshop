@@ -74,6 +74,4 @@ class Cart
     end
     @contents
   end
-
-
 end
