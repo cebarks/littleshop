@@ -18,9 +18,12 @@ class CartsController < ApplicationController
   def update
     if params[:item_change] == "remove"
       @cart.remove_item(params[:item_id])
-    else
+    elsif
       params[:item_change] == "add"
       @cart.increase_item_count(params[:item_id])
+    elsif
+      params[:item_change] == "decrease"
+      @cart.decrease_item_count(params[:item_id])
     end
     redirect_to cart_path
   end

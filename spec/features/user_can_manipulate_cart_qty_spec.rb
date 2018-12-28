@@ -23,15 +23,15 @@ describe 'As a visitor or registered user When I have items in and visit my cart
       it 'clicking this button will remove the item but not other items' do
 
         within("#item-#{@item_1.name}") do
-          expect(page).to have_selector(:link_or_button, 'Remove Item')
+          expect(page).to have_selector(:link_or_button, 'Delete Item')
         end
 
         within("#item-#{@item_2.name}") do
-          expect(page).to have_selector(:link_or_button, 'Remove Item')
+          expect(page).to have_selector(:link_or_button, 'Delete Item')
         end
 
         within("#item-#{@item_1.name}") do
-          click_link('Remove Item')
+          click_link('Delete Item')
         end
         expect(current_path).to eq(cart_path)
 
@@ -59,6 +59,32 @@ describe 'As a visitor or registered user When I have items in and visit my cart
         within("#item-#{@item_2.name}") do
           expect(page).to have_content("Quantity Ordered: 2")
         end
+      end
+      it 'cannot decrease the count beyond the merchants inventory size' do
+        visit item_path(@item_2)
+        click_button('Add To Cart')
+
+        visit cart_path
+
+        within("#item-#{@item_1.name}") do
+          expect(page).to have_selector(:link_or_button, 'Decrease Quantity')
+        end
+
+        within("#item-#{@item_2.name}") do
+          expect(page).to have_selector(:link_or_button, 'Decrease Quantity')
+          click_link('Decrease Quantity')
+        end
+
+        expect(current_path).to eq(cart_path)
+
+        within("#item-#{@item_2.name}") do
+          expect(page).to have_content("Quantity Ordered: 1")
+          click_link('Decrease Quantity')
+        end
+
+        expect(current_path).to eq(cart_path)
+
+        expect(page).to_not have_content("#{@item_2.name}")
       end
     end
   end

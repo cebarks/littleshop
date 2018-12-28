@@ -56,8 +56,21 @@ class Cart
   def increase_item_count(item_id)
     id = item_id.to_s
     item = Item.find(id)
-    until @contents[id] == item.inventory_qty
+    if item.inventory_qty > @contents[id]
       @contents[id] += 1
+    end
+    @contents
+  end
+
+  def decrease_item_count(item_id)
+    id = item_id.to_s
+    if @contents[id] == 0
+      remove_item(id)
+    elsif
+      @contents[id] -= 1
+      if @contents[id] == 0
+        remove_item(id)
+      end
     end
     @contents
   end
