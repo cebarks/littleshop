@@ -8,17 +8,17 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(email: params[:user_email])
-    
-    if user.authenticate(params[:user_password])
+
+    if user && user.authenticate(params[:user_password])
       unless user.enabled?
         flash[:notice] = "Your account has been disabled by an administrator."
         render :new
         return
       end
-      
+
       session[:user_id] = user.id
       flash[:notice] = "You are now logged in!"
-      
+
       login_redirect(user.role)
     else
       flash[:notice] = "Your credentials were incorrect!"
