@@ -86,3 +86,9 @@ require 'faker'
   OrderItem.create!(item: item_17, order: order_6, quantity: 100, price: (item_17.price * 100))
   OrderItem.create!(item: item_18, order: order_6, quantity: 100, price: (item_18.price * 100))
   OrderItem.create!(item: item_11, order: order_6, quantity: 100, price: (item_11.price * 100))
+
+
+  OrderItem.create!(item: item_4, order: order_9, quantity: 10, price: (item_17.price * 10))
+  OrderItem.create!(item: item_6, order: order_10, quantity: 1, price: (item_18.price))
+  OrderItem.create!(item: item_1, order: order_11, quantity: 8, price: (item_11.price * 8))
+  OrderItem.create!(item: item_3, order: order_12, quantity: 16, price: (item_11.price * 16))
