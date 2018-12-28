@@ -43,9 +43,9 @@
         <td><%= merchant.created_at %></td>
         <% if current_user && current_user.admin? %>
           <% if merchant.status %>
-            <td><%= button_to "Disable", admin_merchant_path(merchant), method: :patch, class: "disable" %></td>
+            <td><%= button_to "Disable", admin_merchant_path(merchant, redirect: :merch_index), method: :patch, class: "disable" %></td>
           <% else %>
-            <td><%= button_to "Enable", admin_merchant_path(merchant), method: :patch, class: "enable" %></td>
+            <td><%= button_to "Enable", admin_merchant_path(merchant, redirect: :merch_index), method: :patch, class: "enable" %></td>
           <% end %>
         <% end %>
       </tr>
