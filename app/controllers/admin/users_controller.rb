@@ -17,7 +17,10 @@ class Admin::UsersController < ApplicationController
     else
       "#{user.name}'s account has been disabled!"
     end
-    redirect_to admin_users_path
+    if params[:redirect] && params[:redirect].eql?("merch_index")
+      redirect_to admin_merchants_path
+    else
+      redirect_to admin_users_path
+    end
   end
-
 end
