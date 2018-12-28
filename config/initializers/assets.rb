@@ -16,6 +16,7 @@ Rails.application.config.assets.precompile += %w( user_show.css )
 Rails.application.config.assets.precompile += %w( order_show.css )
 Rails.application.config.assets.precompile += %w( cart_show.css )
 Rails.application.config.assets.precompile += %w( item_show.css )
+Rails.application.config.assets.precompile += %w( merchant_item_index.css)
 
 
 # Precompile additional assets.
