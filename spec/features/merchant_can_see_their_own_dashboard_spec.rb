@@ -37,6 +37,6 @@ describe 'A merchant who logs into our web app' do
       expect(page).to have_content(merchant_1.email)
       expect(page).to have_content("You've been a member with us since #{merchant_1.created_at.strftime("%A %B %d, %Y")}")
       expect(page).to have_content("Authorization level: #{merchant_1.role}")
-
+      expect(page).to have_no_content("Edit Information")
   end
 end
