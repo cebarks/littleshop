@@ -6,6 +6,8 @@
     <h2><%= @user.state%></h2>
     <h2><%= @user.zipcode %></h2>
     <h2><%= @user.email %></h2>
+    <h2>You've been a member with us since <%= @user.created_at.strftime("%A %B %d, %Y") %></h2>
+    <h2>Authorization level: <%= @user.role %></h2>
   </div>
   <div class="view_merchant_items">
     <%= link_to "View My Items", dashboard_items_path, id: "view-merchant-items" %>

@@ -23,4 +23,20 @@ describe 'A merchant who logs into our web app' do
     expect(page).to have_content("#{item_1.name}")
     expect(page).to have_content("Quantity in stock: #{item_1.inventory_qty}")
   end
+  it 'shows my profile data' do
+    merchant_1 = create(:merchant)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_1)
+
+    visit dashboard_path
+
+      expect(page).to have_content(merchant_1.name)
+      expect(page).to have_content(merchant_1.address)
+      expect(page).to have_content(merchant_1.city)
+      expect(page).to have_content(merchant_1.state)
+      expect(page).to have_content(merchant_1.zipcode)
+      expect(page).to have_content(merchant_1.email)
+      expect(page).to have_content("You've been a member with us since #{merchant_1.created_at.strftime("%A %B %d, %Y")}")
+      expect(page).to have_content("Authorization level: #{merchant_1.role}")
+      expect(page).to have_no_content("Edit Information")
+  end
 end
