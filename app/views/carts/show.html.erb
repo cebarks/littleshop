@@ -1,17 +1,23 @@
-<%= "You currently have #{@cart_contents} items in your cart." %>
-<div id="cart-items">
-<% @cart_items.each do |item| %>
-    <img id="tiny-drink-pic-<%= item.id %>" src="<%= item.image_url %>" alt="<%= item.name %>"/>
-    Item: <%= item.name %>
-    Price: <%= item.price %>
-    Quantity Ordered: <%= @cart.item_amount(item) %>
-    Item Subtotal: <%= @cart.item_subtotal(item) %>
-    Sold By: <%= item.merchant_name %>
-<% end %>
-  Total: <%= @cart.grand_total %>
-</div>
-<% if @cart_contents != 0 %>
-  <div class="empty-cart-contents">
-    <%= button_to "Empty Cart Contents.", cart_path, method: :delete, class: 'empty-cart' %>
+<h1><%= "You currently have #{@cart_contents} items in your cart." %></h1>
+<div class="container">
+  <div class="row">
+    <% @cart_items.each do |item| %>
+    <div id="cart-items" class="card" style="width: 18rem;">
+      <img class="card-img-top" id="tiny-drink-pic-<%= item.id %>" src="<%= item.image_url %>" alt="<%= item.name %>"/>
+      <div class="card-body">
+        <h5>Item: <%= item.name %></h5>
+        <p>Price: <%= item.price %></p>
+        <p>Quantity Ordered: <%= @cart.item_amount(item) %></p>
+        <p>Item Subtotal: <%= @cart.item_subtotal(item) %></p>
+        <p>Sold By: <%= item.merchant_name %>
+          <% end %>
+          Total: <%= @cart.grand_total %>
+          <% if @cart_contents != 0 %>
+          <div class="empty-cart-contents">
+            <%= button_to "Empty Cart Contents.", cart_path, method: :delete, class: 'empty-cart' %>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
-<% end %>
