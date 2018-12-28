@@ -1,10 +1,17 @@
 <div class="item-block">
-  <%= @item.name %>
-  <img class="drink-show-image" src="<%= @item.image_url %>" alt="<%= @item.name %>"/>
-  Description: <%= @item.description %>
-  Price: $<%= @item.price %>
-  Merchant: <%= @item.user.name %>
-  Quantity Remaining: <%= @item.inventory_qty %>
-  Average Time to Fulfill: <%= @item.average_fulfillment_time %> days.
+  <img class="image-fluid" id="drink-show-image" src="<%= @item.image_url %>" alt="<%= @item.name %>"/>
+    <div class="card" style="width: 30rem;">
+      <div class="card-body">
+        <p class="card-text">
+          <h3><%= @item.name %></h3>
+          Description: <%= @item.description %>
+          <ul>
+            <li>Price: $<%= @item.price %></li>
+            <li>Merchant: <%= @item.user.name %></li>
+            <li>Quantity Remaining: <%= @item.inventory_qty %></li>
+            <li>Average Time to Fulfill: <%= @item.average_fulfillment_time %> days.</li></p>
+          </ul>
+      </div>
+      <%= button_to 'Add To Cart', carts_path(item: @item) %>
+    </div>
 </div>
-<%= button_to 'Add To Cart', carts_path(item_id: @item.id) %>

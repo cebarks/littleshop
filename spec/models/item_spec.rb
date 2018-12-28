@@ -24,10 +24,10 @@ RSpec.describe Item, type: :model do
       @item_8 = @user_1.items.create!(name: "Aviation", description: "a classic cocktail made with gin, maraschino liqueur, crème de violette, and lemon juice. Some recipes omit the crème de violette. It is served straight up, in a cocktail glass.", image_url: "https://bit.ly/2CiGfOL", inventory_qty: rand(1..9999), price: Faker::Number.decimal(2))
       @item_9 = @user_1.items.create!(name: "Snowball", description: "a mixture of Advocaat and lemonade in approximately equal parts. It may have other ingredients, to taste. It typically contains a squeeze of fresh lime juice, which is shaken with the advocaat before pouring into a glass and topping up with lemonade.", image_url: "https://bit.ly/2LoVyIu", inventory_qty: rand(1..9999), price: Faker::Number.decimal(2))
       @item_10 = @user_1.items.create!(name: "Bloody Mary", description: "a cocktail containing vodka, tomato juice, and combinations of other spices and flavorings including Worcestershire sauce, hot sauces, garlic, herbs, horseradish, celery, olives, salt, black pepper, lemon juice, lime juice and/or celery salt.", image_url: "https://bit.ly/2S8MVUP", inventory_qty: rand(1..9999), price: Faker::Number.decimal(2))
-
-      @order_1 = Order.create!(status: 1)
-      @order_2 = Order.create!(status: 1)
-      @order_3 = Order.create!(status: 2)
+      @customer_1 = create(:user)
+      @order_1 = Order.create!(status: 1, user: @customer_1)
+      @order_2 = Order.create!(status: 1, user: @customer_1)
+      @order_3 = Order.create!(status: 2, user: @customer_1)
 
       @oi_1 = OrderItem.create!(item_id: @item_1.id, order_id: @order_1.id, quantity: 1, price: 1)
       @oi_2 = OrderItem.create!(item_id: @item_2.id, order_id: @order_1.id, quantity: 2, price: 2)
@@ -53,15 +53,24 @@ RSpec.describe Item, type: :model do
     describe 'it should calculate average fullfilment time per item' do
       it '.average_fulfillment_time' do
         item_1 = create(:item)
-        order_1 = Order.create!(status: 3, created_at: 2.days.ago)
-        order_2 = Order.create!(status: 3, created_at: 3.days.ago)
-        order_3 = Order.create!(status: 3, created_at: 5.days.ago)
+        customer_1 = create(:user)
+        order_1 = Order.create!(status: 3, created_at: 2.days.ago, user: customer_1)
+        order_2 = Order.create!(status: 3, created_at: 3.days.ago, user: customer_1)
+        order_3 = Order.create!(status: 3, created_at: 5.days.ago, user: customer_1)
 
         oi_1 = OrderItem.create!(item: item_1, order: order_1, quantity: 1, price: 1)
         oi_1 = OrderItem.create!(item: item_1, order: order_2, quantity: 1, price: 1)
         oi_1 = OrderItem.create!(item: item_1, order: order_3, quantity: 1, price: 1)
-        # binding.pry
+
         expect(item_1.average_fulfillment_time).to eq(3.33)
+      end
+    end
+    describe 'it should return the name of the merchant for an item' do
+      it '.merchant_name' do
+        merchant = create(:merchant)
+        item_1 = create(:item, user: merchant)
+        
+        expect(item_1.merchant_name).to eq(merchant.name)
       end
     end
   end

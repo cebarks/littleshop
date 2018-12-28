@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
-
   def index
+    @orders = Order.all
+    @merchants_for_stats = User.enabled_merchants
+    @top_3_states = User.top_3_states_by_order_count
+    @top_3_cities = User.top_3_cities_by_order_count
     @merchants = if current_user && current_user.admin?
       User.merchants
     else
@@ -69,5 +72,4 @@ class UsersController < ApplicationController
     flash[:notice] = "Your passwords didn't match!" unless match
     match
   end
-
 end

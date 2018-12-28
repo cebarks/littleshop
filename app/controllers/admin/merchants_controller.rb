@@ -1,11 +1,10 @@
-class Admin::UsersController < ApplicationController
-
+class Admin::MerchantsController < ApplicationController
   def index
-    @users = User.default_users
+    @merchants = User.merchants
   end
 
   def show
-    @user = User.find(params[:id])
+    @merchant = User.find(params[:id])
   end
 
   def update
@@ -23,4 +22,5 @@ class Admin::UsersController < ApplicationController
       redirect_to admin_users_path
     end
   end
+
 end

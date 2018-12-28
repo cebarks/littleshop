@@ -1,5 +1,4 @@
 class ItemsController < ApplicationController
-
   def index
     @merchants = User.merchants
     @items = Item.all
@@ -17,4 +16,5 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @item.destroy
   end
+
 end

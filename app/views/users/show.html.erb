@@ -1,23 +1,27 @@
-<html>
-<head>
-  <link rel="stylesheet" href="user_show.css">
-</head>
-<body>
-  <div id="user_info">
+<div id="user-show-content">
+  <div id="user-info">
     <h1><%= @user.name %></h1>
     <h2><%= @user.address %></h2>
     <h2><%= @user.city %></h2>
     <h2><%= @user.state%></h2>
     <h2><%= @user.zipcode %></h2>
     <h2><%= @user.email %></h2>
+    <h2>You've been a member with us since <%= @user.created_at.strftime("%A %B %d, %Y") %></h2>
+    <h2>Authorization level: <%= @user.role %></h2>
   </div>
+  <div class="view_merchant_items">
+    <%= link_to "View My Items", dashboard_items_path, id: "view-merchant-items" %>
+  </div>
+
+  <% unless @user.orders.empty? %>
+    <%= render "orders/orders_table" %>
+  <% end %>
 
   <% if current_user && current_user.id == @user.id %>
     <% unless @user.merchant?  %>
-      <div id="edit_link">
-        <%= link_to "Edit Information", profile_edit_path, method: :GET %>
-      </div>
+    <div id="edit_link">
+      <%= link_to "Edit Information", profile_edit_path, method: :GET %>
+    </div>
     <% end %>
   <% end %>
-</body>
-</html>
+</div>

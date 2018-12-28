@@ -8,7 +8,15 @@ Rails.application.config.assets.version = '1.0'
 # Add Yarn node_modules folder to the asset load path.
 Rails.application.config.assets.paths << Rails.root.join('node_modules')
 Rails.application.config.assets.precompile += %w( item_index.css )
+
 Rails.application.config.assets.precompile += %w( merchant_item_index.css)
+
+Rails.application.config.assets.precompile += %w( user_edit.css )
+Rails.application.config.assets.precompile += %w( user_show.css )
+Rails.application.config.assets.precompile += %w( order_show.css )
+Rails.application.config.assets.precompile += %w( cart_show.css )
+Rails.application.config.assets.precompile += %w( item_show.css )
+
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets

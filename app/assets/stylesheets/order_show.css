@@ -1,0 +1,13 @@
+#order-show-content {
+  color: white;
+}
+
+.order-table {
+  border: solid 1px darkgrey;
+  background: lightgrey;
+  color: black;
+}
+.order-table > th {
+  border: solid 1px white;
+  padding: 5px
+}

@@ -1,0 +1,21 @@
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Registered Since</th>
+    <th>Status</th>
+  </thead>
+  <tbody>
+    <% @merchants.each_with_index do |merchant, index| %>
+    <tr id="merchant-<%= index %>">
+      <td><%= link_to merchant.name, admin_user_path(merchant) %></td>
+      <td><%= merchant.created_at %></td>
+      <td> <%= if merchant.enabled? then "Enabled" else "Disabled" end %></td>
+      <% if merchant.enabled? %>
+      <td><%= button_to "Disable", admin_merchant_path(merchant, redirect: :merch_index), method: :patch, class: "disable" %></td>
+      <% else %>
+      <td><%= button_to "Enable", admin_merchant_path(merchant, redirect: :merch_index), method: :patch, class: "enable" %></td>
+      <% end %>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
