@@ -47,5 +47,31 @@ class Cart
     @contents = {}
   end
 
+  def remove_item(item_id)
+    @contents.delete_if do |item, qty|
+      item == item_id.to_s
+    end
+  end
 
+  def increase_item_count(item_id)
+    id = item_id.to_s
+    item = Item.find(id)
+    if item.inventory_qty > @contents[id]
+      @contents[id] += 1
+    end
+    @contents
+  end
+
+  def decrease_item_count(item_id)
+    id = item_id.to_s
+    if @contents[id] == 0
+      remove_item(id)
+    elsif
+      @contents[id] -= 1
+      if @contents[id] == 0
+        remove_item(id)
+      end
+    end
+    @contents
+  end
 end

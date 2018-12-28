@@ -1,6 +1,5 @@
 require 'rails_helper'
 
-
 describe 'As an admin user' do
   describe 'When I visit the merchants index page at merchants' do
     it 'should see all merchants in the system with a link to their dashboard' do

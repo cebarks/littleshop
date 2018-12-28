@@ -2,6 +2,7 @@
 <div class="container">
   <div class="row">
     <% @cart_items.each do |item| %>
+    <span id="item-<%= item.name %>">
     <div id="cart-items" class="card" style="width: 18rem;">
       <img class="card-img-top" id="tiny-drink-pic-<%= item.id %>" src="<%= item.image_url %>" alt="<%= item.name %>"/>
       <div class="card-body">
@@ -9,7 +10,11 @@
         <p>Price: <%= item.price %></p>
         <p>Quantity Ordered: <%= @cart.item_amount(item) %></p>
         <p>Item Subtotal: <%= @cart.item_subtotal(item) %></p>
-        <p>Sold By: <%= item.merchant_name %>
+        <p>Sold By: <%= item.merchant_name %></p>
+        <%= link_to "Delete Item", cart_path(item_change: "remove", item_id: item.id), method: :patch %>
+        <%= link_to "Add Another", cart_path(item_change: "add", item_id: item.id), method: :patch %>
+        <%= link_to "Decrease Quantity", cart_path(item_change: "decrease", item_id: item.id), method: :patch %>
+        </span>
           <% end %>
           Total: <%= @cart.grand_total %>
           <% if @cart_contents != 0 %>
