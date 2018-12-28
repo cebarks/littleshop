@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="merchant_item_index.css">
+  </head>
+
+
+<body>
+<%= link_to "Add a new item", new_item_path, method: :get %>
+
+
+<% @merchant.items.each do |item| %>
+<div class="merchant_items">
+  <p> ID Number: <%= item.id %></p><br>
+  <p> Item: <%= item.name %></p><br>
+  <p><%= item.image_url %></p><br>
+  <p> Price <%= item.price %></p><br>
+  <p> Quantity: <%= item.inventory_qty %></p><br>
+  <%= link_to "Edit Item", edit_item_path(item.id), method: :get %><br><br>
+    <% unless !item.order_items.empty? %>
+      <%= link_to "Delete Item", item_path(item.id), method: :delete %><br><br>
+    <% end %>
+
+    <% if item.status == true %>
+      <%= link_to "Disable", edit_item_path(item.id), method: :patch, class: "disable" %> <br><br>
+    <% elsif item.status == false %>
+      <%= link_to "Enable", edit_item_path(item.id), method: :patch, class: "enable" %> <br><br>
+    <% end %>
+
+<% end %>
+</div>
+</body>
+</html>

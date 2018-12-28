@@ -5,6 +5,10 @@ class MerchantsController < ApplicationController
     render "users/show"
   end
 
+  def index
+    @merchant = User.find(current_user.id)
+  end 
+
   def items
     @my_items = Item.where(user: current_user.id)
   end

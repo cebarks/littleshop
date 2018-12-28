@@ -44,6 +44,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'table_print'
+  gem 'yarn'
 end
 
 group :development do
