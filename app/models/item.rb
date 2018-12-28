@@ -30,4 +30,8 @@ class Item < ApplicationRecord
     days =  time[0..1].strip.to_i + (time.split("days").last.split(":").first.strip.to_i / 24.to_f).round(2)
     days
   end
+
+  def merchant_name
+    user.name
+  end
 end
