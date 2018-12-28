@@ -64,12 +64,3 @@ RSpec.describe "As an admin" do
     end
   end
 end
-
-
-# As an admin merchant
-# When I visit the merchant index page
-# And I click on a "disable" button for an enabled merchant
-# I am returned to the admin's merchant index page
-# And I see a flash message that the merchant's account is now disabled
-# And I see that the merchant's account is now disabled
-# This merchant cannot log in
