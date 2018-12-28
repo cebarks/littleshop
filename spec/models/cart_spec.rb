@@ -100,4 +100,55 @@ describe 'instance methods' do
       expect(cart.empty).to eq(final)
     end
   end
+  describe 'it should remove one item' do
+    it '.remove_item' do
+      merchant = create(:merchant)
+      item_1 = create(:item, user: merchant, price: 5)
+      item_2 = create(:item, user: merchant, price: 15)
+      cart = Cart.new(Hash.new(0))
+      cart.add_item(item_1)
+      cart.add_item(item_2)
+      final = cart.remove_item(item_1.id)
+      updated_cart = ({"#{item_2.id}"=>1})
+
+      expect(final).to eq(updated_cart)
+    end
+  end
+  describe 'it should increase an item by one until max inventory' do
+    it '.increase_item_count' do
+      merchant = create(:merchant)
+      item_1 = create(:item, user: merchant, price: 5, inventory_qty: 2)
+      item_2 = create(:item, user: merchant, price: 15)
+      cart = Cart.new(Hash.new(0))
+      cart.add_item(item_1)
+      cart.add_item(item_2)
+      total = cart.increase_item_count(item_1.id)
+      updated_cart = ({"#{item_1.id}"=>2, "#{item_2.id}"=>1})
+
+      expect(total).to eq(updated_cart)
+
+      cart.increase_item_count(item_1.id)
+
+      expect(total).to eq(updated_cart)
+    end
+  end
+  describe 'it should decrease an item by one until inventory is 0' do
+    it '.decrease_item_count' do
+      merchant = create(:merchant)
+      item_1 = create(:item, user: merchant, price: 5)
+      item_2 = create(:item, user: merchant, price: 15)
+      cart = Cart.new(Hash.new(0))
+      cart.add_item(item_1)
+      cart.add_item(item_2)
+      total = cart.decrease_item_count(item_1.id)
+
+      updated_cart = ({"#{item_2.id}"=>1})
+
+      expect(total).to eq(updated_cart)
+
+      cart.decrease_item_count(item_1.id)
+
+      expect(total).to eq(updated_cart)
+    end
+  end
 end

@@ -3,14 +3,14 @@ Rails.application.routes.draw do
 
   resources :welcome, only: :index
 
-  get '/login', to: "sessions#new"
+  get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy'
 
   namespace :admin do
-    resources :users, only: [:show, :update], as: "merchants"
-    resources :users, only: [:index, :show], as: "users"
-    resources :merchants, only: [:index]
+    # resources :users, only: [:show, :update], as: "merchants"
+    resources :users, only: [:index, :show, :update], as: "users"
+    resources :merchants, only: [:index, :show, :update]
   end
 
   resources :users, only: [:update, :create]
@@ -33,4 +33,5 @@ Rails.application.routes.draw do
   get '/cart', to: "carts#show"
   post '/cart', to: "carts#create", as: "carts"
   delete '/cart', to: "carts#destroy", as: "empty_cart"
+  patch '/cart', to: "carts#update", as: "remove_item"
 end

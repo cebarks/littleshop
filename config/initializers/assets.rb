@@ -11,6 +11,8 @@ Rails.application.config.assets.precompile += %w( item_index.css )
 Rails.application.config.assets.precompile += %w( user_edit.css )
 Rails.application.config.assets.precompile += %w( user_show.css )
 Rails.application.config.assets.precompile += %w( order_show.css )
+Rails.application.config.assets.precompile += %w( cart_show.css )
+Rails.application.config.assets.precompile += %w( item_show.css )
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
