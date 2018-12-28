@@ -68,6 +68,7 @@ require 'rails_helper'
 
         visit dashboard_items_path
 
+        expect(page).to have_content("")
       end
     end
   end
