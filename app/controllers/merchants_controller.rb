@@ -1,7 +1,7 @@
 class MerchantsController < ApplicationController
 
   def dashboard
-    if current_user.merchant?
+    if current_user && current_user.merchant?
       @user = current_user
       render "users/show"
     else
@@ -14,7 +14,7 @@ class MerchantsController < ApplicationController
   end
 
   def items
-    if current_user.merchant?
+    if current_user && current_user.merchant?
       @my_items = Item.where(user: current_user.id)
     else
       render file: 'public/404', status: 404

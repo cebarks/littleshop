@@ -1,9 +1,9 @@
 class Admin::MerchantsController < ApplicationController
   def index
-    if current_user.admin?
-      @merchants = User.merchants
-    else
+    unless current_user.admin?
       render file: 'public/404', status: 404
+    else
+      @merchants = User.merchants
     end
   end
 

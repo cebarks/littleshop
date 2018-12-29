@@ -1,7 +1,7 @@
 class Admin::UsersController < ApplicationController
 
   def index
-    if current_user.admin?
+    if current_user && current_user.admin?
       @users = User.default_users
     else
       render file: 'public/404', status: 404
@@ -9,8 +9,9 @@ class Admin::UsersController < ApplicationController
   end
 
   def show
-    if current_user.admin?
+    if current_user && current_user.admin?
       @user = User.find(params[:id])
+      #make an admin users show page
       render "users/show"
     else
       render file: 'public/404', status: 404
