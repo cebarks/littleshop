@@ -20,7 +20,8 @@ require 'rails_helper'
         expect(page).to have_content(user_1.email)
         expect(page).not_to have_content(user_1.password)
         expect(page).to have_content(user_1.role)
-        expect(page).to have_link("View My Items", href: dashboard_items_path)
+
+        expect(page).to_not have_link("View My Items", href: dashboard_items_path)
       end
     end
   end
