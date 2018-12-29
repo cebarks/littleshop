@@ -1,11 +1,19 @@
 class Admin::MerchantsController < ApplicationController
   def index
-    @merchants = User.merchants
+    if current_user.admin?
+      @merchants = User.merchants
+    else
+      render file: 'public/404', status: 404
+    end
   end
 
   def show
-    @merchant = User.find(params[:id])
-    redirect_to admin_user_path(@merchant) if @merchant.default?
+    if current_user.admin?
+      @merchant = User.find(params[:id])
+      redirect_to admin_user_path(@merchant) if @merchant.default?
+    else
+      render file: 'public/404', status: 404
+    end
   end
 
   def update

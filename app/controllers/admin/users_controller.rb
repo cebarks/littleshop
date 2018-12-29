@@ -1,12 +1,20 @@
 class Admin::UsersController < ApplicationController
 
   def index
-    @users = User.default_users
+    if current_user.admin?
+      @users = User.default_users
+    else
+      render file: 'public/404', status: 404
+    end
   end
 
   def show
-    @user = User.find(params[:id])
-    render "users/show"
+    if current_user.admin?
+      @user = User.find(params[:id])
+      render "users/show"
+    else
+      render file: 'public/404', status: 404
+    end
   end
 
   def update
