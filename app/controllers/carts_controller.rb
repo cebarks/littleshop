@@ -11,8 +11,12 @@ class CartsController < ApplicationController
   end
 
   def show
-    @cart_contents = @cart.contents.values.sum
-    @cart_items = @cart.all_items
+    if current_user.nil? || current_user.default?
+      @cart_contents = @cart.contents.values.sum
+      @cart_items = @cart.all_items
+    else
+      render file: 'public/404', status: 404
+    end
   end
 
   def update
