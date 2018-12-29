@@ -14,7 +14,7 @@ describe 'an admin ' do
       expect(page).to have_content("Browse Merchants")
       expect(page).to have_content("Profile")
       expect(page).to have_content("Browse All Users")
-      expect(page).to have_content("#{admin_1.name}'s Orders")
+
       expect(page).to have_content("Logout")
 
       expect(page).not_to have_content("Cart: 0")
@@ -32,29 +32,5 @@ describe 'an admin ' do
     have_link("user_orders_link", href: '/orders')
     have_link("logout_link", href: '/logout')
 
-    # THESE ARE TESTS TO ENSURE THAT WE CAN REACH THE CORRECT PAGE...
-    # ....THROUGH OUR LINKS. THEY HAVE BEEN COMMENTED OUT BECAUSE SOME....
-    # ....OF THESE PATHS DO NOT EXIST
-
-    # click_on 'home-link'
-    # expect(current_path).to eq('/')
-    #
-    # click_on 'items-link'
-    # expect(current_path).to eq(items_path)
-    #
-    # click_on 'merchants-link'
-    # expect(current_path).to eq(merchants_path)
-    #
-    # click_on 'cart-link'
-    # expect(current_path).to eq(cart_index_path)
-    #
-    # click_on 'profile-link'
-    # expect(current_path).to eq(profile_path)
-    #
-    # click_on 'user-orders-link'
-    # expect(current_path).to eq(orders_path)
-    #
-    # click_on 'logout-link'
-    # expect(current_path).to eq(logout_path)
   end
-  end
+end

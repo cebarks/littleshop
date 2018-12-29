@@ -7,7 +7,7 @@ class MerchantsController < ApplicationController
 
   def index
     @merchant = User.find(current_user.id)
-  end 
+  end
 
   def items
     @my_items = Item.where(user: current_user.id)
