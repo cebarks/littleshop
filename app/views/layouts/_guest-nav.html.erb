@@ -1,0 +1,13 @@
+<nav id="nav-bar" class="navbar">
+  <ul class="nav-left">
+    <li><a title="home-link" id="home-link" href="/">Home</a></li>
+    <li><a title="items-link" id="items-link" href="/items">Browse Items</a></li>
+    <li><a title="merchants-link" id="merchants-link" href="/merchants">Browse Merchants</a></li>
+  </ul>
+  <ul class="nav-right">
+    <li><a title="register-link" id="register-link" href="/register">Register</a></li>
+    <li><a title="login-link" id="login-link" href="/login">Login</a></li>
+    <!-- Need to figure out how to display number of items in cart -->
+    <li><a title="cart-link" id="cart-link" href="/cart">Cart: <%= @cart.total_count %></a></li>
+  </ul>
+</nav>
