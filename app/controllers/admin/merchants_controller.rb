@@ -10,18 +10,28 @@ class Admin::MerchantsController < ApplicationController
 
   def update
     user = User.find(params[:id])
-    user.toggle_status
-    user.save
-    flash[:notice] = if user.status
-       "#{user.name}'s account has been enabled!"
+    return not_found unless current_user.admin?
+    if params[:role] && params[:role] == 'user'
+      user.role = 'default'
+      user.save
+      flash[:notice] = "#{user.email} has been downgraded to default user status."
+
+      return redirect_to admin_user_path(user)
     else
-      "#{user.name}'s account has been disabled!"
+      user.toggle_status
+      user.save
+
+      flash[:notice] = if user.status
+        "#{user.name}'s account has been enabled!"
+      else
+        "#{user.name}'s account has been disabled!"
+      end
     end
-    if params[:redirect] && params[:redirect].eql?("merch_index")
+
+    if user && user.merchant?
       redirect_to admin_merchants_path
     else
       redirect_to admin_users_path
     end
   end
-
 end

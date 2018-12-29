@@ -8,6 +8,7 @@ RSpec.describe "As an admin" do
     end
 
     it "I am returned to the admin's merchant page" do
+      post_login(@admin)
       visit admin_merchants_path
 
       within "#merchant-0" do
@@ -18,11 +19,14 @@ RSpec.describe "As an admin" do
     end
 
     it "and I see a flash message that the merchant is disabled along with the account showing disabled" do
+      post_login(@admin)
       visit admin_merchants_path
 
       within "#merchant-0" do
         click_on 'Disable'
       end
+
+      expect(current_path).to eq(admin_merchants_path)
 
       expect(page).to have_content("#{@merchant.name}'s account has been disabled!")
 
@@ -44,7 +48,7 @@ RSpec.describe "As an admin" do
     before(:each) do
       @admin = create(:admin)
       @merchant = create(:merchant, :disabled)
-
+      post_login(@admin)
       visit admin_merchants_path
 
       within "#merchant-0" do

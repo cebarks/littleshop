@@ -1,6 +1,10 @@
-  <%= @merchant.name %>
-  <%= @merchant.address %>
-  <%= @merchant.city %>
-  <%= @merchant.state %>
-  <%= @merchant.zipcode %>
-  <%= @merchant.email %>
+<%= @merchant.name %>
+<%= @merchant.address %>
+<%= @merchant.city %>
+<%= @merchant.state %>
+<%= @merchant.zipcode %>
+<%= @merchant.email %>
+
+<% if current_user.admin? %>
+<p><%= link_to 'Downgrade', admin_merchant_path(@merchant, role: :user), method: :patch %></p>
+<% end %>
