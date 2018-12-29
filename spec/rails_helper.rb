@@ -81,3 +81,10 @@ end
 def post_login(user)
   page.driver.post(login_path, user_email: user.email, user_password: user.password)
 end
+
+def do_login(user)
+  fill_in :user_email, with: user.email
+  fill_in :user_password, with: user.password
+
+  click_on 'Log In'
+end
