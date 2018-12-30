@@ -7,16 +7,23 @@ body {
   color: #228b22;
 }
 
+#card {
+  margin: 10px;
+}
+
 #user-show-content {
-  color: white;
+  color: black;
 }
 
 .orders-table {
-  border: solid 2px black;
+  margin: auto;
+  border: solid 2px tan;
   background: lightgrey;
   color: black;
+  padding: 5px;
 }
 .orders-table > th {
   border: solid 2px black;
-  padding: 5px
+  padding: 5px;
+  margin: auto;
 }

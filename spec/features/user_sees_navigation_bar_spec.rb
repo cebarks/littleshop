@@ -29,9 +29,5 @@ describe 'a visitor to our web app' do
 
     click_on 'login-link'
     expect(current_path).to eq('/login')
-
-    # click_on 'cart-link'
-    # expect(current_path).to eq('/carts')
-
   end
 end
