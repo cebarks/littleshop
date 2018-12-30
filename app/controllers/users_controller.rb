@@ -40,14 +40,20 @@ class UsersController < ApplicationController
   end
 
   def show
-    require_user
+    if current_user && current_user.default?
       @user = current_user
       @user.reload
+    else
+      require_user
+    end
   end
 
   def edit
-    require_user
+    if current_user && current_user.default?
       @user = current_user
+    else
+      require_user
+    end
   end
 
   def update

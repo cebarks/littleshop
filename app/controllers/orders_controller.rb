@@ -8,5 +8,5 @@ class OrdersController < ApplicationController
   def require_user
     render file: 'public/404', status: 404 unless current_user && current_user.default?
   end
-
+  
 end

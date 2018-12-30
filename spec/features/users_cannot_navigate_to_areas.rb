@@ -7,7 +7,6 @@ describe 'as a visitor to the the app i should get a 404 error' do
             profile_order_path(1),
             dashboard_path,
             dashboard_items_path,
-            dashboard_items_path,
             admin_users_path,
             admin_user_path(1),
             admin_merchants_path,
@@ -27,7 +26,6 @@ describe 'as a registered user to the the app i should get a 404 error' do
     post_login(user)
 
     paths = dashboard_path,
-            dashboard_items_path,
             dashboard_items_path,
             admin_users_path,
             admin_user_path(1),
@@ -74,7 +72,6 @@ describe 'as an admin user to the the app i should get a 404 error' do
             profile_edit_path,
             profile_order_path(1),
             dashboard_path,
-            dashboard_items_path,
             dashboard_items_path,
             cart_path,
             cart_paths
