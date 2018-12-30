@@ -7,7 +7,7 @@
         <p><%= @user.city %> <%= @user.state%></p>
         <p><%= @user.zipcode %></p>
         <p><%= @user.email %></p>
-        <h5>You've been a member with us since <%= @user.created_at.strftime("%A %B %d, %Y") %></h5>
+        <h5>Member since: <%= @user.created_at.strftime("%A %B %d, %Y") %></h5>
         <p>Authorization level: <%= @user.role %></p>
 
 
@@ -18,15 +18,18 @@
         <% end %>
 
         <% unless @user.orders.empty? %>
-        <%= render "orders/orders_table" %>
-        <% end %><br>
+          <div id="profile-orders">
+            <%= render "orders/orders_table" %>
+          </div>
+        <% end %>
+        <br />
 
         <% if current_user && current_user.id == @user.id %>
-        <% unless @user.merchant?  %>
-        <div id="edit_link">
-          <%= link_to "Edit Information", profile_edit_path, method: :GET %>
-        </div><br>
-        <% end %>
+          <% unless @user.merchant?  %>
+            <div id="edit_link">
+              <%= link_to "Edit Information", profile_edit_path, method: :GET %>
+            </div><br>
+          <% end %>
         <% end %>
       </div>
     </div>

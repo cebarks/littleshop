@@ -15,17 +15,6 @@ describe 'on a users profile page' do
       expect(page).to have_content(@user.zipcode)
       expect(page).to have_content(@user.email)
       expect(page).not_to have_content(@user.password)
-
-    end
-
-    it 'can see a link to edit profile' do
-      expect(page).to have_content(@user.name)
-      expect(page).to have_content(@user.address)
-      expect(page).to have_content(@user.city)
-      expect(page).to have_content(@user.state)
-      expect(page).to have_content(@user.zipcode)
-      expect(page).to have_content(@user.email)
-
       expect(page).to have_content("Edit Information")
     end
   end
