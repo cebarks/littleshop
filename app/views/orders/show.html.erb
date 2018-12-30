@@ -5,6 +5,9 @@
   <h3>Status: <%= @order.status %></h3>
   <h3>Total Quantity: <%= @order.total_quantity %></h3>
   <h3>Grand Total: <%= number_to_currency(@order.grand_total) %></h3>
+  <% if @order.status == "pending" %>
+    <%= link_to "Cancel Order", cancel_order_path(@order), method: :update %>
+  <% end %>
 
   <table class="order-table">
     <thead>
