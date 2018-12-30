@@ -4,7 +4,7 @@
   <h3>Last Updated At: <%= @order.updated_at %></h3>
   <h3>Status: <%= @order.status %></h3>
   <h3>Total Quantity: <%= @order.total_quantity %></h3>
-  <h3>Grand Total: <%= @order.grand_total %></h3>
+  <h3>Grand Total: <%= number_to_currency(@order.grand_total) %></h3>
 
   <table class="order-table">
     <thead>
