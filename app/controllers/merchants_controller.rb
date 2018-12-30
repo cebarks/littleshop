@@ -14,10 +14,10 @@ class MerchantsController < ApplicationController
   end
 
   def items
-    if current_user && current_user.merchant?
-      @my_items = Item.where(user: current_user.id)
-    else
+    unless current_user && current_user.merchant?
       render file: 'public/404', status: 404
+    else
+      @my_items = Item.where(user: current_user.id)
     end
   end
 end
