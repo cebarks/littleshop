@@ -18,8 +18,11 @@
         <% end %>
 
         <% unless @user.orders.empty? %>
-        <%= render "orders/orders_table" %>
-        <% end %><br>
+          <div id="profile-orders">
+            <%= render "orders/orders_table" %>
+          </div>
+        <% end %>
+        <br />
 
         <% if current_user && current_user.id == @user.id %>
           <% unless @user.merchant?  %>

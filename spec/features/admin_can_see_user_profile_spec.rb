@@ -22,9 +22,12 @@ require 'rails_helper'
         expect(page).to have_content(user_1.email)
         expect(page).not_to have_content(user_1.password)
         expect(page).to have_content(user_1.role)
-        expect(page).to have_css(".orders-table")
-        
         expect(page).to_not have_link("View My Items", href: dashboard_items_path)
+
+        within("#profile-orders") do
+          expect(page).to have_css(".orders-table")
+          expect(page).to have_content(order_1.id)
+        end
       end
     end
   end
