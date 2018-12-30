@@ -10,6 +10,7 @@
       <tr id="order-<%= index %>">
         <td class="order-id"><%= order.id %></td>
         <td class="order-date"><%= order.created_at %></td>
+        
         <td class="order-show"><%= link_to 'Show Page', profile_order_path(order) %></td>
       </tr>
       <% end %>

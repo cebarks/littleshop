@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get '/logout', to: 'sessions#destroy'
 
   namespace :admin do
-    # resources :users, only: [:show, :update], as: "merchants"
+    resources :orders, only: [:show]
     resources :users, only: [:index, :show, :update], as: "users"
     resources :merchants, only: [:index, :show, :update]
   end
