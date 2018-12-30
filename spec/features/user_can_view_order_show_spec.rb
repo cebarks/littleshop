@@ -14,7 +14,7 @@ RSpec.describe "As a registered user" do
 
     it "my URI pattern is now /profile/orders/:order_id" do
       within("#order-0") do
-        click_on 'Show Page'
+        click_on @order_1.id
       end
 
       expect(current_path).to eq(profile_order_path(@order_1))
@@ -22,7 +22,7 @@ RSpec.describe "As a registered user" do
 
     it "shows the id, creation date, update date, status, items, total item quantity and grand total for an order" do
       within("#order-0") do
-        click_on 'Show Page'
+        click_on @order_1.id
       end
 
       expect(page).to have_content(@order_1.id)
