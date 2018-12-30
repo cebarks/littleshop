@@ -24,7 +24,6 @@ require 'rails_helper'
 
         expect(page).to have_content(item_1.id)
         expect(page).to have_content(item_1.name)
-        expect(page).to have_content(item_1.image_url)
         expect(page).to have_content(item_1.price)
         expect(page).to have_content(item_1.inventory_qty)
       end
