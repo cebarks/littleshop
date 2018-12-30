@@ -11,7 +11,6 @@ class Admin::UsersController < ApplicationController
   def show
     if current_user && current_user.admin?
       @user = User.find(params[:id])
-      #make an admin users show page
       render "users/show"
     else
       render file: 'public/404', status: 404
