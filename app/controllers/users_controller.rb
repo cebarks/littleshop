@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   def index
+
     @orders = Order.all
     @merchants_for_stats = User.enabled_merchants
     @top_3_states = User.top_3_states_by_order_count
