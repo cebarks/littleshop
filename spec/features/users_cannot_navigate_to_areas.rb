@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'as a visitor to the the app i should get a 404 error' do
   it 'navigates to any /profile, /admin or /dashboard path' do
-    paths = profile_path,
+    paths = [profile_path,
             profile_edit_path,
             profile_order_path(1),
             dashboard_path,
@@ -10,7 +10,7 @@ describe 'as a visitor to the the app i should get a 404 error' do
             admin_users_path,
             admin_user_path(1),
             admin_merchants_path,
-            admin_merchants_path(1)
+            admin_merchants_path(1)]
 
     paths.each do |path|
       visit path
@@ -25,12 +25,12 @@ describe 'as a registered user to the the app i should get a 404 error' do
     user = create(:user)
     post_login(user)
 
-    paths = dashboard_path,
+    paths = [dashboard_path,
             dashboard_items_path,
             admin_users_path,
             admin_user_path(1),
             admin_merchants_path,
-            admin_merchants_path(1)
+            admin_merchants_path(1)]
 
     paths.each do |path|
       visit path
@@ -45,7 +45,7 @@ describe 'as a merchant user to the the app i should get a 404 error' do
     merchant = create(:merchant)
     post_login(merchant)
 
-    paths = profile_path,
+    paths = [profile_path,
             profile_edit_path,
             profile_order_path(1),
             admin_users_path,
@@ -53,7 +53,7 @@ describe 'as a merchant user to the the app i should get a 404 error' do
             admin_merchants_path,
             admin_merchants_path(1),
             cart_path,
-            cart_paths
+            cart_paths]
 
     paths.each do |path|
       visit path
