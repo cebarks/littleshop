@@ -1,18 +1,23 @@
-
-  <h3>Orders</h3>
-  <table class="orders-table">
-    <thead>
-      <th>Order ID</th>
-      <th>Order Date</th>
-    </thead>
-    <tbody>
-      <% @user.orders.each_with_index do |order, index| %>
-      <tr id="order-<%= index %>">
-        <td class="order-id"><%= order.id %></td>
-        <td class="order-date"><%= order.created_at %></td>
-        
-        <td class="order-show"><%= link_to 'Show Page', profile_order_path(order) %></td>
-      </tr>
-      <% end %>
+<h3>Orders</h3>
+<table class="orders-table">
+  <thead>
+    <th>ID</th>
+    <th>Order Date</th>
+    <th>Last Updated</th>
+    <th>Status</th>
+    <th>Total Quantity</th>
+    <th>Grand Total</th>
+  </thead>
+  <tbody>
+    <% @user.orders.each_with_index do |order, index| %>
+    <tr id="order-<%= index %>">
+      <td class="order-id"><%= link_to order.id, profile_order_path(order) %></td>
+      <td class="order-date"><%= order.created_at %></td>
+      <td class="order-update"><%= order.updated_at %></td>
+      <td class="order-status"><%= order.status %></td>
+      <td class="order-quantity"><%= order.total_quantity %></td>
+      <td class="order-grand-total"><%= order.grand_total %></td>
+    </tr>
+    <% end %>
   </tbody>
-  </table>
+</table>

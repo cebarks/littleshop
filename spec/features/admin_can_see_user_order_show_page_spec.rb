@@ -11,7 +11,7 @@ describe 'As an admin user when I visit a users profile and I click on a link fo
     visit admin_user_path(@user_1)
 
     within "#order-0" do
-      click_on "Show Page"
+      click_on @order_1.id
     end
   end
 
