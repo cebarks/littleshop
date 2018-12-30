@@ -24,17 +24,21 @@ describe 'As an admin user' do
       post_login(admin)
 
       visit admin_users_path
-
+      
       within "#user-#{user_1.id}" do
-        expect(page).to have_content("Name: #{user_1.name}")
+        expect(page).to have_content(user_1.name)
         expect(page).to have_content("Registered Since: #{user_1.created_at}")
       end
+
+
       within "#user-#{user_2.id}" do
-        expect(page).to have_content("Name: #{user_2.name}")
+        expect(page).to have_content(user_2.name)
         expect(page).to have_content("Registered Since: #{user_2.created_at}")
       end
+
       expect(page).to_not have_content(merchant.name)
     end
+
     it 'can see a can disable and enable merchants based on current status' do
       user_1 = create(:user)
       user_2 = create(:user, :disabled)
@@ -61,9 +65,7 @@ describe 'As an admin user' do
 
       visit admin_users_path
 
-      within "#user-#{user_1.id}" do
-        click_link("#{user_1.name}")
-      end
+      click_link("#{user_1.name}")
 
       expect(current_path).to eq(admin_user_path(user_1))
 

@@ -1,0 +1,8 @@
+#users {
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+
+.user {
+  color: black;
+}

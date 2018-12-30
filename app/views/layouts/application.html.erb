@@ -12,6 +12,7 @@
   <%= stylesheet_link_tag    'merchant_item_index', media: 'all' %>
   <%= stylesheet_link_tag    'welcome', media: 'all' %>
   <%= stylesheet_link_tag    'login', media: 'all' %>
+  <%= stylesheet_link_tag    'admin_user_index', media: 'all' %>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -29,12 +30,13 @@
   <% else %>
     <%= render 'layouts/nav' %>
   <% end %>
+
   <div id="flashes">
     <% flash.each do |type, message| %>
     <%= content_tag :div, message, class: type %>
     <% end %>
   </div>
-  <%= yield %>
 
+  <%= yield %>
 </body>
 </html>
