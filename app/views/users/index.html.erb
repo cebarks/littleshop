@@ -1,55 +1,83 @@
-<div id="merchant-index-statistics">
-  <h1>Top 3 Merchants with the highest profit:</h1>
-  <% @merchants_for_stats.top_3_merchants_by_profit.each do |merchant| %>
-    <p><%= merchant.name %> - <%= number_to_currency(merchant.earnings) %></p>
-  <% end %>
-  <h1>Top 3 Merchants who've sold the most items:</h1>
-  <% @merchants_for_stats.top_3_merchants_by_items_sold.each do |merchant| %>
-    <p><%= merchant.name %> - <%= merchant.items_sold %></p>
-  <% end %>
-  <h1>Top 3 Merchants who fulfill orders the fastest:</h1>
-  <% @merchants_for_stats.top_3_merchants_by_fulfillment_speed.each do |merchant| %>
-    <p><%= merchant.name %>, who completes orders in <%= merchant.fulfillment_speed.to_i %> day(s) on average</p>
-  <% end %>
-  <h1>Merchants who were slowest at fulfilling orders:</h1>
-  <% @merchants_for_stats.bottom_3_merchants_by_fulfillment_speed.each do |merchant| %>
-    <p> <%= merchant.name %>, who completes orders in <%= merchant.fulfillment_speed.to_i %> day(s) on average</p>
-  <% end %>
-  <h1>Top 3 States with the most orders:</h1>
-  <% @top_3_states.each do |relation| %>
-    <p><%= relation.state %> - <%= relation.order_count %></p>
-  <% end %>
-  <h1>Top 3 Cities with the most orders:</h1>
-  <% @top_3_cities.each do |relation| %>
-    <p><%= relation.city %>, <%= relation.state %> - <%= relation.order_count %></p>
-  <% end %>
-  <h1>Top 3 biggest orders:</h1
-    <% @orders.top_3_biggest_orders.each do |order| %>
-      <p>Order <%= order.id %> - <%= order.size %> items!</p>
-    <% end %>
-</div>
-<div class="merchant-list">
-<table>
-  <thead>
-    <th>Name</th>
-    <th>Location</th>
-    <th>Registration Date</th>
-  </thead>
-  <tbody>
-    <% @merchants.each do |merchant| %>
-      <tr id="merchant-<%= merchant.id %>">
-        <td><%= link_to merchant.name, admin_merchant_path(merchant), id: "merchant-name-#{merchant.id }" %></td>
-        <td><%= "#{merchant.city}, #{merchant.state}"%></td>
-        <td><%= merchant.created_at %></td>
-        <% if current_user && current_user.admin? %>
-          <% if merchant.status %>
-            <td><%= button_to "Disable", admin_merchant_path(merchant, redirect: :merch_index), method: :patch, class: "disable" %></td>
-          <% else %>
-            <td><%= button_to "Enable", admin_merchant_path(merchant, redirect: :merch_index), method: :patch, class: "enable" %></td>
+<div class="user-index">
+  <div id="merchant-index-statistics">
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-4">Statistics about our retail partners...</h1>
+        <ul>
+          <li><p class="lead" >
+            <h5 id="high-profit">Top 3 Merchants with the highest profit:</h5>
+            <% @merchants_for_stats.top_3_merchants_by_profit.each do |merchant| %>
+            <p><%= merchant.name %> - <%= number_to_currency(merchant.earnings) %>
+            </p>
+            <% end %>
+          </li>
+          <li><p class="lead">
+            <h5>Top 3 Merchants who've sold the most items:</h5>
+            <% @merchants_for_stats.top_3_merchants_by_items_sold.each do |merchant| %>
+              <p><%= merchant.name %> - <%= merchant.items_sold %>
+              </p>
+            <% end %>
+          </li>
+          <li><p class="lead">
+            <h5>Top 3 Merchants who fulfill orders the fastest:</h5>
+            <% @merchants_for_stats.top_3_merchants_by_fulfillment_speed.each do |merchant| %>
+              <p><%= merchant.name %>, who completes orders in <%= merchant.fulfillment_speed.to_i %> day(s) on average</p>
+            <% end %>
+          </li>
+          <li><p class="lead">
+            <h5>Merchants who were slowest at fulfilling orders:</h5>
+            <% @merchants_for_stats.bottom_3_merchants_by_fulfillment_speed.each do |merchant| %>
+              <p> <%= merchant.name %>, who completes orders in <%= merchant.fulfillment_speed.to_i %> day(s) on average</p>
+            <% end %>
+          </li>
+          <li><p class="lead">
+            <h5 id="top-3-states-metric">Top 3 States with the most orders:</h5>
+            <% @top_3_states.each do |relation| %>
+              <p><%= relation.state %> - <%= relation.order_count %></p>
+            <% end %>
+          </li>
+          <li><p class="lead">
+            <h5>Top 3 Cities with the most orders:</h5>
+            <% @top_3_cities.each do |relation| %>
+              <p><%= relation.city %>, <%= relation.state %> - <%= relation.order_count %></p>
+            <% end %>
+          </li>
+          <li><p class="lead">
+            <h5>Top 3 biggest orders:</h5
+              <% @orders.top_3_biggest_orders.each do |order| %>
+                <p>Order <%= order.id %> - <%= order.size %> items!</p>
+              <% end %>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+  <div class="merchant-list">
+    <hr class="my-4">
+  <table>
+    <thead>
+      <th>Name</th>
+      <th>Location</th>
+      <th>Registration Date</th>
+    </thead>
+    <tbody>
+      <% @merchants.each do |merchant| %>
+        <tr id="merchant-<%= merchant.id %>">
+          <td><%= link_to merchant.name, admin_merchant_path(merchant), id: "merchant-name-#{merchant.id }" %></td>
+          <td><%= "#{merchant.city}, #{merchant.state}"%></td>
+          <td><%= merchant.created_at %></td>
+          <% if current_user && current_user.admin? %>
+            <% if merchant.status %>
+              <td><%= button_to "Disable", admin_merchant_path(merchant, redirect: :merch_index), method: :patch, class: "disable" %></td>
+            <% else %>
+              <td><%= button_to "Enable", admin_merchant_path(merchant, redirect: :merch_index), method: :patch, class: "enable" %></td>
+            <% end %>
           <% end %>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <hr class="my-4" id="final-line">
+  </div>
 </div>
