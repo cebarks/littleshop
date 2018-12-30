@@ -10,7 +10,6 @@
         <h5>Member since: <%= @user.created_at.strftime("%A %B %d, %Y") %></h5>
         <p>Authorization level: <%= @user.role %></p>
 
-
         <% if @user.merchant? %>
         <div class="view_merchant_items">
           <%= link_to "View My Items", dashboard_items_path, id: "view-merchant-items" %>
