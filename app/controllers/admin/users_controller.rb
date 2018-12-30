@@ -2,12 +2,12 @@ class Admin::UsersController < ApplicationController
   before_action :require_admin
 
   def index
-      @users = User.default_users
+    @users = User.default_users
   end
 
   def show
-      @user = User.find(params[:id])
-      render "users/show"
+    @user = User.find(params[:id])
+    render "users/show"
   end
 
   def update
@@ -15,7 +15,7 @@ class Admin::UsersController < ApplicationController
     user.toggle_status
     user.save
     flash[:notice] = if user.status
-       "#{user.name}'s account has been enabled!"
+      "#{user.name}'s account has been enabled!"
     else
       "#{user.name}'s account has been disabled!"
     end
