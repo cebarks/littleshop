@@ -82,11 +82,11 @@
         </ul>
       </nav>
    <% end %>
+   <div id="flashes">
      <% flash.each do |type, message| %>
-     <div id="flashes">
      <%= content_tag :div, message, class: type %>
-     </div>
      <% end %>
+   </div>
 <%= yield %>
 
   </body>
