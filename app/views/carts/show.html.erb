@@ -16,12 +16,18 @@
         <h6>Total: $<%= @cart.grand_total %></h6>
       </div>
     </div>
-        <% end %>
-      <% if @cart_contents != 0 %>
+    <% end %>
+    <% if @cart_contents != 0 %>
       <div class="empty-cart-contents">
         <%= button_to "Empty Cart Contents.", cart_path, method: :delete, class: 'empty-cart' %>
       </div>
-      <% end %>
-    </div>
+    <% end %>
+    <% if current_user %>
+      <%# <%= link_to '', checkout_path %> %>
+      <p>You may check out.</p>
+    <% else %>
+      <p>You must <%= link_to 'register', register_path %> or <%= link_to 'login', login_path %> to finish the checkout process.</p>
+    <% end %>
   </div>
+</div>
 </div>

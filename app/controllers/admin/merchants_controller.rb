@@ -1,4 +1,6 @@
 class Admin::MerchantsController < ApplicationController
+  before_action :require_admin
+
   def index
     unless current_user.admin?
       render file: 'public/404', status: 404
@@ -41,5 +43,11 @@ class Admin::MerchantsController < ApplicationController
     else
       redirect_to admin_users_path
     end
+  end
+
+  private
+
+  def require_admin
+    render file: 'public/404', status: 404 unless current_user && current_user.admin?
   end
 end
