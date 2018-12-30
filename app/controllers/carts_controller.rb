@@ -11,6 +11,7 @@ class CartsController < ApplicationController
   end
 
   def show
+    require_user_or_visitor
     @cart_contents = @cart.contents.values.sum
     @cart_items = @cart.all_items
   end
@@ -32,6 +33,12 @@ class CartsController < ApplicationController
     session[:cart] = {}
     @cart.empty
     redirect_to cart_path
+  end
+
+  private
+
+  def require_user_or_visitor
+    render file: 'public/404', status: 404 unless current_user.nil? || current_user.default?
   end
 
 end

@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  # before_action :require_user
+
   def index
 
     @orders = Order.all
@@ -39,15 +41,24 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = current_user
-    @user.reload
+    if current_user && current_user.default?
+      @user = current_user
+      @user.reload
+    else
+      require_user
+    end
   end
 
   def edit
-    @user = current_user
+    if current_user && current_user.default?
+      @user = current_user
+    else
+      require_user
+    end
   end
 
   def update
+    require_user
     @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:notice] = "Your profile has been updated!"
@@ -72,5 +83,9 @@ class UsersController < ApplicationController
     match = params[:user][:password] == params[:user][:confirm_password]
     flash[:notice] = "Your passwords didn't match!" unless match
     match
+  end
+
+  def require_user
+    render file: 'public/404', status: 404 unless current_user && current_user.default?
   end
 end

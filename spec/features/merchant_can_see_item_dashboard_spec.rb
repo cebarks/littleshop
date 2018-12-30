@@ -18,7 +18,7 @@ require 'rails_helper'
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_1)
 
         item_1 = merchant_1.items.create!(name: "Amaretto Sour", description: "a sweet nutty cocktail that calls for a full bodied spirit to pair with the bright citrus and sugar. di Amore Amaretto is an excellent choice with its rich body and caramel, almond flavors.", image_url: "https://bit.ly/2BoIMFi", inventory_qty: rand(1..9999), price: Faker::Number.decimal(2))
-        item_2 = merchant_1.items.create!(name: "Espresso Martini", description: "a cold, coffee-flavored cocktail made with vodka, espresso coffee, coffee liqueur, and sugar syrup.", image_url: "https://bit.ly/2A4XQYS", inventory_qty: rand(1..9999), price: Faker::Number.decimal(2))
+        merchant_1.items.create!(name: "Espresso Martini", description: "a cold, coffee-flavored cocktail made with vodka, espresso coffee, coffee liqueur, and sugar syrup.", image_url: "https://bit.ly/2A4XQYS", inventory_qty: rand(1..9999), price: Faker::Number.decimal(2))
 
         visit dashboard_items_path
 
@@ -34,7 +34,7 @@ require 'rails_helper'
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(merchant_1)
 
         item_1 = merchant_1.items.create!(name: "Amaretto Sour", description: "a sweet nutty cocktail that calls for a full bodied spirit to pair with the bright citrus and sugar. di Amore Amaretto is an excellent choice with its rich body and caramel, almond flavors.", image_url: "https://bit.ly/2BoIMFi", inventory_qty: rand(1..9999), price: Faker::Number.decimal(2))
-        item_2 = merchant_1.items.create!(name: "Espresso Martini", description: "a cold, coffee-flavored cocktail made with vodka, espresso coffee, coffee liqueur, and sugar syrup.", image_url: "https://bit.ly/2A4XQYS", inventory_qty: rand(1..9999), price: Faker::Number.decimal(2))
+        merchant_1.items.create!(name: "Espresso Martini", description: "a cold, coffee-flavored cocktail made with vodka, espresso coffee, coffee liqueur, and sugar syrup.", image_url: "https://bit.ly/2A4XQYS", inventory_qty: rand(1..9999), price: Faker::Number.decimal(2))
 
         visit dashboard_items_path
 
@@ -48,9 +48,9 @@ require 'rails_helper'
         item_1 = merchant_1.items.create!(name: "Amaretto Sour", description: "a sweet nutty cocktail that calls for a full bodied spirit to pair with the bright citrus and sugar. di Amore Amaretto is an excellent choice with its rich body and caramel, almond flavors.", image_url: "https://bit.ly/2BoIMFi", inventory_qty: rand(1..9999), price: Faker::Number.decimal(2))
         item_2 = merchant_1.items.create!(name: "Espresso Martini", description: "a cold, coffee-flavored cocktail made with vodka, espresso coffee, coffee liqueur, and sugar syrup.", image_url: "https://bit.ly/2A4XQYS", inventory_qty: rand(1..9999), price: Faker::Number.decimal(2))
         order_1 = Order.create!(status: 3, user: create(:user))
-        order_item_1 = OrderItem.create!(item: item_2, order: order_1, quantity: 16, price: (item_1.price * 16))
+        OrderItem.create!(item: item_2, order: order_1, quantity: 16, price: (item_1.price * 16))
         visit dashboard_items_path
-        # save_and_open_page
+
 
         expect(page).to have_link("Delete Item", :href => "/items/#{item_1.id}")
         expect(page).not_to have_link("Delete Item", :href => "/items/#{item_2.id}")

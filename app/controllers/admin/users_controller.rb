@@ -2,12 +2,12 @@ class Admin::UsersController < ApplicationController
   before_action :require_admin
 
   def index
-    @users = User.default_users
+      @users = User.default_users
   end
 
   def show
-    @user = User.find(params[:id])
-    render "users/show"
+      @user = User.find(params[:id])
+      render "users/show"
   end
 
   def update
@@ -27,7 +27,7 @@ class Admin::UsersController < ApplicationController
   end
 
   private
-  
+
   def require_admin
     render file: 'public/404', status: 404 unless current_user && current_user.admin?
   end
