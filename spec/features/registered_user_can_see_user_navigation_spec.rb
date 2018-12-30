@@ -13,7 +13,7 @@ describe 'a registered user ' do
       expect(page).to have_content("Browse Merchants")
       expect(page).to have_content("Cart: 0")
       expect(page).to have_content("Profile")
-      expect(page).to have_content("#{user_1.name}'s Orders")
+      # expect(page).to have_content("#{user_1.name}'s Orders")
       expect(page).to have_content("Logout")
 
 
@@ -28,7 +28,7 @@ describe 'a registered user ' do
     have_link("merchants_link", href: '/merchants')
     have_link("cart_link", href: '/cart')
     have_link("profile_link", href: '/profile')
-    have_link("user_orders_link", href: '/orders')
+    # have_link("user_orders_link", href: '/orders')
     have_link("logout_link", href: '/logout')
 
     # THESE ARE TESTS TO ENSURE THAT WE CAN REACH THE CORRECT PAGE...
