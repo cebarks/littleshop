@@ -3,20 +3,18 @@ require 'rails_helper'
 describe 'As an admin user when I visit a users profile and I click on a link for orders show page' do
   it ' URL route should be /admin/orders/id' do
     @admin = create(:admin)
-    @user = create(:user)
+    @user_1 = create(:user)
     @order_1 = create(:order, user: @user_1)
 
-    post_login(admin)
+    post_login(@admin)
 
-    visit admin_user(user)
+    visit admin_user_path(@user_1)
 
-    within "order-0" do
-      click_on "View Order"
+    within "#order-0" do
+      click_on "Show Page"
     end
 
-    expect(current_path).to eq()
-
-    end
+    expect(current_path).to eq(admin_order_path(@order_1))
   end
 end
 
