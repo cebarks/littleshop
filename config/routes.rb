@@ -8,9 +8,11 @@ Rails.application.routes.draw do
   get '/logout', to: 'sessions#destroy'
 
   namespace :admin do
+    resources :users, only: [:index, :show, :update, :edit], as: "users"
     resources :orders, only: [:show]
-    resources :users, only: [:index, :show, :update], as: "users"
     resources :merchants, only: [:index, :show, :update]
+    patch '/users/:id/disable', to: "users#disable", as: "user_disable"
+    patch '/users/:id/enable', to: "users#enable", as: "user_enable"
   end
 
   resources :users, only: [:update, :create]
