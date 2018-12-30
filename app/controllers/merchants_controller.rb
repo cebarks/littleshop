@@ -1,23 +1,18 @@
 class MerchantsController < ApplicationController
+  before_action :require_merchant
 
   def dashboard
-    if current_user && current_user.merchant?
-      @user = current_user
-      render "users/show"
-    else
-      render file: 'public/404', status: 404
-    end
-  end
-
-  def index
-    @merchant = User.find(current_user.id)
+    @user = current_user
+    render "users/show"
   end
 
   def items
-    unless current_user && current_user.merchant?
-      render file: 'public/404', status: 404
-    else
-      @my_items = Item.where(user: current_user.id)
-    end
+    @my_items = Item.where(user: current_user.id)
+  end
+
+  private
+
+  def require_merchant
+    render file: 'public/404', status: 404 unless current_user && current_user.merchant?
   end
 end

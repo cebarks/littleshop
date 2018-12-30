@@ -1,11 +1,12 @@
 class OrdersController < ApplicationController
 
   def show
-    if current_user && current_user.default?
-      @order = Order.find(params[:order_id])
-    else
-      render file: 'public/404', status: 404
-    end
+    require_user
+    @order = Order.find(params[:order_id])
+  end
+
+  def require_user
+    render file: 'public/404', status: 404 unless current_user && current_user.default?
   end
 
 end

@@ -2,22 +2,14 @@ class Admin::MerchantsController < ApplicationController
   before_action :require_admin
 
   def index
-    unless current_user.admin?
-      render file: 'public/404', status: 404
-    else
-      @merchants = User.merchants
-    end
+    @merchants = User.merchants
   end
 
   def show
-    if current_user.admin?
-      @merchant = User.find(params[:id])
-      redirect_to admin_user_path(@merchant) if @merchant.default?
-    else
-      render file: 'public/404', status: 404
-    end
+    @merchant = User.find(params[:id])
+    redirect_to admin_user_path(@merchant) if @merchant.default?
   end
-
+  
   def update
     user = User.find(params[:id])
     return not_found unless current_user.admin?
