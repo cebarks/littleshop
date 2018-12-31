@@ -6,10 +6,14 @@ class Admin::MerchantsController < ApplicationController
   end
 
   def show
-    @merchant = User.find(params[:id])
-    redirect_to admin_user_path(@merchant) if @merchant.default?
+    @user = User.find(params[:id])
+    if @user.default?
+      redirect_to admin_user_path(@user)
+    else
+      render 'merchants/dashboard'
+    end
   end
-  
+
   def update
     user = User.find(params[:id])
     return not_found unless current_user.admin?
