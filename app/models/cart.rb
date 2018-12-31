@@ -74,4 +74,13 @@ class Cart
     end
     @contents
   end
+
+  def create_order(order_user)
+    order = Order.create(status: :pending, user: order_user)
+    @contents.each do |item_id_string, item_quantity|
+      oitem = Item.find(item_id_string.to_i)
+      OrderItem.create(order: order, item: oitem, quantity: item_quantity, price: oitem.price)
+    end
+    order
+  end
 end
