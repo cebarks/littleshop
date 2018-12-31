@@ -35,10 +35,16 @@ class CartsController < ApplicationController
     redirect_to cart_path
   end
 
+  def checkout
+    @cart.create_order(current_user)
+    @cart.empty
+    flash[:notice] = "Your order has been created! Thank you for your business!"
+    redirect_to profile_path
+  end
+
   private
 
   def require_user_or_visitor
     render file: 'public/404', status: 404 unless current_user.nil? || current_user.default?
   end
-
 end

@@ -24,11 +24,15 @@ class Item < ApplicationRecord
   end
 
   def average_fulfillment_time
-    time = Item.joins(:order_items, :orders)
+    time_obj = Item.joins(:order_items, :orders)
     .select("avg(orders.updated_at - orders.created_at) as avg_fulfill").group(:id)
-    .where("items.id": id).first.avg_fulfill
-    days =  time[0..1].strip.to_i + (time.split("days").last.split(":").first.strip.to_i / 24.to_f).round(2)
-    days
+    .where("items.id": id).first
+    if time_obj
+      time = time_obj.avg_fulfill
+      time[0..1].strip.to_i + (time.split("days").last.split(":").first.strip.to_i / 24.to_f).round(2)
+    else
+      "n/a"
+    end
   end
 
   def merchant_name
