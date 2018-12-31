@@ -43,7 +43,6 @@ RSpec.describe Order, type: :model do
 
       expect(order_1.total_quantity).to eq(3)
     end
-
     it "#grand_total" do
       item_1, item_2 = create_list(:item, 2)
 

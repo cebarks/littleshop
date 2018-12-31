@@ -40,6 +40,7 @@ RSpec.describe "As a registered user" do
           expect(page).to have_content(order_item.quantity)
           expect(page).to have_content("$#{order_item.price}")
           expect(page).to have_content("$#{order_item.subtotal}")
+          save_and_open_page
         end
       end
     end
