@@ -17,12 +17,19 @@ class Admin::MerchantsController < ApplicationController
   def update
     user = User.find(params[:id])
     return not_found unless current_user.admin?
+
     if params[:role] && params[:role] == 'user'
       user.role = 'default'
       user.save
       flash[:notice] = "#{user.email} has been downgraded to default user status."
 
       return redirect_to admin_user_path(user)
+    elsif params[:role] && params[:role] == 'merchant'
+      user.role = 'merchant'
+      user.save
+      flash[:notice] = "#{user.email} has been upgraded to merchant status."
+
+      return redirect_to admin_merchant_path(user)
     else
       user.toggle_status
       user.save

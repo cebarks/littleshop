@@ -1,10 +1,12 @@
 <%= render 'users/show_content' %>
-<% if current_user.admin? %>
+
+<% if current_user.admin? && @user.merchant? %>
 <p><%= link_to 'Downgrade', admin_merchant_path(@user, role: :user), method: :patch %></p>
 <% end %>
 <br>
 <br>
 <br>
+
 <div id="dashboard">
   <h3>Pending Orders</h3>
   <table id="my-orders" class="table">
