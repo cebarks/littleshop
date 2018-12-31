@@ -23,6 +23,14 @@ class Order < ApplicationRecord
     OrderItem.where(order: self).sum(:quantity)
   end
 
+  def cancel_all(order)
+    OrderItem.all.map do |order_item|
+      order_item.cancel_order_item(order)
+      order_item.return_quantity(order)
+      order[:status] = "cancelled"
+    end
+  end
+
   def total_price_by_merchant(merchant)
     OrderItem.joins(:item).where(order: self).where("items.user_id": merchant).sum("order_items.price * quantity")
   end
@@ -30,4 +38,5 @@ class Order < ApplicationRecord
   def total_quantity_by_merchant(merchant)
     OrderItem.joins(:item).where(order: self).where("items.user_id": merchant).sum(:quantity)
   end
+  
 end

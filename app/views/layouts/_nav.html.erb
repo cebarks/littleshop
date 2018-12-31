@@ -6,9 +6,7 @@
   </ul>
   <ul class="nav-right">
     <li><a title="profile-link" id="profile-link" href="/profile">Profile</a></li>
-    <li><a title="user-orders-link" id="user-orders-link" href="/orders"><%=current_user.name%>'s Orders'</a></li>
     <li><a title="logout-link" id="logout-link" href="/logout">Logout</a></li>
-    <!-- Need to figure out how to display number of items in cart -->
     <li><a title="cart-link" id="cart-link" href="/cart">Cart: <%= @cart.total_count %></a></li>
     <li> Logged in as <%="#{current_user.name}"%> </li>
   </ul>
