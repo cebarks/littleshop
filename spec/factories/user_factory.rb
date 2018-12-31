@@ -8,7 +8,7 @@ FactoryBot.define do
     state {Faker::Address.state_abbr}
     zipcode {Faker::Address.zip.to_i}
     email {"#{name}@gmail.com".downcase}
-    password {Faker::Internet.password(5)}
+    password {"chocolate"}
 
     trait :disabled do
       status { false }

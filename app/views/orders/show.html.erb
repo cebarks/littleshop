@@ -31,11 +31,13 @@
         <% else %>
         <td>unfulfilled</td>
         <% end %>
+
+        <td><%= image_tag order_item.item.image_url, class: "item-thumb", height: "70px" %></td>
+        <td><%= order_item.quantity %></td>
         <td><%= number_to_currency(order_item.price) %></td>
         <td><%= number_to_currency(order_item.price * order_item.quantity) %></td>
       </tr>
       <% end %>
     </tbody>
   </table>
-
 </div>
