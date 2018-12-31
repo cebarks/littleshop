@@ -7,18 +7,25 @@ class OrderItem < ApplicationRecord
     price * quantity
   end
 
-  def cancel_order_item
-    self[:fulfillment] = false
-    self.save
-    self
+  def cancel_order_item(order)
+    order = Order.find(order.id)
+    order.order_items.map do |order_item|
+      order_item[:fulfillment] = false
+      order_item.save
+    end
   end
 
-  def return_quantity
-    item = Item.find(self.item_id)
-    inventory = self[:quantity]
-    item.add_inventory(inventory)
-    self[:quantity] -= inventory
-    self.save
-    self
+  def return_quantity(order)
+    order = Order.find(order.id)
+    final = []
+    order.order_items.each do |order_item|
+      inventory = order_item[:quantity]
+      item = Item.find(order_item.item_id)
+      order_item[:quantity] -= inventory
+      item.add_inventory(inventory)
+      order_item.save
+      final << order_item
+    end
+    final
   end
 end

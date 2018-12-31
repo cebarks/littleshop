@@ -74,7 +74,15 @@ RSpec.describe Item, type: :model do
       end
       it '.add_inventory' do
         merchant = create(:merchant)
+        user_1 = create(:user)
+        user_2 = create(:user)
         item_1 = create(:item, user: merchant, inventory_qty: 9)
+        item_2 = create(:item, user: merchant, inventory_qty: 3)
+        order_1 = create(:order, items_count:0, user: user_1, status: 0)
+        order_2 = create(:order, items_count:0, user: user_2, status: 0)
+        oi_1 = OrderItem.new(item: item_1, order: order_1, quantity: 4, price: 1)
+        oi_2 = OrderItem.new(item: item_2, order: order_1, quantity: 2, price: 1)
+        oi_2 = OrderItem.new(item: item_2, order: order_1, quantity: 4, price: 1)
         quantity = 5
         item_1.add_inventory(quantity)
 

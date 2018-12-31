@@ -21,7 +21,9 @@ describe 'As a registered user when a single orders show page that is status:pen
 
     click_on('Cancel Order')
 
-    expect(current_path).to eq(profile_order_path(@order_1))
+    expect(current_path).to eq(profile_path)
+
+    visit profile_order_path(@order_1)
 
     within "#item-0" do
       expect(page).to have_content("unfulfilled")
@@ -34,7 +36,9 @@ describe 'As a registered user when a single orders show page that is status:pen
 
     click_on('Cancel Order')
 
-    expect(current_path).to eq(profile_order_path(@order_1))
+    expect(current_path).to eq(profile_path)
+
+    visit profile_order_path(@order_1)
 
     within "#item-0-quantity" do
       expect(page).to have_content("0")
