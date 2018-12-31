@@ -4,13 +4,14 @@
     <thead>
       <th>Order ID</th>
       <th>Order Date</th>
+      <th>Order Status</th>
     </thead>
     <tbody>
       <% @user.orders.each_with_index do |order, index| %>
       <tr id="order-<%= index %>">
         <td class="order-id"><%= order.id %></td>
         <td class="order-date"><%= order.created_at %></td>
-        
+        <td class="order-date"><%= order.status %></td>
         <td class="order-show"><%= link_to 'Show Page', profile_order_path(order) %></td>
       </tr>
       <% end %>

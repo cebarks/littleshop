@@ -22,8 +22,8 @@ RSpec.describe OrderItem, type: :model do
       item_1 = create(:item)
       item_2 = create(:item)
       order_1 = create(:order, items_count:0, user: user_1, status: 0)
-      oi_1 = OrderItem.new(item: item_1, order: order_1, quantity: 1, price: 1)
-      oi_2 = OrderItem.new(item: item_2, order: order_1, quantity: 1, price: 1)
+      oi_1 = OrderItem.new(item: item_1, order: order_1, quantity: 1, price: 1, fulfillment: true)
+      oi_2 = OrderItem.new(item: item_2, order: order_1, quantity: 1, price: 1, fulfillment: true)
       oi_1.save
       oi_2.save
       oi_1.cancel_order_item(order_1)
@@ -37,8 +37,8 @@ RSpec.describe OrderItem, type: :model do
       item_1 = create(:item, inventory_qty: 9)
       item_2 = create(:item, inventory_qty: 3)
       order_1 = create(:order, items_count:0, user: user_1, status: 0)
-      oi_1 = OrderItem.new(item: item_1, order: order_1, quantity: 4, price: 1)
-      oi_2 = OrderItem.new(item: item_2, order: order_1, quantity: 2, price: 1)
+      oi_1 = OrderItem.new(item: item_1, order: order_1, quantity: 4, price: 1, fulfillment: true)
+      oi_2 = OrderItem.new(item: item_2, order: order_1, quantity: 2, price: 1, fulfillment: true)
       oi_1.save
       oi_2.save
       oi_1.return_quantity(order_1)

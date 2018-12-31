@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20181230233738) do
     t.bigint "item_id"
     t.integer "price"
     t.integer "quantity"
-    t.boolean "fulfillment", default: true
+    t.boolean "fulfillment", default: false
     t.index ["item_id"], name: "index_order_items_on_item_id"
     t.index ["order_id"], name: "index_order_items_on_order_id"
   end
