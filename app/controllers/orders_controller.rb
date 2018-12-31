@@ -8,6 +8,8 @@ class OrdersController < ApplicationController
       current_user.admin?
       redirect_to admin_order_path(@order)
     end
+    @user = current_user
+
   end
 
   def edit

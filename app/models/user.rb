@@ -86,7 +86,4 @@ class User < ApplicationRecord
     status
   end
 
-  def my_merchant_orders
-    joins(:orders)
-  end
 end

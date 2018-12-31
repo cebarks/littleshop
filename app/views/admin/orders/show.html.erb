@@ -15,6 +15,7 @@
       <th>Thumbnail</th>
       <th>Quantity</th>
       <th>Price</th>
+
       <th>Sub-total</th>
     </thead>
     <tbody>
@@ -29,7 +30,6 @@
         <% else %>
         <td>unfulfilled</td>
         <% end %>
-        <td><%= order_item.quantity %></td>
         <td><%= number_to_currency(order_item.price) %></td>
         <td><%= number_to_currency(order_item.price * order_item.quantity) %></td>
       </tr>

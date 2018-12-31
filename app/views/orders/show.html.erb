@@ -9,33 +9,66 @@
     <%= link_to "Cancel Order", cancel_order_path(order_id: @order.id), method: :patch %>
   <% end %>
 
-  <table class="order-table">
-    <thead>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Thumbnail</th>
-      <th>Quantity</th>
-      <th>Status</th>
-      <th>Price</th>
-      <th>Sub-total</th>
-    </thead>
-    <tbody>
-      <% @order.order_items.each_with_index do |order_item, index| %>
-      <tr id="item-<%= index %>">
-        <td><%= order_item.item.name %></td>
-        <td><%= order_item.item.description %></td>
-        <td><%= image_tag order_item.item.image_url, class: "item-thumb" %></td>
-        <td id="item-<%= index %>-quantity"><%= order_item.quantity %></td>
-        <% if order_item.fulfillment %>
-        <td>fulfilled</td>
-        <% else %>
-        <td>unfulfilled</td>
+  <% if @user.default? %>
+    <table class="order-table">
+      <thead>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Thumbnail</th>
+        <th>Quantity</th>
+        <th>Status</th>
+        <th>Price</th>
+        <th>Sub-total</th>
+      </thead>
+      <tbody>
+        <% @order.order_items.each_with_index do |order_item, index| %>
+        <tr id="item-<%= index %>">
+          <td><%= order_item.item.name %></td>
+          <td><%= order_item.item.description %></td>
+          <td><%= image_tag order_item.item.image_url, class: "item-thumb" %></td>
+          <td id="item-<%= index %>-quantity"><%= order_item.quantity %></td>
+          <% if order_item.fulfillment %>
+          <td>fulfilled</td>
+          <% else %>
+          <td>unfulfilled</td>
+          <% end %>
+          <td><%= number_to_currency(order_item.price) %></td>
+          <td><%= number_to_currency(order_item.price * order_item.quantity) %></td>
+        </tr>
         <% end %>
-        <td><%= order_item.quantity %></td>
-        <td><%= number_to_currency(order_item.price) %></td>
-        <td><%= number_to_currency(order_item.price * order_item.quantity) %></td>
-      </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  <% elsif @user.merchant? %>
+    <h5>Customer: <%= @order.user.name %></h5>
+    <h5>Address: <%= @order.user.address %></h5>
+    <table class="order-table">
+      <thead>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Thumbnail</th>
+        <th>Quantity</th>
+        <th>Status</th>
+        <th>Price</th>
+        <th>Sub-total</th>
+      </thead>
+      <tbody>
+        <% @order.order_items.each_with_index do |order_item, index| %>
+        <% if order_item.item.user == @user %>
+          <tr id="item-<%= index %>">
+            <td><%= order_item.item.name %></td>
+            <td><a href="<%= item_path(order_item.item) %>" title="View Item"><%= image_tag order_item.item.image_url, class: "item-thumb" %></a></td>
+            <td id="item-<%= index %>-quantity"><%= order_item.quantity %></td>
+            <% if order_item.fulfillment %>
+            <td>fulfilled</td>
+            <% else %>
+            <td>unfulfilled</td>
+            <% end %>
+            <td><%= number_to_currency(order_item.item.price) %></td>
+            <td><%= number_to_currency(order_item.price * order_item.quantity) %></td>
+          </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
 </div>
