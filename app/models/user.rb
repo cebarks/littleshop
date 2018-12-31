@@ -85,4 +85,8 @@ class User < ApplicationRecord
   def enabled?
     status
   end
+
+  def my_merchant_orders
+    joins(:orders)
+  end
 end

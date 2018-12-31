@@ -16,13 +16,6 @@
         </div><br>
         <% end %>
 
-        <% unless @user.orders.empty? %>
-          <div id="profile-orders">
-            <%= render "orders/orders_table" %>
-          </div>
-        <% end %>
-        <br />
-
         <% if current_user && current_user.id == @user.id %>
           <% unless @user.merchant?  %>
             <div id="edit_link">
@@ -37,4 +30,10 @@
       </div>
     </div>
   </div>
+  <% unless @user.orders.empty? %>
+    <div id="profile-orders">
+      <%= render "orders/orders_table" %>
+    </div>
+  <% end %>
+  <br />
 </div>

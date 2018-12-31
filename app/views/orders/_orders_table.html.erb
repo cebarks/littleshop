@@ -1,4 +1,4 @@
-<h3>Orders</h3>
+<h5 id="orders-table-title">Orders</h5>
 <table class="orders-table">
   <thead>
     <th>ID</th>
@@ -16,7 +16,7 @@
       <td class="order-update"><%= order.updated_at %></td>
       <td class="order-status"><%= order.status %></td>
       <td class="order-quantity"><%= order.total_quantity %></td>
-      <td class="order-grand-total"><%= order.grand_total %></td>
+      <td class="order-grand-total"><%= number_to_currency(order.grand_total) %></td>
     </tr>
     <% end %>
   </tbody>

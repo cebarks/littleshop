@@ -44,6 +44,10 @@ class UsersController < ApplicationController
     if current_user && (current_user.default? || current_user.admin?)
       @user = current_user
       @user.reload
+    elsif current_user && current_user.merchant?
+      @user = current_user
+      @user.reload
+      @my_orders = @user.my_merchant_orders
     else
       require_user
     end

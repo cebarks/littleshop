@@ -54,6 +54,9 @@ require 'faker'
   order_10 = Order.create!(status: 1, user: user_4, created_at: 6.days.ago) #complete
   order_11 = Order.create!(status: 1, user: user_4, created_at: 453.days.ago) #complete
   order_12 = Order.create!(status: 1, user: user_4, created_at: 5.days.ago) #complete
+  order_13 = Order.create!(status: 0, user: user_7, created_at: 15.days.ago) #pending
+  order_14 = Order.create!(status: 1, user: user_7, created_at: 35.days.ago) #complete
+  order_15 = Order.create!(status: 2, user: user_7, created_at: 50.days.ago) #cancelled
 
   #order items
   OrderItem.create!(item: item_1, order: order_3, quantity: 2, price: item_1.price)
@@ -92,3 +95,8 @@ require 'faker'
   OrderItem.create!(item: item_6, order: order_10, quantity: 1, price: (item_18.price))
   OrderItem.create!(item: item_1, order: order_11, quantity: 8, price: (item_11.price * 8))
   OrderItem.create!(item: item_3, order: order_12, quantity: 16, price: (item_11.price * 16))
+
+  #for the merchant that we can log in with:
+  OrderItem.create!(item: item_16, order: order_13, quantity: 8, price: (item_16.price * 8))
+  OrderItem.create!(item: item_17, order: order_14, quantity: 16, price: (item_17.price * 16))
+  OrderItem.create!(item: item_18, order: order_15, quantity: 900, price: (item_18.price * 900))

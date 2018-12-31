@@ -6,8 +6,24 @@
   border: solid 1px darkgrey;
   background: lightgrey;
   color: black;
+  text-align: center;
 }
 .order-table > th {
   border: solid 1px white;
-  padding: 5px
+  padding: 5px;
+  text-align: center;
+}
+
+img {
+  height: 100px;
+  width: 100px;
+  object-fit: contain;
+  margin-bottom: 15px;
+}
+#order-title {
+  text-align: center;
+  margin: auto;
+  background-color: black;
+  width: 25%;
+  margin-top: 10px;
 }
