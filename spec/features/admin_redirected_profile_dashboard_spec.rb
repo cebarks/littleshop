@@ -14,10 +14,3 @@ RSpec.describe "As an admin user" do
     end
   end
 end
-
-# As an admin user
-# If I visit a profile page for a user, but that user is a merchant
-# Then I am redirected to the appropriate merchant dashboard page.
-# eg, if I visit "/admin/users/7" but that user is a merchant
-# Then I am redirected to "/admin/merchants/7"
-# And I see their merchant dashboard page
