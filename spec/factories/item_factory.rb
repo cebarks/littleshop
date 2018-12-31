@@ -3,6 +3,7 @@ FactoryBot.define do
     sequence :name do |n|
       "item_#{n}"
     end
+    
     description {Faker::Coffee.notes}
     inventory_qty { 9 }
     price { 10 }
