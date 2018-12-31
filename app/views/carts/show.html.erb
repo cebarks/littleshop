@@ -23,8 +23,7 @@
       </div>
     <% end %>
     <% if current_user %>
-      <%# <%= link_to '', checkout_path %> %>
-      <p>You may check out.</p>
+      <%= button_to 'Check Out', checkout_path %>
     <% else %>
       <p>You must <%= link_to 'register', register_path %> or <%= link_to 'login', login_path %> to finish the checkout process.</p>
     <% end %>

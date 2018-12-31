@@ -38,4 +38,6 @@ Rails.application.routes.draw do
   post '/cart', to: "carts#create", as: "carts"
   delete '/cart', to: "carts#destroy", as: "empty_cart"
   patch '/cart', to: "carts#update", as: "remove_item"
+
+  post '/checkout', to: "carts#checkout"
 end
