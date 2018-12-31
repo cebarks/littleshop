@@ -15,9 +15,16 @@ class OrdersController < ApplicationController
 
   def update
     order = Order.find(params[:order_id])
-    order.cancel_all(order)
-    order.save
-    redirect_to profile_path
+    if current_user && current_user.default?
+      order.cancel_all(order)
+      order.save
+      redirect_to profile_path
+    elsif
+      current_user && current_user.admin?
+      order.cancel_all(order)
+      order.save
+      redirect_to admin_user_path(order.user)
+    end
     flash[:notice] = "Order number #{order.id} has been cancelled!"
   end
 
