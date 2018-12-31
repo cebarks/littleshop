@@ -30,7 +30,7 @@ RSpec.describe "As a registered user" do
 
       it "I see a flash message telling me my order was created" do
         within "#flashes" do
-          expect(page).to have_content("Your has been created! Thank you for your business!")
+          expect(page).to have_content("Your order has been created! Thank you for your business!")
         end
       end
 
