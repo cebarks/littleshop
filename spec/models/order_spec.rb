@@ -53,7 +53,7 @@ RSpec.describe Order, type: :model do
 
       expect(order_1.grand_total).to eq(1500)
     end
-    xit "#cancel_all" do
+    it "#cancel_all" do
       user_1 = create(:user)
       item_1 = create(:item)
       item_2 = create(:item)
@@ -62,8 +62,8 @@ RSpec.describe Order, type: :model do
       oi_2 = OrderItem.create(item: item_2, order: order_1, quantity: 1, price: 1)
       order_1.cancel_all(order_1)
 
-      expect(oi_1.fulfillment).to eq(false)
-      expect(oi_2.fulfillment).to eq(false)
+      expect(order_1.order_items[0].fulfillment).to eq(false)
+      expect(order_1.order_items[1].fulfillment).to eq(false)
     end
   end
 end
