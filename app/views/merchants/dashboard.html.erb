@@ -1,0 +1,29 @@
+<%= render 'users/show_content' %>
+
+<div class="view_merchant_items">
+  <%= link_to "View My Items", dashboard_items_path, id: "view-merchant-items" %>
+</div>
+<br>
+<br>
+<br>
+<div id="dashboard">
+  <h3>Pending Orders</h3>
+  <table id="my-orders" class="table">
+    <thead>
+      <th>ID</th>
+      <th>Order Date</th>
+      <th>Total Quantity of My Items</th>
+      <th>Total Value of My Items</th>
+    </thead>
+    <tbody>
+      <% @orders.each_with_index do |order, index| %>
+      <tr id="order-<%= index %>">
+        <td><%= link_to order.id, dashboard_order_path(order) %></td>
+        <td><%= order.created_at %></td>
+        <td><%= order.total_quantity_by_merchant(@user) %></td>
+        <td><%= order.total_price_by_merchant(@user) %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

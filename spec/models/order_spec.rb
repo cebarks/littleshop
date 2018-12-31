@@ -43,6 +43,7 @@ RSpec.describe Order, type: :model do
 
       expect(order_1.total_quantity).to eq(3)
     end
+
     it "#grand_total" do
       item_1, item_2 = create_list(:item, 2)
 
@@ -52,6 +53,27 @@ RSpec.describe Order, type: :model do
       oi_2 = OrderItem.create!(item: item_2, order: order_1, price: 500, quantity: 2)
 
       expect(order_1.grand_total).to eq(1500)
+    end
+
+    describe "by_merchant" do
+      before(:each) do
+        @item_1, @item_2 = create_list(:item, 2)
+        @merchant = @item_1.user
+        @item_3 = create(:item, user: @merchant)
+        @order = create(:order, items_count: 0)
+
+        oi_1 = OrderItem.create!(item: @item_1, order: @order, price: 100, quantity: 1)
+        oi_2 = OrderItem.create!(item: @item_2, order: @order, price: 500, quantity: 1)
+        oi_2 = OrderItem.create!(item: @item_3, order: @order, price: 200, quantity: 3)
+      end
+
+      it "#total_quantity_by_merchant" do
+        expect(@order.total_quantity_by_merchant(@merchant)).to eq(4)
+      end
+
+      it "#total_price_by_merchant" do
+        expect(@order.total_price_by_merchant(@merchant)).to eq(700)
+      end
     end
   end
 end

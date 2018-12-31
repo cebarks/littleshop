@@ -28,6 +28,7 @@ Rails.application.routes.draw do
 
   get '/dashboard', to: 'merchants#dashboard'
   get '/dashboard/items', to: 'merchants#items'
+  get '/dashboard/orders/:id', to: 'merchants#order_show', as: 'dashboard_order'
 
   resources :items, only: [:index, :show, :new, :edit, :destroy]
   resources :orders, only: [:index]
