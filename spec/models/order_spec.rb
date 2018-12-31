@@ -22,12 +22,12 @@ RSpec.describe Order, type: :model do
       order_4 = Order.create!(status: 1, user: customer_2)
       order_5 = Order.create!(status: 1, user: customer_3)
       order_6 = Order.create!(status: 1, user: customer_3)
-      oi_1 = OrderItem.create!(item: item_1, order: order_1, price: 500, quantity: 1)
-      oi_2 = OrderItem.create!(item: item_1, order: order_2, price: 500, quantity: 2)
-      oi_3 = OrderItem.create!(item: item_1, order: order_3, price: 500, quantity: 3)
-      oi_4 = OrderItem.create!(item: item_1, order: order_4, price: 500, quantity: 14)
-      oi_5 = OrderItem.create!(item: item_1, order: order_5, price: 500, quantity: 50)
-      oi_6 = OrderItem.create!(item: item_1, order: order_6, price: 500, quantity: 60)
+      OrderItem.create!(item: item_1, order: order_1, price: 500, quantity: 1)
+      OrderItem.create!(item: item_1, order: order_2, price: 500, quantity: 2)
+      OrderItem.create!(item: item_1, order: order_3, price: 500, quantity: 3)
+      OrderItem.create!(item: item_1, order: order_4, price: 500, quantity: 14)
+      OrderItem.create!(item: item_1, order: order_5, price: 500, quantity: 50)
+      OrderItem.create!(item: item_1, order: order_6, price: 500, quantity: 60)
 
       expect(Order.top_3_biggest_orders[0]).to eq(order_6)
     end
@@ -38,8 +38,8 @@ RSpec.describe Order, type: :model do
 
       order_1 = Order.create!(status: 1, user: create(:user))
 
-      oi_1 = OrderItem.create!(item: item_1, order: order_1, price: 500, quantity: 1)
-      oi_2 = OrderItem.create!(item: item_2, order: order_1, price: 500, quantity: 2)
+      OrderItem.create!(item: item_1, order: order_1, price: 500, quantity: 1)
+      OrderItem.create!(item: item_2, order: order_1, price: 500, quantity: 2)
 
       expect(order_1.total_quantity).to eq(3)
     end
@@ -48,10 +48,42 @@ RSpec.describe Order, type: :model do
 
       order_1 = Order.create!(status: 1, user: create(:user))
 
-      oi_1 = OrderItem.create!(item: item_1, order: order_1, price: 500, quantity: 1)
-      oi_2 = OrderItem.create!(item: item_2, order: order_1, price: 500, quantity: 2)
+      OrderItem.create!(item: item_1, order: order_1, price: 500, quantity: 1)
+      OrderItem.create!(item: item_2, order: order_1, price: 500, quantity: 2)
 
       expect(order_1.grand_total).to eq(1500)
+    end
+    it "#cancel_all" do
+      user_1 = create(:user)
+      item_1 = create(:item)
+      item_2 = create(:item)
+      order_1 = create(:order, items_count: 0, user: user_1, status: 0)
+      oi_1 = OrderItem.create(item: item_1, order: order_1, quantity: 1, price: 1)
+      oi_2 = OrderItem.create(item: item_2, order: order_1, quantity: 1, price: 1)
+      order_1.cancel_all(order_1)
+
+      expect(order_1.order_items[0].fulfillment).to eq(false)
+      expect(order_1.order_items[1].fulfillment).to eq(false)
+    end
+    describe "by_merchant" do
+      before(:each) do
+        @item_1, @item_2 = create_list(:item, 2)
+        @merchant = @item_1.user
+        @item_3 = create(:item, user: @merchant)
+        @order = create(:order, items_count: 0)
+
+        oi_1 = OrderItem.create!(item: @item_1, order: @order, price: 100, quantity: 1)
+        oi_2 = OrderItem.create!(item: @item_2, order: @order, price: 500, quantity: 1)
+        oi_2 = OrderItem.create!(item: @item_3, order: @order, price: 200, quantity: 3)
+      end
+
+      it "#total_quantity_by_merchant" do
+        expect(@order.total_quantity_by_merchant(@merchant)).to eq(4)
+      end
+
+      it "#total_price_by_merchant" do
+        expect(@order.total_price_by_merchant(@merchant)).to eq(700)
+      end
     end
   end
 end

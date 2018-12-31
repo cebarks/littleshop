@@ -79,7 +79,7 @@ RSpec.configure do |config|
 end
 
 def post_login(user)
-  page.driver.post(login_path, user_email: user.email, user_password: user.password)
+  page.driver.post(login_path, user_email: user.email, user_password: "chocolate")
 end
 
 def do_login(user)
