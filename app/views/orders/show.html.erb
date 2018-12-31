@@ -20,7 +20,7 @@
       <tr id="item-<%= index %>">
         <td><%= order_item.item.name %></td>
         <td><%= order_item.item.description %></td>
-        <td><%= image_tag order_item.item.image_url, class: "item-thumb" %></td>
+        <td><%= image_tag order_item.item.image_url, class: "item-thumb", height: "70px" %></td>
         <td><%= order_item.quantity %></td>
         <td><%= number_to_currency(order_item.price) %></td>
         <td><%= number_to_currency(order_item.price * order_item.quantity) %></td>
@@ -28,5 +28,4 @@
       <% end %>
     </tbody>
   </table>
-
 </div>
