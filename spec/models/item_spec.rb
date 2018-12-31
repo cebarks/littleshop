@@ -69,8 +69,16 @@ RSpec.describe Item, type: :model do
       it '.merchant_name' do
         merchant = create(:merchant)
         item_1 = create(:item, user: merchant)
-        
+
         expect(item_1.merchant_name).to eq(merchant.name)
+      end
+      it '.add_inventory' do
+        merchant = create(:merchant)
+        item_1 = create(:item, user: merchant, inventory_qty: 9)
+        quantity = 5
+        item_1.add_inventory(quantity)
+
+        expect(item_1.inventory_qty).to eq(14)
       end
     end
   end

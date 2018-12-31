@@ -6,7 +6,7 @@
   <h3>Total Quantity: <%= @order.total_quantity %></h3>
   <h3>Grand Total: <%= number_to_currency(@order.grand_total) %></h3>
   <% if @order.status == "pending" %>
-    <%= link_to "Cancel Order", cancel_order_path(@order), method: :update %>
+    <%= link_to "Cancel Order", cancel_order_path(order_id: @order.id), method: :patch %>
   <% end %>
 
   <table class="order-table">
@@ -15,6 +15,7 @@
       <th>Description</th>
       <th>Thumbnail</th>
       <th>Quantity</th>
+      <th>Status</th>
       <th>Price</th>
       <th>Sub-total</th>
     </thead>
@@ -24,7 +25,12 @@
         <td><%= order_item.item.name %></td>
         <td><%= order_item.item.description %></td>
         <td><%= image_tag order_item.item.image_url, class: "item-thumb" %></td>
-        <td><%= order_item.quantity %></td>
+        <td id="item-<%= index %>-quantity"><%= order_item.quantity %></td>
+        <% if order_item.fulfillment %>
+        <td>fulfilled</td>
+        <% else %>
+        <td>unfulfilled</td>
+        <% end %>
         <td><%= number_to_currency(order_item.price) %></td>
         <td><%= number_to_currency(order_item.price * order_item.quantity) %></td>
       </tr>

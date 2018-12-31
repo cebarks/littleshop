@@ -17,5 +17,31 @@ RSpec.describe OrderItem, type: :model do
 
       expect(oi.subtotal).to eq(oi.price * oi.quantity)
     end
+    it ".cancel_order_item" do
+      user_1 = create(:user)
+      item_1 = create(:item)
+      item_2 = create(:item)
+      order_1 = create(:order, items_count:0, user: user_1, status: 0)
+      oi_1 = OrderItem.new(item: item_1, order: order_1, quantity: 1, price: 1)
+      oi_2 = OrderItem.new(item: item_2, order: order_1, quantity: 1, price: 1)
+      oi_1.cancel_order_item
+      oi_2.cancel_order_item
+
+      expect(oi_1.fulfillment).to eq(false)
+      expect(oi_2.fulfillment).to eq(false)
+    end
+    it ".return_quantity" do
+      user_1 = create(:user)
+      item_1 = create(:item, inventory_qty: 9)
+      item_2 = create(:item, inventory_qty: 3)
+      order_1 = create(:order, items_count:0, user: user_1, status: 0)
+      oi_1 = OrderItem.new(item: item_1, order: order_1, quantity: 4, price: 1)
+      oi_2 = OrderItem.new(item: item_2, order: order_1, quantity: 2, price: 1)
+      oi_1.return_quantity
+      oi_2.return_quantity
+
+      expect(oi_1.quantity).to eq(0)
+      expect(oi_2.quantity).to eq(0)
+    end
   end
 end

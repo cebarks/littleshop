@@ -29,7 +29,7 @@ Rails.application.routes.draw do
 
   resources :items, only: [:index, :show, :new, :edit, :destroy]
   resources :orders, only: [:index]
-  get '/orders/edit', to: 'orders#update', as: 'cancel_order'
+  patch '/orders/edit', to: 'orders#update', as: 'cancel_order'
 
   get '/cart', to: "carts#show"
   post '/cart', to: "carts#create", as: "carts"

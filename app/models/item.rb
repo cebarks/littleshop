@@ -22,7 +22,7 @@ class Item < ApplicationRecord
         .select("items.*, sum(order_items.quantity) as amount_sold")
         .limit(5)
   end
-  
+
   def average_fulfillment_time
     time = Item.joins(:order_items, :orders)
     .select("avg(orders.updated_at - orders.created_at) as avg_fulfill").group(:id)
@@ -33,5 +33,10 @@ class Item < ApplicationRecord
 
   def merchant_name
     user.name
+  end
+
+  def add_inventory(quantity)
+    self[:inventory_qty] += quantity
+    self.save
   end
 end
