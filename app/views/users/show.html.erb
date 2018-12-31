@@ -1,1 +1,4 @@
 <%= render 'users/show_content' %>
+<% if current_user.admin? && @user.default? %>
+<p><%= link_to 'Upgrade', admin_merchant_path(@user, role: :merchant), method: :patch %></p>
+<% end %>

@@ -61,7 +61,6 @@ RSpec.describe "As a merchant user" do
       visit admin_merchant_path(merchant)
 
       click_on 'Downgrade' # Should set merchant to be a 'default' user
-      # require 'pry'; binding.pry
 
       visit merchants_path
 
@@ -71,7 +70,6 @@ RSpec.describe "As a merchant user" do
       expect(current_path).to eq(admin_user_path(merchant))
 
       visit logout_path
-      # post_login(merchant)
 
       visit login_path
 
@@ -79,8 +77,6 @@ RSpec.describe "As a merchant user" do
       fill_in :user_password, with: merchant.password
 
       click_on "Log In"
-
-      # require 'pry'; binding.pry
 
       expect(current_path).to eq(profile_path)
       expect(page).to_not have_content("Authorization level: merchant")
