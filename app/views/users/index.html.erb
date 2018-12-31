@@ -64,7 +64,11 @@
     <tbody>
       <% @merchants.each do |merchant| %>
         <tr id="merchant-<%= merchant.id %>">
+          <% if current_user && current_user.admin? %>
           <td><%= link_to merchant.name, admin_merchant_path(merchant), id: "merchant-name-#{merchant.id }" %></td>
+          <% else %>
+          <td><%= merchant.name %></td>
+          <% end %>
           <td><%= "#{merchant.city}, #{merchant.state}"%></td>
           <td><%= merchant.created_at %></td>
           <% if current_user && current_user.admin? %>
