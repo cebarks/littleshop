@@ -65,6 +65,16 @@ RSpec.describe Order, type: :model do
       expect(order_1.order_items[0].fulfillment).to eq(false)
       expect(order_1.order_items[1].fulfillment).to eq(false)
     end
+    it "#completely_fulfilled?" do
+      user_1 = create(:user)
+      item_1 = create(:item)
+      item_2 = create(:item)
+      order_1 = create(:order, items_count: 0, user: user_1, status: 0)
+      oi_1 = OrderItem.create(item: item_1, order: order_1, quantity: 1, price: 1, fulfillment: true)
+      oi_2 = OrderItem.create(item: item_2, order: order_1, quantity: 1, price: 1, fulfillment: true)
+
+      expect(order_1.completely_fulfilled?).to eq(true)
+    end
     describe "by_merchant" do
       before(:each) do
         @item_1, @item_2 = create_list(:item, 2)

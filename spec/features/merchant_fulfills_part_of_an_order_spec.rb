@@ -1,6 +1,27 @@
 require 'rails_helper'
 
 describe 'A merchant who visits our web app' do
+  describe 'when all order items from a single order are fulfilled by its respective merchants' do
+    it 'shows a changed order status' do
+      customer_1 = create(:user)
+      order_1 = create(:order, :pending, user: customer_1, items_count: 0)
+      merchant_1 = create(:merchant)
+      item_1 = create(:item, inventory_qty: 999, user: merchant_1)
+      item_2 = create(:item, inventory_qty: 999, user: merchant_1)
+      OrderItem.create(order: order_1, item: item_1, quantity: 1, price: 1000, fulfillment: true)
+      OrderItem.create(order: order_1, item: item_2, quantity: 1, price: 99)
+      post_login(merchant_1)
+
+
+      visit dashboard_path
+      click_on order_1.id
+      click_button "Fulfill"
+
+      order_1.reload
+      expect(order_1.status).to eq("complete")
+
+    end
+  end
   describe 'when visiting an order show page from their dashboard' do
     before(:each) do
       @customer_1 = create(:user)
