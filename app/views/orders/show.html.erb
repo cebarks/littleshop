@@ -60,7 +60,7 @@
             <% elsif order_item.fulfillment %>
               <td></td>
             <% else %>
-              <td>Not enough stock!</td>
+              <td id="warning"></td>
             <% end %>
             <td><%= order_item.item.name %></td>
             <td><a href="<%= item_path(order_item.item) %>" title="View Item"><%= image_tag order_item.item.image_url, class: "item-thumb" %></a></td>
