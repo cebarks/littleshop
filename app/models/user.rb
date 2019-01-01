@@ -85,4 +85,5 @@ class User < ApplicationRecord
   def enabled?
     status
   end
+
 end
