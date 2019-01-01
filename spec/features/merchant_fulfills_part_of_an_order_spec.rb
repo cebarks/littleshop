@@ -53,7 +53,7 @@ describe 'A merchant who visits our web app' do
       it 'shows a custom error message' do
 
         within("#item-1") do
-          expect(page).to have_content("Not enough stock!")
+          expect(page).to have_css("#warning")
         end
       end
     end
