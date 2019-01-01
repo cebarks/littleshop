@@ -19,6 +19,20 @@ class MerchantsController < ApplicationController
     render 'orders/show'
   end
 
+  def update
+    this_order = Order.find(params[:id])
+    target_oi = OrderItem.where(order: this_order, item: Item.find(params[:item_id]))
+    target_oi.first.fulfillment = true
+    target_oi.first.save
+
+    target_item = Item.find(params[:item_id])
+    target_item.inventory_qty -= target_oi.first.quantity
+    target_item.save
+    # require "pry"; binding.pry
+    flash[:success] = "The item has been fulfilled."
+    redirect_to dashboard_order_path(this_order)
+  end
+
   private
 
   def require_merchant
