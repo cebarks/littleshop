@@ -85,4 +85,13 @@ class User < ApplicationRecord
   def enabled?
     status
   end
+
+  def items_sold
+    Item.joins(:order_items).where(user: self).sum('order_items.quantity')
+  end
+
+  def items_sold_percentage
+    total_stock = Item.where(user: self).sum(:inventory_qty)
+    items_sold / total_stock.to_f
+  end
 end
