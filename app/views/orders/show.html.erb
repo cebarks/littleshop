@@ -43,8 +43,8 @@
     <h5>Address: <%= @order.user.address %></h5>
     <table class="order-table">
       <thead>
+        <th></th>
         <th>Name</th>
-        <th>Description</th>
         <th>Thumbnail</th>
         <th>Quantity</th>
         <th>Status</th>
@@ -55,6 +55,11 @@
         <% @order.order_items.each_with_index do |order_item, index| %>
         <% if order_item.item.user == @user %>
           <tr id="item-<%= index %>">
+            <% if order_item.quantity <= order_item.item.inventory_qty %>
+              <td><%= button_to "Fulfill", dashboard_order_path(order_item.order, :item_id => order_item.item.id), method: :patch, id: "fulfillment-button" %></td>
+            <% else %>
+              <td>Not enough stock!</td>
+            <% end %>
             <td><%= order_item.item.name %></td>
             <td><a href="<%= item_path(order_item.item) %>" title="View Item"><%= image_tag order_item.item.image_url, class: "item-thumb" %></a></td>
             <td id="item-<%= index %>-quantity"><%= order_item.quantity %></td>
