@@ -140,12 +140,14 @@ describe User, type: :model do
       customer_2 = create(:user, city: "Birmingham", state: "CO")
       customer_3 = create(:user, city: "Greenville")
       item_1 = create(:item, user: merchant_1)
+
       order_1 = Order.create(status: 1, user: customer_1)
       order_2 = Order.create(status: 1, user: customer_2)
       order_3 = Order.create(status: 1, user: customer_2)
       order_4 = Order.create(status: 1, user: customer_2)
       order_5 = Order.create(status: 1, user: customer_3)
       order_6 = Order.create(status: 1, user: customer_3)
+
       oi_1 = OrderItem.create!(item: item_1, order: order_1, price: 500, quantity: 1203)
       oi_2 = OrderItem.create!(item: item_1, order: order_2, price: 500, quantity: 1203)
       oi_3 = OrderItem.create!(item: item_1, order: order_3, price: 500, quantity: 1203)
@@ -185,13 +187,32 @@ describe User, type: :model do
         expect(user_2.toggle_status).to eq(new_status_2)
       end
     end
-    
+
     it "#enabled?" do
       enabled = create(:user)
       disabled = create(:user, :disabled)
 
       expect(enabled.enabled?).to be_truthy
       expect(disabled.enabled?).to be_falsey
+    end
+
+    describe "item sold stats" do
+      before(:each) do
+        order = create(:order, items_count: 0)
+
+        item = create(:item)
+        @merchant = item.user
+
+        OrderItem.create!(order: order, item: item, quantity: 5, price: 1)
+      end
+
+      it "#items_sold" do
+        expect(@merchant.items_sold).to eq(5)
+      end
+
+      it "#items_sold_percentage" do
+        expect(@merchant.items_sold_percentage).to eq(5.to_f/9)
+      end
     end
   end
 end
