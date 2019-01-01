@@ -22,7 +22,7 @@ describe 'A merchant who logs into our web app' do
       expect(page).to have_no_content(@item_2.description)
     end
     it 'shows an image which is a link to item show' do
-      page.html.should include(@order_1.items.first.image_url)
+      expect(page.html).to include(@order_1.items.first.image_url)
       click_on "View Item"
       expect(current_path).to eq(item_path(@order_1.items.first))
     end
