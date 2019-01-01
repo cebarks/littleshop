@@ -4,7 +4,6 @@ class MerchantsController < ApplicationController
   def dashboard
     @user = current_user
     @orders = Order.joins(:items, :order_items).select("orders.*").where("items.user_id": @user).where(status: 0).distinct
-    # require "pry"; binding.pry
   end
 
   def items
