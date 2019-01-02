@@ -140,12 +140,14 @@ describe User, type: :model do
       customer_2 = create(:user, city: "Birmingham", state: "CO")
       customer_3 = create(:user, city: "Greenville")
       item_1 = create(:item, user: merchant_1)
+
       order_1 = Order.create(status: 1, user: customer_1)
       order_2 = Order.create(status: 1, user: customer_2)
       order_3 = Order.create(status: 1, user: customer_2)
       order_4 = Order.create(status: 1, user: customer_2)
       order_5 = Order.create(status: 1, user: customer_3)
       order_6 = Order.create(status: 1, user: customer_3)
+
       oi_1 = OrderItem.create!(item: item_1, order: order_1, price: 500, quantity: 1203)
       oi_2 = OrderItem.create!(item: item_1, order: order_2, price: 500, quantity: 1203)
       oi_3 = OrderItem.create!(item: item_1, order: order_3, price: 500, quantity: 1203)
@@ -185,13 +187,157 @@ describe User, type: :model do
         expect(user_2.toggle_status).to eq(new_status_2)
       end
     end
-    
+
     it "#enabled?" do
       enabled = create(:user)
       disabled = create(:user, :disabled)
 
       expect(enabled.enabled?).to be_truthy
       expect(disabled.enabled?).to be_falsey
+    end
+
+    describe "merchant stats" do
+      before(:each) do
+        @merchant = create(:user)
+      end
+      describe "item sold stats" do
+        before(:each) do
+          order = create(:order, items_count: 0)
+
+          item = create(:item)
+          @merchant_1 = item.user
+
+          OrderItem.create!(order: order, item: item, quantity: 5, price: 1)
+        end
+
+        it "#items_sold" do
+          expect(@merchant_1.items_sold).to eq(5)
+        end
+
+        it "#items_sold_percentage" do
+          expect(@merchant_1.items_sold_percentage).to eq(5.to_f/9)
+        end
+      end
+
+      it "#top_5_items" do
+        order_1 = create(:order, items_count: 0)
+        item_1, item_2, item_3, item_4, item_5 = create_list(:item, 5, user: @merchant)
+
+        OrderItem.create!(order: order_1, item: item_1, quantity: 5, price: 1)
+        OrderItem.create!(order: order_1, item: item_2, quantity: 4, price: 1)
+        OrderItem.create!(order: order_1, item: item_3, quantity: 3, price: 1)
+        OrderItem.create!(order: order_1, item: item_4, quantity: 2, price: 1)
+        OrderItem.create!(order: order_1, item: item_5, quantity: 1, price: 1)
+
+        expect(@merchant.top_5_items).to eq([item_1, item_2, item_3, item_4, item_5])
+      end
+
+      it "#top_3_states" do
+        item_1 = create(:item, user: @merchant)
+
+        customer_1 = create(:user, state: 'CO')
+        customer_2 = create(:user, state: 'CA')
+        customer_3 = create(:user, state: 'NY')
+
+        order_1 = create(:order, user: customer_1, items_count: 0)
+        OrderItem.create!(order: order_1, item: item_1, quantity: 5, price: 1)
+
+        order_2_1 = create(:order, user: customer_2, items_count: 0)
+        OrderItem.create!(order: order_2_1, item: item_1, quantity: 5, price: 1)
+        order_2_2 = create(:order, user: customer_2, items_count: 0)
+        OrderItem.create!(order: order_2_2, item: item_1, quantity: 5, price: 1)
+
+        order_3_1 = create(:order, user: customer_3, items_count: 0)
+        OrderItem.create!(order: order_3_1, item: item_1, quantity: 5, price: 1)
+        order_3_2 = create(:order, user: customer_3, items_count: 0)
+        OrderItem.create!(order: order_3_2, item: item_1, quantity: 5, price: 1)
+        order_3_3 = create(:order, user: customer_3, items_count: 0)
+        OrderItem.create!(order: order_3_3, item: item_1, quantity: 5, price: 1)
+
+        expect(@merchant.top_3_states).to eq(%w[CO CA NY])
+      end
+
+      it "#top_3_city_states" do
+        item_1 = create(:item, user: @merchant)
+
+        customer_1 = create(:user, state: 'CO', city: 'Denver')
+        customer_2 = create(:user, state: 'CA', city: 'San Francisco')
+        customer_3 = create(:user, state: 'NY', city: 'New York')
+
+        order_1 = create(:order, user: customer_1, items_count: 0)
+        OrderItem.create!(order: order_1, item: item_1, quantity: 5, price: 1)
+
+        order_2_1 = create(:order, user: customer_2, items_count: 0)
+        OrderItem.create!(order: order_2_1, item: item_1, quantity: 5, price: 1)
+        order_2_2 = create(:order, user: customer_2, items_count: 0)
+        OrderItem.create!(order: order_2_2, item: item_1, quantity: 5, price: 1)
+
+        order_3_1 = create(:order, user: customer_3, items_count: 0)
+        OrderItem.create!(order: order_3_1, item: item_1, quantity: 5, price: 1)
+        order_3_2 = create(:order, user: customer_3, items_count: 0)
+        OrderItem.create!(order: order_3_2, item: item_1, quantity: 5, price: 1)
+        order_3_3 = create(:order, user: customer_3, items_count: 0)
+        OrderItem.create!(order: order_3_3, item: item_1, quantity: 5, price: 1)
+
+        expect(@merchant.top_3_city_states).to eq(["Denver, CO", "San Francisco, CA", "New York, NY"])
+      end
+
+      it "#top_customer_by_order_count" do
+        item_1 = create(:item, user: @merchant)
+        customer_1 = create(:user)
+        customer_2 = create(:user)
+        customer_3 = create(:user)
+
+        customer_1_orders = create_list(:order, 6, user: customer_1, items_count: 0)
+        customer_1_orders.each do |order|
+          OrderItem.create!(order: order, item: item_1, quantity: 5, price: 1)
+        end
+
+        customer_2_orders = create_list(:order, 4, user: customer_2, items_count: 0)
+        customer_2_orders.each do |order|
+          OrderItem.create!(order: order, item: item_1, quantity: 5, price: 1)
+        end
+
+        customer_3_orders = create_list(:order, 2, user: customer_3, items_count: 0)
+        customer_3_orders.each do |order|
+          OrderItem.create!(order: order, item: item_1, quantity: 5, price: 1)
+        end
+
+        expect(@merchant.top_customer_by_order_count).to eq(customer_1.name)
+      end
+
+      it "#top_customer_by_quantity" do
+        item_1 = create(:item, user: @merchant)
+
+        customer_1 = create(:user)
+        customer_2 = create(:user)
+        customer_3 = create(:user)
+
+        order_1 = create(:order, items_count: 0, user: customer_1)
+        OrderItem.create!(order: order_1, item: item_1, quantity: 5, price: 1)
+        order_2 = create(:order, items_count: 0, user: customer_2)
+        OrderItem.create!(order: order_2, item: item_1, quantity: 3, price: 1)
+        order_3 = create(:order, items_count: 0, user: customer_3)
+        OrderItem.create!(order: order_3, item: item_1, quantity: 1, price: 1)
+        expect(@merchant.top_customer_by_quantity).to eq(customer_1.name)
+      end
+
+      it "#top_customer_by_revenue" do
+        item_1 = create(:item, user: @merchant)
+
+        customer_1 = create(:user)
+        customer_2 = create(:user)
+        customer_3 = create(:user)
+
+        order_1 = create(:order, items_count: 0, user: customer_1)
+        OrderItem.create!(order: order_1, item: item_1, quantity: 5, price: 2)
+        order_2 = create(:order, items_count: 0, user: customer_2)
+        OrderItem.create!(order: order_2, item: item_1, quantity: 4, price: 3)
+        order_3 = create(:order, items_count: 0, user: customer_3)
+        OrderItem.create!(order: order_3, item: item_1, quantity: 1, price: 1)
+
+        expect(@merchant.top_customer_by_revenue).to eq(customer_2.name)
+      end
     end
   end
 end
