@@ -135,7 +135,7 @@ RSpec.describe "As a merchant" do
 
         visit dashboard_path
 
-        expect(page).to have_content("Top Customer by Revenue: #{@customer_2.name}")
+        expect(page).to have_content("Top 3 Customers by Revenue: #{@customer_2.name}, #{@customer_1.name}, #{@customer_3.name}")
       end
     end
   end

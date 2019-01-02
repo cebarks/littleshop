@@ -14,8 +14,7 @@ class MerchantsController < ApplicationController
     @stats[:top_3_city_states] = @user.top_3_city_states.join('; ')
     @stats[:top_customer_order_count] = @user.top_customer_by_order_count
     @stats[:top_customer_quantity] = @user.top_customer_by_quantity
-    @stats[:top_customer_revenue] = @user.top_customer_by_revenue
-    # require 'pry'; binding.pry
+    @stats[:top_customer_revenue] = @user.top_3_customers_by_revenue.join(', ')
   end
 
   def items

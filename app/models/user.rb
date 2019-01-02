@@ -161,17 +161,17 @@ class User < ApplicationRecord
     end
   end
 
-  def top_customer_by_revenue
+  def top_3_customers_by_revenue
     order = Order.joins(:order_items, :user, :items)
     .where('items.user': self)
     .select('sum(order_items.quantity * order_items.price) as total_revenue')
     .select("user_id")
     .group('user_id')
     .order('total_revenue DESC')
-    .limit(1).first
+    .limit(3)
 
     if order
-      order.user.name
+      order.map{|e| e.user.name}
     else
       "n/a"
     end

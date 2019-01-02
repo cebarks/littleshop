@@ -322,7 +322,7 @@ describe User, type: :model do
         expect(@merchant.top_customer_by_quantity).to eq(customer_1.name)
       end
 
-      it "#top_customer_by_revenue" do
+      it "#top_3_customer_by_revenue" do
         item_1 = create(:item, user: @merchant)
 
         customer_1 = create(:user)
@@ -336,7 +336,7 @@ describe User, type: :model do
         order_3 = create(:order, items_count: 0, user: customer_3)
         OrderItem.create!(order: order_3, item: item_1, quantity: 1, price: 1)
 
-        expect(@merchant.top_customer_by_revenue).to eq(customer_2.name)
+        expect(@merchant.top_3_customers_by_revenue).to eq([customer_2.name, customer_1.name, customer_3.name])
       end
     end
   end
