@@ -1,3 +1,4 @@
+<%= render 'merchants/dashboard_stats' if current_user && current_user.merchant? %>
 <%= render 'users/show_content' %>
 
 <% if current_user.admin? && @user.merchant? %>
