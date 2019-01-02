@@ -1,0 +1,16 @@
+.user-new {
+  color: white;
+}
+.user-new label {
+  display: block;
+  margin: auto;
+  text-align: center;
+}
+.user-new input {
+  margin: auto;
+  align-items: center;
+  align-self: center;
+  float: center;
+  clear: center;
+  margin-left: 615px;
+}

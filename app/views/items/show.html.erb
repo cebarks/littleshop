@@ -10,7 +10,9 @@
           <li>Quantity Remaining: <%= @item.inventory_qty %></li>
           <li>Average Time to Fulfill: <%= @item.average_fulfillment_time %> days.</li>
         </ul>
-      <%= button_to 'Add To Cart', carts_path(item: @item) %>
+      <% unless @user && @user.admin? %>
+        <%= button_to 'Add To Cart', carts_path(item: @item) %>
+      <% end %>
     </div>
   </div>
   <img id="drink-show-image" src="<%= @item.image_url %>" alt="<% @item.name %>">

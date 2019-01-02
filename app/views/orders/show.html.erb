@@ -62,8 +62,8 @@
             <% else %>
               <td id="warning"></td>
             <% end %>
-            <td><%= order_item.item.name %></td>
-            <td><a href="<%= item_path(order_item.item) %>" title="View Item"><%= image_tag order_item.item.image_url, class: "item-thumb" %></a></td>
+            <td><a href="<%= item_path(order_item.item) %>" title="View Item"><%= order_item.item.name %> </a></td>
+            <td><%= image_tag order_item.item.image_url, class: "item-thumb" %></td>
             <td id="item-<%= index %>-quantity"><%= order_item.quantity %></td>
             <% if order_item.fulfillment %>
             <td>fulfilled</td>

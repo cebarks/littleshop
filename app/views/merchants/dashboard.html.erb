@@ -24,7 +24,7 @@
         <td><%= link_to order.id, dashboard_order_path(order) %></td>
         <td><%= order.created_at %></td>
         <td><%= order.total_quantity_by_merchant(@user) %></td>
-        <td><%= order.total_price_by_merchant(@user) %></td>
+        <td><%= number_to_currency(order.total_price_by_merchant(@user)) %></td>
       </tr>
       <% end %>
       <% end %>
