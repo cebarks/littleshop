@@ -4,11 +4,6 @@
 <% if current_user.admin? && @user.merchant? %>
 <p><%= link_to 'Downgrade', admin_merchant_path(@user, role: :user), method: :patch %></p>
 <% end %>
-
-<div class="view_merchant_items">
-  <%= link_to "View My Items", dashboard_items_path, id: "view-merchant-items" %>
-</div>
-
 <br>
 <br>
 <br>

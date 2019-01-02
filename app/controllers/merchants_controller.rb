@@ -15,7 +15,6 @@ class MerchantsController < ApplicationController
     @stats[:top_customer_order_count] = @user.top_customer_by_order_count
     @stats[:top_customer_quantity] = @user.top_customer_by_quantity
     @stats[:top_customer_revenue] = @user.top_customer_by_revenue
-    # require 'pry'; binding.pry
   end
 
   def items
@@ -24,7 +23,28 @@ class MerchantsController < ApplicationController
 
   def order_show
     @order = Order.find(params[:id])
+    @user = current_user
+    @my_orders = Order.joins(:items, :order_items).select("orders.*").where("items.user_id": @user.id).where(status: 0).distinct
+    @my_order_items = Order.joins(:items, :order_items).select("items.*").where("items.user_id": @user.id).distinct
     render 'orders/show'
+  end
+
+  def update
+    this_order = Order.find(params[:id])
+    target_oi = OrderItem.where(order: this_order, item: Item.find(params[:item_id]))
+    target_oi.first.fulfillment = true
+    target_oi.first.save
+
+    target_item = Item.find(params[:item_id])
+    target_item.inventory_qty -= target_oi.first.quantity
+    target_item.save
+    # require "pry"; binding.pry
+    flash[:success] = "The item has been fulfilled."
+    if this_order.completely_fulfilled?
+      this_order.status = "complete"
+      this_order.save
+    end
+    redirect_to dashboard_order_path(this_order)
   end
 
   private

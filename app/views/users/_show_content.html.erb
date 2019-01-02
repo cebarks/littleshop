@@ -10,12 +10,11 @@
         <h5>Member since: <%= @user.created_at.strftime("%A %B %d, %Y") %></h5>
         <p>Authorization level: <%= @user.role %></p>
 
-        <% unless @user.orders.empty? %>
-          <div id="profile-orders">
-            <%= render "orders/orders_table" %>
-          </div>
+        <% if @user.merchant? %>
+        <div class="view_merchant_items">
+          <%= link_to "View My Items", dashboard_items_path, id: "view-merchant-items" %>
+        </div><br>
         <% end %>
-        <br />
 
         <% if current_user && current_user.id == @user.id %>
           <% unless @user.merchant?  %>
@@ -31,4 +30,10 @@
       </div>
     </div>
   </div>
+  <% unless @user.orders.empty? || @user.merchant? %>
+    <div id="profile-orders">
+      <%= render "orders/orders_table" %>
+    </div>
+  <% end %>
+  <br />
 </div>

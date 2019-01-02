@@ -38,5 +38,17 @@ class Order < ApplicationRecord
   def total_quantity_by_merchant(merchant)
     OrderItem.joins(:item).where(order: self).where("items.user_id": merchant).sum(:quantity)
   end
-  
+
+  def completely_fulfilled?
+    items_belonging_to_this_order = OrderItem.where(order: self) #gives us all of this order's items
+    booleans = items_belonging_to_this_order.map do |oi|
+      oi.fulfillment
+    end
+    unless booleans.include?(false)
+      true
+    else
+      false
+    end
+  end
+
 end
