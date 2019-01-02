@@ -14,7 +14,7 @@
   text-align: center;
 }
 
-img {
+#order-show-content img {
   height: 100px;
   width: 100px;
   object-fit: contain;
