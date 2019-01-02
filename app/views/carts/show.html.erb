@@ -1,3 +1,5 @@
+<div class="cart-show">
+
 <h1><%= "You currently have #{@cart_contents} items in your cart." %></h1>
 <div class="container">
   <div class="row", id="cart-items">
@@ -18,9 +20,8 @@
     </div>
     <% end %>
     <% if @cart_contents != 0 %>
-      <div class="empty-cart-contents">
-        <%= button_to "Empty Cart Contents.", cart_path, method: :delete, class: 'empty-cart' %>
-      </div>
+    <div class="cart-contents-button">
+      <%= button_to "Empty Cart Contents.", cart_path, method: :delete, class: 'empty-cart' %>
     <% end %>
     <% if current_user %>
       <%= button_to 'Check Out', checkout_path %>
@@ -28,5 +29,7 @@
       <p>You must <%= link_to 'register', register_path %> or <%= link_to 'login', login_path %> to finish the checkout process.</p>
     <% end %>
   </div>
+  </div>
+</div>
 </div>
 </div>

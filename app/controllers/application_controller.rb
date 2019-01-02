@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
   end
 
   def not_found
-    render 'welcome/index', status: 404
+    render 'public/404', status: 404
   end
+
 end

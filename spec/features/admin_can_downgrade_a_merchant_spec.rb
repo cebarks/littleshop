@@ -32,6 +32,17 @@ RSpec.describe "As an admin user" do
   end
 end
 
+describe "It cannot be used by other user-roles/ render 404" do
+  it "clicks on downgrade and a 404 is rendered" do
+    merchant = create(:merchant)
+
+    page.driver.submit(:patch, admin_merchant_path(merchant, redirect: :merch_index), {})
+
+    expect(page.status_code).to eq(404)
+    expect(page).to have_content("The page you were looking for doesn't exist.")
+  end
+end
+
 RSpec.describe "As a merchant user" do
   describe "When I visit a merchant's dashboard ('/admin/merchants/6')" do
     before(:each) do

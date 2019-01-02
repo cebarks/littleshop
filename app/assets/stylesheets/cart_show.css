@@ -1,3 +1,13 @@
+.cart-show {
+  align-content: center;
+  text-align: center;
+}
+
+.cart-show h1 {
+  color: white;
+}
+
+
 .card-img-top {
   margin: auto;
 }
