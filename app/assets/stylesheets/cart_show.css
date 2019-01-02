@@ -11,3 +11,9 @@
 .card-img-top {
   margin: auto;
 }
+.grand-total {
+  color: white;
+}
+.cart-contents-button p {
+  color: white;
+}

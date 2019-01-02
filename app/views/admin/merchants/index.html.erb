@@ -1,10 +1,10 @@
-<table>
+<table id="merchants">
   <thead>
     <th>Name</th>
     <th>Registered Since</th>
     <th>Status</th>
   </thead>
-  <tbody>
+  <tbody >
     <% @merchants.each_with_index do |merchant, index| %>
     <tr id="merchant-<%= index %>">
       <td><%= link_to merchant.name, admin_user_path(merchant) %></td>

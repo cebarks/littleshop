@@ -41,11 +41,13 @@ class UsersController < ApplicationController
   end
 
   def show
-    if current_user && (current_user.default? || current_user.admin?)
+    if current_user && current_user.default?
       @user = current_user
       @user.reload
     else
-      require_user
+      unless current_user && current_user.default?
+        render file: 'public/404', status: 404
+      end
     end
   end
 
