@@ -1,0 +1,11 @@
+<div id="dashboard-stats">
+  <ul>
+    <li id="top-5-items">My Top 5 Items: <%= @stats[:top_5_items] %></li>
+    <li id="sold-items">Sold Items: <%= @stats[:items_sold] %> (<%= @stats[:items_sold_percentage] %>% of total inventory)</li>
+    <li id="top-3-states">Top 3 States: <%= @stats[:top_3_states] %></li>
+    <li id="top-3-city-states">Top 3 City/State Combos: <%= @stats[:top_3_city_states] %></li>
+    <li id="top-customer-order">Top Customer by Order Count: <%= @stats[:top_customer_order_count] %></li>
+    <li id="top-customer-quantity">Top Customer by Quantity: <%= @stats[:top_customer_quantity] %></li>
+    <li id="top-customer-revenue">Top Customer by Revenue: <%= @stats[:top_customer_revenue] %></li>
+  </ul>
+</div>
